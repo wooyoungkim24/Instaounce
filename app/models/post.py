@@ -13,3 +13,15 @@ class Post(db.Model):
   users = db.relationship("User", back_populates="posts")
   comments = db.relationship("Comment", back_populates="posts")
   likes = db.relationship("Like", back_populates="posts")
+
+  def to_dict(self):
+      return {
+          'id': self.id,
+          'user_id': self.user_id,
+          'caption': self.caption,
+          'image': self.image,
+          'updated_at':self.updated_at,
+          'users' : self.users,
+          'comments':self.comments,
+          'likes':self.likes
+      }
