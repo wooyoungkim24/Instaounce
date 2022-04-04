@@ -21,7 +21,4 @@ class Post(db.Model):
           'caption': self.caption,
           'image': self.image,
           'updated_at':self.updated_at,
-          'users' : self.users,
-          'comments':self.comments,
-          'likes':self.likes
       }
