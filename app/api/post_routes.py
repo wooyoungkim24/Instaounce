@@ -13,3 +13,8 @@ def read_posts():
     posts = Post.query.filter(user.is_following(Post.user_id)).all
 
     return {'posts':[post.to_dict() for post in posts]}
+
+
+@post_routes.route("/", methods =['POST'])
+def create_post():
+    
