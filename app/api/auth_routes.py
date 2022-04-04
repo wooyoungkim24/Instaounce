@@ -39,6 +39,7 @@ def login():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
+        print('testing')
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         return user.to_dict()
@@ -65,7 +66,11 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            first_name = form.data['first_name'],
+            last_name = form.data['last_name'],
+            profile_image = form.data['profile_image'],
+            bio = form.data['bio']
         )
         db.session.add(user)
         db.session.commit()
