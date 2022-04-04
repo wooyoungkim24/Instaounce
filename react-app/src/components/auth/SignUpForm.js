@@ -9,19 +9,36 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [profileImage, setProfileImage] = useState('')
+
+  const [bio, setBio]= useState('')
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      const data = await dispatch(signUp(firstName, lastName, bio, profileImage, username, email, password));
       if (data) {
         setErrors(data)
       }
     }
   };
 
+  const updateFirstName = (e)=>{
+    setFirstName(e.target.value);
+  }
+  const updateLastName = (e)=>{
+    setLastName(e.target.value);
+  }
+  const updateProfileImage = (e)=>{
+    setProfileImage(e.target.value);
+  }
+  const updateBio = (e)=>{
+    setBio(e.target.value);
+  }
   const updateUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -50,12 +67,48 @@ const SignUpForm = () => {
         ))}
       </div>
       <div>
-        <label>User Name</label>
+        <label>Username</label>
         <input
           type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
+          name = 'username'
+          value = {username}
+          onChange={updateUsername}>
+        </input>
+      </div>
+      <div>
+        <label>First Name</label>
+        <input
+          type='text'
+          name = 'first_name'
+          value = {firstName}
+          onChange={updateFirstName}>
+        </input>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input
+          type='text'
+          name = 'last_name'
+          value = {lastName}
+          onChange={updateLastName}>
+        </input>
+      </div>
+      <div>
+        <label>Profile Picture</label>
+        <input
+          type='text'
+          name = 'profile_pic'
+          value = {profileImage}
+          onChange={updateProfileImage}>
+        </input>
+      </div>
+      <div>
+        <label>Biography</label>
+        <input
+          type='text'
+          name='biography'
+          onChange={updateBio}
+          value={bio}
         ></input>
       </div>
       <div>
