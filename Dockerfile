@@ -1,5 +1,5 @@
 # Start with the python:3.9 image
-
+FROM python:3.9
 # Set the following enviroment variables
 #
 # REACT_APP_BASE_URL -> Your deployment URL
@@ -11,7 +11,7 @@
 
 # Copy all the files from your repo to the working directory
 
-# Copy the built react app (it's built for us) from the  
+# Copy the built react app (it's built for us) from the
 # /react-app/build/ directory into your flasks app/static directory
 
 # Run the next two python install commands with PIP
