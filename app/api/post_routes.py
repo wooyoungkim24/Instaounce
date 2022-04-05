@@ -18,6 +18,5 @@ def read_posts():
     return {'posts':[following.to_dict() for following in followings]}
 
 
-@post_routes.route("/", methods =['POST'])
-def create_post():
-    
+# @post_routes.route("/", methods =['POST'])
+# def create_post():
