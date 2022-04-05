@@ -49,17 +49,17 @@ def read_posts():
 
 @post_routes.route("/", methods=['POST'])
 def create_post():
-    files = request.files.getlist("caption[]")
-    images = request.files
-    # caption = request.files["caption"]
+    files = request.files.getlist("file[]")
+    # images = request.files
+    caption = request.values['caption']
     # data = request.get_json(force=True)
     # photos = data["photos"]
     # caption = data["caption"]
-    print("############# PHOTOS INC:", files)
+    print("############# PHOTOS INC:", files[0], caption)
     new_post = Post(
         user_id=current_user.id,
         image=["placeholder"],
-        caption=caption
+        # caption=caption
     )
     db.session.add(new_post)
     db.session.commit()

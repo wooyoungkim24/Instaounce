@@ -34,8 +34,8 @@ function CreatePostModalForm() {
         photos.forEach((photo, index) => {
             data.append("file[]", photo)
         })
-        data.append("caption[]", caption)
-        console.log("submit log",data.getAll('file[]'))
+        data.append("caption", caption)
+        // console.log("submit log",data.getAll('file[]'))
         // const payload = {
         //     photos: data,
         //     caption
