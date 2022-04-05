@@ -7,9 +7,9 @@ const setFollowedPosts = (posts) => ({
     payload: posts
   });
 
-const likeAPost = (postId) => ({
+const likeAPost = (like) => ({
   type: CREATE_LIKE,
-  payload: postId
+  payload: like
 })
 
 
@@ -21,9 +21,19 @@ export const getFollowedPosts = () => async (dispatch) => {
     }
 };
 
-export const like = () => async(dispatch) => {
+export const like = (postId) => async(dispatch) => {
+  const response = await fetch(`/api/posts/${postId}/likes`, {
+    method: "POST",
+    headers: {"Content-type": "application/json"},
+    body: JSON.stringify(postId)
+  })
 
-}
+  if (response.ok) {
+    const newLike = await response.json()
+    // console.log("NEW LIKE", newLike)
+    await dispatch(likeAPost(newLike))
+  };
+};
 
 const initialState = { followedPosts: {}, posts: {}}
 
@@ -39,7 +49,9 @@ export default function postsReducer(state = initialState, action) {
         return newState
 
       case CREATE_LIKE:
-        return { }
+          console.log(action.payload)
+          newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
+        return newState
 
       default:
         return state;

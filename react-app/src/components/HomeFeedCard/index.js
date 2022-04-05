@@ -63,7 +63,7 @@ const HomeFeedCard = ({ post }) => {
             <div className='home-card-nonimage-content'>
                 <div className='home-card-icon-tray' >
                     <div className='home-card-icon-tray-top-left'>
-                        <LikeIcon likes={likes} />
+                        <LikeIcon likes={likes} postId={post.id} />
                         <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
                     </div>
                     {images.length > 1 &&
