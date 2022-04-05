@@ -2,18 +2,20 @@
     display: flex;
     flex-direction: column;
     width: 640px;
-    height: 800px;
+    height: 720px;
     border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     border-radius: 3px;
     margin-bottom: 24px;
+    font-family: Arial, Helvetica, sans-serif
 }
 
 .home-card-header {
     display: flex;
     align-items: center;
-    width: inherit;
+    width: 620px;
     height: 50px;
     padding: 14px 4px 14px 16px;
+    background-color: white;
 }
 
 .home-card-profile-pic {
@@ -23,7 +25,7 @@
     object-fit: cover;
 }
 
-.home-card-username {
+.home-card-username-top {
     text-decoration: none;
     color: black;
     font-size: 14px;
@@ -61,11 +63,16 @@
     object-fit: contain;
 }
 
+.home-card-nonimage-content {
+    background-color: white;
+    height: 100%;
+}
+
 .home-card-icon-tray {
     display: flex;
     width: inherit;
     padding: 0px 16px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .home-card-icon-tray-top-left {
@@ -75,6 +82,7 @@
 .comment-icon {
     font-size: 24px;
     padding: 8px;
+    cursor: pointer;
 }
 
 .home-card-icon-tray-dots {
@@ -83,6 +91,7 @@
     font-size: 5px;
     display: flex;
     gap: 5px;
+    padding-top: 8px;
 }
 
 .active-dot {
@@ -91,4 +100,40 @@
 
 .inactive-dot {
     color: #b3b3b3;
+}
+
+.home-card-likes-tray {
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    height: 25px;
+    padding: 5px 25px 0px 25px;
+}
+
+.home-card-caption-area {
+    padding: 0px 15px;
+    font-size: 14px;
+}
+
+.home-card-username-bottom {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 9px;
+}
+
+.home-card-username-bottom:hover {
+    text-decoration: underline;
+}
+
+.home-card-view-comments {
+    margin-top: 5px;
+}
+
+.home-card-view-comments a {
+    text-decoration: none;
+    color: #a4a4a4;
+    font-size: 14px;
+    padding: 0px 25px;
 }

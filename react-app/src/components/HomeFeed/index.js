@@ -21,9 +21,9 @@ const HomeFeed = () => {
 
 
     return (
-        <div>
+        <div className='home-feed-body'>
             {isLoaded &&
-                <div>
+                <div className='home-feed-list'>
                     {followedPosts.map(post => (
                             <HomeFeedCard key={post.id} post={post} />
                         ))}
