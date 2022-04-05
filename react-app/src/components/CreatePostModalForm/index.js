@@ -27,6 +27,32 @@ function CreatePostModalForm() {
     const handlePostSubmit = () =>{
 
     }
+    const openShowMore = () =>{
+        if(showMorePhotos) return;
+        setShowMorePhotos(true);
+    }
+    console.log('why',showMorePhotos)
+
+
+    useEffect(() =>{
+        if (!showMorePhotos) return;
+        let ignore = document.querySelector('.add-more-photos-button')
+
+        const closeShowMore=(event) =>{
+            let target = event.target
+            if(target === ignore || ignore.contains(target)){
+                return;
+            }
+            setShowMorePhotos(false)
+        }
+
+
+        const modal = document.querySelector(".create-post-form-container")
+        modal.addEventListener('click', closeShowMore)
+
+        return () => modal.removeEventListener("click", closeShowMore);
+
+    }, [showMorePhotos])
 
 
 
@@ -34,13 +60,13 @@ function CreatePostModalForm() {
 
     return (
         <div className='create-post-form-container'>
-            {photoExist && photoFinished&&
+            {photoFinished&&
             <div className='adding-caption-container'>
                 <div className='top-adding-caption-nav'>
                     <div className='adding-caption-back-button'>
 
                     </div>
-                    <div>
+                    <div >
                         Create New Post
                     </div>
                     <div>
@@ -68,7 +94,7 @@ function CreatePostModalForm() {
                 </div>
             </div>
             }
-            {photoExist &&
+            {photoExist && !photoFinished &&
             <div className='photo-exists-modal'>
                 <div className='top-photos-nav'>
                     <div className='photos-back-button'>
@@ -83,15 +109,15 @@ function CreatePostModalForm() {
                     </div>
                 </div>
                 <div>
-                    <img src ={URL.createObjectURL(photos[photoIndex])}></img>
-                    <button type='button' onClick={() => setShowMorePhotos(true)}>
+                    <img id='displayed-photo' src ={URL.createObjectURL(photos[photoIndex])}></img>
+                    <button id='add-more-photos-button' type='button' onClick={openShowMore}>
                         Add more photos
                     </button>
                     {showMorePhotos &&
                     <div className='add-more-photos-button'>
                         {photos.map((ele,i) =>{
                             return (
-                                <div key ={i} className='photo-preview'>
+                                <div key ={i} onClick={() => setPhotoIndex(i)} className='photo-preview'>
                                     <img src ={URL.createObjectURL(ele)}></img>
                                 </div>
                             )
@@ -102,6 +128,7 @@ function CreatePostModalForm() {
                         id='add-more-photos'
                         onChange={updateImage}
                             >
+
                         </input>
                     </div>}
                 </div>
@@ -109,7 +136,7 @@ function CreatePostModalForm() {
             </div>}
             {!photoExist&&
             <div className='photo-absent-modal'>
-                <div >
+                <div className='no-photos-title'>
                     Create New Post
                 </div>
                 <div>

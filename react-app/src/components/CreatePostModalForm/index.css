@@ -4,3 +4,41 @@
     border-radius: 50px;
     border-collapse: separate;
 }
+#displayed-photo{
+    width: 700px;
+    height: 650px;
+}
+.add-more-photos-button{
+    width: auto;
+    height: 150px;
+    border: black 2px solid;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: row;
+
+}
+.add-more-photos-button img{
+    width: 150px;
+    height: 150px;
+}
+#add-more-photos-button{
+    position: absolute;
+    left:575px;
+    bottom:10px;
+}
+
+.adding-caption-container{
+    display: flex;
+    flex-direction: column;
+
+}
+.adding-caption-container img{
+    width: 600px;
+    height: 600px;
+
+}
+.finished-photos-bottom-container{
+    display: flex;
+    flex-direction: row;
+}
