@@ -11,10 +11,9 @@ const HomeFeed = () => {
     const [posts, setPosts] = useState([]);
 
 
-    const followedPosts = useSelector(state => {
-        Object.values(state.feedState.followedPosts)
-    })
-    console.log(followedPosts)
+    const followedPosts = useSelector(state => state.feedState.followedPosts);
+    const followedPostsArr = Object.values(followedPosts);
+
     useEffect(() => {
         dispatch(getFollowedPosts()).then(() => setIsLoaded(true))
     }, [dispatch])
@@ -25,7 +24,7 @@ const HomeFeed = () => {
         <div className='home-feed-body'>
             {isLoaded &&
                 <div className='home-feed-list'>
-                    {followedPosts.map(post => (
+                    {followedPostsArr.map(post => (
                             <HomeFeedCard key={post.id} post={post} />
                         ))}
                 </div>}

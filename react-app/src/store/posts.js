@@ -17,7 +17,7 @@ export const getFollowedPosts = () => async (dispatch) => {
     const response = await fetch('/api/posts/')
     if(response.ok){
         const followedPosts = await response.json()
-        dispatch(setFollowedPosts(followedPosts))
+        await dispatch(setFollowedPosts(followedPosts))
     }
 };
 
@@ -25,9 +25,7 @@ export const like = () => async(dispatch) => {
 
 }
 
-const initialState = {
-
-}
+const initialState = { followedPosts: {}, posts: {}}
 
 export default function postsReducer(state = initialState, action) {
     const newState = {...state}
@@ -35,10 +33,10 @@ export default function postsReducer(state = initialState, action) {
     switch (action.type) {
 
       case SET_FOLLOWED_POSTS:
-        const posts = action.payload.posts.forEach(post => {
-          newState[post.id] = post
+        action.payload.posts.forEach(post => {
+          newState.followedPosts[post.id] = post
         })
-        return { followedPosts: newState }
+        return newState
 
       case CREATE_LIKE:
         return { }
