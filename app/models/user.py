@@ -1,4 +1,5 @@
 from .db import db
+from app.models.post import Post
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -34,6 +35,18 @@ class User(db.Model, UserMixin):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
+    def to_dict(self):
+        print('testing if it hits')
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "profile_image":self.profile_image,
+            "bio":self.bio,
+            "updated_at":self.updated_at
+        }
     @property
     def password(self):
         return self.hashed_password
@@ -45,22 +58,30 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
-        }
 
 
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
 
-    def unfollow(self, user):
-        if self.is_following(user):
-            self.followed.remove(user)
+    # def unfollow(self, user):
+    #     if self.is_following(user):
+    #         self.followed.remove(user)
 
-    def is_following(self, user):
-        return self.followed.filter(
-            followers.c.followed_id == user.id).count() > 0
+    # def is_following(self, user_id):
+    #     print('what is my id', self.id)
+    #     print('what is the other id', followers.c.followed_id)
+    #     return self.followed.filter(
+    #         followers.c.followed_id == user_id and followers.c.followed_id != self.id).count() > 0
+
+
+    def followed_posts(self):
+        return Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id).order_by(
+                    Post.updated_at.desc()).all()
+
+
+    # def following_list(self, user):
+    #     return self.followed.filter(
+    #         followers.c.followed_id == user.id)
