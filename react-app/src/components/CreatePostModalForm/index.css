@@ -1,5 +1,6 @@
 .create-post-form-container{
-    width: 500px;
-    height:500px;
-    border: red 5px solid;
+    width: 700px;
+    height:700px;
+    border-radius: 50px;
+    border-collapse: separate;
 }

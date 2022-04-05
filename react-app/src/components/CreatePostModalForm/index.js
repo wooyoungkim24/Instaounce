@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import postsReducer from '../../store/posts';
 import "./index.css"
 
 function CreatePostModalForm() {
@@ -13,7 +14,7 @@ function CreatePostModalForm() {
     const updateImageFirst = (e)=>{
         const file = e.target.files[0]
         setPhotos([...photos, file])
-
+        setPhotoExist(true)
     }
     const updateImage = (e)=>{
         const file = e.target.files[0]
@@ -26,6 +27,9 @@ function CreatePostModalForm() {
     const handlePostSubmit = () =>{
 
     }
+
+
+
 
 
     return (
@@ -73,7 +77,7 @@ function CreatePostModalForm() {
                         Your photos
                     </div>
                     <div className='next-photos-button'>
-                        <button type='button' onClick={setPhotoFinished(true)}>
+                        <button type='button' onClick={() =>setPhotoFinished(true)}>
                             Next
                         </button>
                     </div>
