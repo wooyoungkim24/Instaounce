@@ -34,7 +34,7 @@ const NavBar = ({ user }) => {
                             onClick={clickHandler}
                             alt='profile pic' />
                         {showDropDown &&
-                            <NavBarDropDown />
+                            <NavBarDropDown user={user} />
                         }
                     </div>
                 </div>
