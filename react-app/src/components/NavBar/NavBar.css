@@ -1,0 +1,45 @@
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    height: 50px;
+    margin-bottom: 15px;
+}
+
+.navbar-container {
+    width: 640px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    height: 30px;
+    width: auto;
+}
+
+.navbar-right-container {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-icon-tray a {
+    font-size: 22px;
+    text-decoration: none;
+    color: black;
+    padding: 0px 10px;
+}
+
+.navbar-profile-photo {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    margin-left: 10px;
+}
+
+.navbar-dropdown-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
