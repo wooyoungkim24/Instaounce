@@ -2,6 +2,10 @@
 const SET_FOLLOWED_POSTS= 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
 
+
+
+
+
 const setFollowedPosts = (posts) => ({
     type: SET_FOLLOWED_POSTS,
     payload: posts
@@ -12,6 +16,18 @@ const likeAPost = (postId) => ({
   payload: postId
 })
 
+export const createPost = (payload) => async(dispatch) => {
+
+  const response = await fetch('/api/posts/', {
+    method: "POST",
+    // headers: {"Content-type": "application/JSON"},
+    body: JSON.stringify(payload)
+  })
+
+  if (response.ok) {
+    
+  }
+}
 
 export const getFollowedPosts = () => async (dispatch) => {
     const response = await fetch('/api/posts/')
