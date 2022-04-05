@@ -60,3 +60,35 @@
     height: 500px;
     object-fit: contain;
 }
+
+.home-card-icon-tray {
+    display: flex;
+    width: inherit;
+    padding: 0px 16px;
+    margin-top: 20px;
+}
+
+.home-card-icon-tray-top-left {
+    justify-self: start;
+}
+
+.comment-icon {
+    font-size: 24px;
+    padding: 8px;
+}
+
+.home-card-icon-tray-dots {
+    margin-right: auto;
+    margin-left: 30%;
+    font-size: 5px;
+    display: flex;
+    gap: 5px;
+}
+
+.active-dot {
+    color: #4e95f6
+}
+
+.inactive-dot {
+    color: #b3b3b3;
+}

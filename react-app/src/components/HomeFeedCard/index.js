@@ -1,10 +1,26 @@
 import './HomeFeedCard.css';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LikeIcon from '../LikeIcon';
 
 const HomeFeedCard = ({ post }) => {
-    const user = post.users
-    const images = post.image
-    console.log(post)
+    const user = post.users;
+    const images = post.image;
+    const [currentImage, setCurrentImage] = useState(0);
+    console.log(post);
+
+    const rightClickHandler = () => {
+        if (currentImage !== images.length - 1) {
+            setCurrentImage(currentImage + 1)
+        }
+    };
+
+    const leftClickHandler = () => {
+        if (currentImage !== 0) {
+            setCurrentImage(currentImage - 1)
+        }
+    }
+
     return (
         <div className='home-card'>
             <div className='home-card-header'>
@@ -16,14 +32,18 @@ const HomeFeedCard = ({ post }) => {
                 </Link>
             </div>
             <div className='home-card-images'>
-                <img src={images[0]} alt='post pic' />
-                <i className="fa-solid fa-circle-chevron-left left-arrow"></i>
-                <i className="fa-solid fa-circle-chevron-right right-arrow"></i>
+                <img src={images[currentImage]} alt='post pic' />
+                { currentImage !== 0 && 
+                    <i className="fa-solid fa-circle-chevron-left left-arrow" onClick={leftClickHandler}></i>
+                }
+                { currentImage !== images.length - 1 &&
+                    <i className="fa-solid fa-circle-chevron-right right-arrow" onClick={rightClickHandler}></i>
+                }
             </div>
             <div className='home-card-icon-tray' >
                 <div className='home-card-icon-tray-top-left'>
-                    <span>L.K.C</span>
-                    <span>C.C</span>
+                    <LikeIcon userLikes={post.likes} />
+                    <i class="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
                 </div>
                 {images.length > 1 &&
                     <div class='home-card-icon-tray-dots'>
