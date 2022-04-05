@@ -6,15 +6,16 @@ import botocore
 import os
 
 s3 = boto3.client(
-   "s3",
-   aws_access_key_id=os.environ.get("S3_KEY"),
-   aws_secret_access_key=os.environ.get("S3_SECRET")
+    "s3",
+    aws_access_key_id=os.environ.get("S3_KEY"),
+    aws_secret_access_key=os.environ.get("S3_SECRET")
 )
 
 post_routes = Blueprint('posts', __name__)
 
 BUCKET_NAME = os.environ.get('S3_BUCKET')
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
+
 
 def upload_file_to_s3(file, acl="public-read"):
     try:
@@ -33,6 +34,7 @@ def upload_file_to_s3(file, acl="public-read"):
 
     return {"url": f"{S3_LOCATION}{file.filename}"}
 
+
 @post_routes.route("/")
 @login_required
 def read_posts():
@@ -42,19 +44,23 @@ def read_posts():
     # posts = Post.query.filter(user.is_following(Post.user_id)).all()
     followings = user.followed_posts()
     print(followings[0].comments)
-    return {'posts':[following.to_dict() for following in followings]}
+    return {'posts': [following.to_dict() for following in followings]}
 
 
-@post_routes.route("/", methods =['POST'])
+@post_routes.route("/", methods=['POST'])
 def create_post():
-    data = request.get_json(force=True)
-    photos = data["photos"]
-    caption = data["caption"]
+    files = request.files.getlist("caption[]")
+    images = request.files
+    # caption = request.files["caption"]
+    # data = request.get_json(force=True)
+    # photos = data["photos"]
+    # caption = data["caption"]
+    print("############# PHOTOS INC:", files)
     new_post = Post(
-        user_id = current_user.id,
-        images = [],
-        caption = caption
-        )
+        user_id=current_user.id,
+        image=["placeholder"],
+        caption=caption
+    )
     db.session.add(new_post)
     db.session.commit()
     post_id = new_post.id
@@ -62,6 +68,7 @@ def create_post():
     new_images = []
 
     for photo in photos:
+        print("########## PHOTO:", photo)
         photo.filename = f"Post{post_id}/{photo.filename}"
 
         upload = upload_file_to_s3(photo)
@@ -73,8 +80,6 @@ def create_post():
 
     new_post.images = new_images
     db.session.commit()
-
-
 
 
 # @posts_routes.route('/', methods=['GET','POST'])

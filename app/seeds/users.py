@@ -8,7 +8,6 @@ def seed_users():
     marnie = User(
         username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="Delgato", profile_image="https://previews.123rf.com/images/fizkes/fizkes2010/fizkes201001384/157765614-profile-picture-of-smiling-indian-female-isolated-on-grey-studio-background-show-optimism-and-positi.jpg", bio="Hello my name is Marnie")
 
-
     db.session.add(demo)
     db.session.add(marnie)
 
