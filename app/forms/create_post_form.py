@@ -6,4 +6,4 @@
 
 # class CreatePost(FlaskForm):
 #     caption = StringField('caption', validators = [DataRequired()])
-#     image = MultipleFileField(''
+#     image = MultipleFileField('post images', validators = [DataRequired()])

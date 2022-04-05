@@ -1,33 +1,41 @@
-import { useEffect, useState } from "react"
+
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Route, useHistory, useParams } from 'react-router-dom';
+import { getFollowedPosts } from '../store/posts';
 
 function TestingPost() {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const [posts, setPosts] = useState([]);
 
+
+    const followedPosts = useSelector(state => {
+        return state.feedState.followedPosts
+    })
     useEffect(() => {
+        dispatch(getFollowedPosts()).then(() => setIsLoaded(true))
+    }, [dispatch])
 
-        (async () => {
-            const response = await fetch(`/api/posts/`);
-            const resPosts = await response.json();
-            console.log('test', resPosts)
-            setPosts(resPosts.posts)
 
-        })();
-    }, [])
 
     return (
         <div>
+            {isLoaded &&
+                <div>
+                    {followedPosts.map((ele) => {
+                        return (
+                            <div key={ele.id}>
+                                {ele?.user_id}
+                            </div>
+                        )
+                    })}
+                </div>}
 
-            {posts.map((ele) => {
 
-                return (
 
-                    <div key={ele.id}>
-                        {ele.user_id}
-                    </div>
-                )
-            })}
-            Hello
         </div>
     )
 

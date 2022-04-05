@@ -35,6 +35,18 @@ class User(db.Model, UserMixin):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
+    def to_dict(self):
+        print('testing if it hits')
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "profile_image":self.profile_image,
+            "bio":self.bio,
+            "updated_at":self.updated_at
+        }
     @property
     def password(self):
         return self.hashed_password
@@ -45,14 +57,6 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
-        }
-
 
 
 
