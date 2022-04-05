@@ -1,5 +1,6 @@
+from crypt import methods
 from flask import Blueprint, jsonify, session, request
-from app.models import Post, db, User
+from app.models import Post, db, User, Like
 from flask_login import current_user, login_required
 
 
@@ -16,6 +17,18 @@ def read_posts():
     followings = user.followed_posts()
     print(followings[0].comments)
     return {'posts':[following.to_dict() for following in followings]}
+
+@post_routes.route("/<id>/likes", methods=["POST"])
+def create_like(id):
+    post_id = id
+    new_like = Like(
+        user_id = current_user.id,
+        post_id = post_id
+    )
+    db.session.add(new_like)
+    db.session.commit()
+    return new_like.to_dict()
+
 
 
 # @post_routes.route("/", methods =['POST'])
