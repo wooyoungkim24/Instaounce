@@ -12,8 +12,9 @@ const HomeFeed = () => {
 
 
     const followedPosts = useSelector(state => {
-        return state.feedState.followedPosts
+        Object.values(state.feedState.followedPosts)
     })
+    console.log(followedPosts)
     useEffect(() => {
         dispatch(getFollowedPosts()).then(() => setIsLoaded(true))
     }, [dispatch])
