@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import postsReducer from '../../store/posts';
-import "./index.css"
+import "./index.css";
+import { createPost } from '../../store/posts';
+import { useDispatch } from 'react-redux';
 
 function CreatePostModalForm() {
     const [photos, setPhotos] = useState([])
@@ -9,6 +11,8 @@ function CreatePostModalForm() {
     const [showMorePhotos, setShowMorePhotos] = useState(false)
     const [photoFinished, setPhotoFinished] = useState(false)
     const [caption, setCaption]  = useState('')
+
+    const dispatch = useDispatch();
 
 
     const updateImageFirst = (e)=>{
@@ -26,16 +30,18 @@ function CreatePostModalForm() {
     }
 
     const handlePostSubmit = () =>{
-        photos.map(photo => {
-            let data = new FormData()
-            data.append("File", photo)
-            return data
+        let data = new FormData();
+        photos.forEach((photo, index) => {
+            data.append("file[]", photo)
         })
+        data.append("caption[]", caption)
+        console.log("submit log",data.getAll('file[]'))
+        // const payload = {
+        //     photos: data,
+        //     caption
+        // }
 
-        const payload = {
-            photos,
-            caption
-        }
+        dispatch(createPost(data))
 
 
     }

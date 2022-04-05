@@ -16,12 +16,11 @@ const likeAPost = (postId) => ({
   payload: postId
 })
 
-export const createPost = (payload) => async(dispatch) => {
-
+export const createPost = (data) => async(dispatch) => {
   const response = await fetch('/api/posts/', {
     method: "POST",
     // headers: {"Content-type": "application/JSON"},
-    body: JSON.stringify(payload)
+    body: data
   })
 
   if (response.ok) {
