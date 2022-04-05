@@ -7,6 +7,7 @@ import os
 
 s3 = boto3.client(
     "s3",
+    region_name="us-west-1",
     aws_access_key_id=os.environ.get("S3_KEY"),
     aws_secret_access_key=os.environ.get("S3_SECRET")
 )
@@ -14,10 +15,12 @@ s3 = boto3.client(
 post_routes = Blueprint('posts', __name__)
 
 BUCKET_NAME = os.environ.get('S3_BUCKET')
+print('bucketname', BUCKET_NAME)
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
 
 
 def upload_file_to_s3(file, acl="public-read"):
+    print("####testing upload", file, file.filename)
     try:
         s3.upload_fileobj(
             file,
@@ -55,11 +58,11 @@ def create_post():
     # data = request.get_json(force=True)
     # photos = data["photos"]
     # caption = data["caption"]
-    print("############# PHOTOS INC:", files[0], caption)
+    # print("############# PHOTOS INC:", files[0], caption)
     new_post = Post(
         user_id=current_user.id,
         image=["placeholder"],
-        # caption=caption
+        caption=caption
     )
     db.session.add(new_post)
     db.session.commit()
@@ -67,20 +70,23 @@ def create_post():
 
     new_images = []
 
-    for photo in photos:
-        print("########## PHOTO:", photo)
-        photo.filename = f"Post{post_id}/{photo.filename}"
+    for file in files:
+        # print("########## PHOTO:", photo)
+        file.filename = f"Post{post_id}/{file.filename}"
 
-        upload = upload_file_to_s3(photo)
+        print('#############', file.filename)
+        upload = upload_file_to_s3(file)
         if "url" not in upload:
+            print('######error####', upload)
             return upload, 400
 
         url = upload["url"]
+        print("urlstring", type(url))
         new_images.append(url)
-
-    new_post.images = new_images
+    new_post_edit = Post.query.get(post_id)
+    new_post_edit.image = new_images
     db.session.commit()
-
+    return new_post.to_dict()
 
 # @posts_routes.route('/', methods=['GET','POST'])
 # def create_post():

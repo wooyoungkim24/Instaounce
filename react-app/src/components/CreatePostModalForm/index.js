@@ -35,11 +35,7 @@ function CreatePostModalForm() {
             data.append("file[]", photo)
         })
         data.append("caption", caption)
-        // console.log("submit log",data.getAll('file[]'))
-        // const payload = {
-        //     photos: data,
-        //     caption
-        // }
+
 
         dispatch(createPost(data))
 
