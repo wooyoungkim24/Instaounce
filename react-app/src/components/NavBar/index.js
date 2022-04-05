@@ -4,14 +4,17 @@ import { NavLink, Link } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton'
 import logo from '../../assets/logo.png'
 import NavBarDropDown from '../NavBarDropDown';
+import {Modal} from "../../context/modal"
+import CreatePostModalForm from '../CreatePostModalForm';
 
 const NavBar = ({ user }) => {
     const [showDropDown, setShowDropDown] = useState(false);
-
+    const [showModal, setShowModal] = useState(false)
     const clickHandler = () => {
         showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
     }
 
+    console.log('where is my modal', showModal)
     return (
         <nav>
             <div className='navbar-container'>
@@ -23,6 +26,18 @@ const NavBar = ({ user }) => {
                         <Link to='/' exact={true}>
                             <i class="fa-solid fa-house-chimney"></i>
                         </Link>
+
+                        <button type ='button' onClick={() => setShowModal(true)}>
+                            <i id='create-post-button' class="fa-solid fa-square-plus"></i>
+                        </button>
+
+
+                        {showModal &&(
+                            <Modal onClose={()=> setShowModal(false)}>
+                                <CreatePostModalForm />
+                            </Modal>
+                        )}
+
                         <Link to='/explore' exact={true}>
                             <i class="fa-solid fa-compass"></i>
                         </Link>
@@ -39,6 +54,7 @@ const NavBar = ({ user }) => {
                     </div>
                 </div>
             </div>
+
         </nav>
     )
     return (
@@ -73,4 +89,3 @@ const NavBar = ({ user }) => {
 }
 
 export default NavBar;
-
