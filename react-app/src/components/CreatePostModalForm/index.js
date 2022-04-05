@@ -24,7 +24,19 @@ function CreatePostModalForm() {
     const updateCaption = (e) =>{
         setCaption(e.target.value)
     }
+
     const handlePostSubmit = () =>{
+        photos.map(photo => {
+            let data = new FormData()
+            data.append("File", photo)
+            return data
+        })
+
+        const payload = {
+            photos,
+            caption
+        }
+
 
     }
     const openShowMore = () =>{
