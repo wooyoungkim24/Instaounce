@@ -29,7 +29,15 @@ nav {
     color: black;
     padding: 0px 10px;
 }
-
+.navbar-icon-tray{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.navbar-icon-tray #create-post-button{
+    font-size: 25px;
+    cursor: pointer;
+}
 .navbar-profile-photo {
     border-radius: 50%;
     height: 30px;
