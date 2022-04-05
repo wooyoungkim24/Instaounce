@@ -9,7 +9,7 @@ const HomeFeedCard = ({ post }) => {
     const likes = post.likes;
     const comments = post.comments
     const [currentImage, setCurrentImage] = useState(0);
-    console.log(post);
+    // console.log(post);
 
     const rightClickHandler = () => {
         if (currentImage !== images.length - 1) {
@@ -63,7 +63,7 @@ const HomeFeedCard = ({ post }) => {
             <div className='home-card-nonimage-content'>
                 <div className='home-card-icon-tray' >
                     <div className='home-card-icon-tray-top-left'>
-                        <LikeIcon userLikes={post.likes} />
+                        <LikeIcon likes={likes} />
                         <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
                     </div>
                     {images.length > 1 &&
