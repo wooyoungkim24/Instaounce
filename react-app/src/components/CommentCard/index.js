@@ -71,55 +71,64 @@ const CommentCard = ({ post }) => {
                         }
                 </div>
                 <div className='comment-card-nonimage-content'>
-                        <div className="user">
-                            <img src={user.profile_image}></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                        </div>
-                        
-                        <div className='comment-card-icon-tray' >
-                            <div className='home-card-icon-tray-top-left'>
-                                <LikeIcon likes={likes} postId={post.id} />
-                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
-                            </div>
-                            {images.length > 1 &&
-                                <div className='home-card-icon-tray-dots'>
-                                    {images.map((image, index) => (
-                                        <i key={index} className={activeDotClass(index)}></i>
-                                    ))}
-                                </div>
-                            }
-                        </div>
-                        <div className='comment-card-likes-tray'>
-                            {likes.length} likes
-                        </div>
-                        <div className='comment-card-caption-area'>
+                    <div className='comment-content'>
+
+                            <div className="user">
                                 <img src={user.profile_image}></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                            <div  id="caption-container">
-                                {post.caption}
-                                <div id='date-time'>{post.updated_at}</div>
+                                <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                            </div>
+                            
+                            <div className='view-all-comments'>
+                                <div className='comment-card-caption-area'>
+                                        <img src={user.profile_image}></img>
+                                    <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                                    <div  id="caption-container">
+                                        {post.caption}
+                                        <div id='date-time'>{post.updated_at}</div>
+                                    </div>
+                                </div>
+                                    <ul className="comments-container">
+                                        {comments.map(comment => (
+                                            <div className='comments'>
+                                                <img src={comment.users.profile_image}></img>
+                                                <div className='comments-flex'>
+                                                    <li className="view-comments" key={comment.id}>{comment.content}</li>
+                                                    <li id="date-time">{comment.updated_at}</li>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </ul>
+                            </div>
+                            <div className='interact-comment-section'>
+                                <div className='comment-card-icon-tray' >
+                                    <div className='home-card-icon-tray-top-left'>
+                                        <LikeIcon likes={likes} postId={post.id} />
+                                        <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                                    </div>
+                                    {images.length > 1 &&
+                                        <div className='home-card-icon-tray-dots'>
+                                            {images.map((image, index) => (
+                                                <i key={index} className={activeDotClass(index)}></i>
+                                            ))}
+                                        </div>
+                                    }
+                                </div>
+                                <div className='comment-card-likes-tray'>
+                                    {likes.length} likes
+                                </div>
+
+                                <form className="make-comment" onSubmit={handleCommentSubmit}>
+                                        <textarea
+                                        id='new-comment-input'
+                                        placeholder="Add a comment..."
+                                        value={newComment}
+                                        required
+                                        onChange={e => setNewComment(e.target.value)}
+                                        />
+                                    <button type='submit'>Post</button>
+                                </form>
                             </div>
                         </div>
-                        <div className='view-comments'>
-                            <ul className='comments-container'>
-                                {comments.map(comment => (
-                                    <>
-                                        <li key={comment.id}>{comment.content}</li>
-                                        <li>{comment.updated_at}</li>
-                                    </>
-                                ))}
-                            </ul>
-                        </div>
-                        <form className="make-comment" onSubmit={handleCommentSubmit}>
-                                <textarea
-                                id='new-comment-input'
-                                placeholder="Add a comment..."
-                                value={newComment}
-                                required
-                                onChange={e => setNewComment(e.target.value)}
-                                />
-                            <button type='submit'>Post</button>
-                        </form>
                     </div>
         
             </div>
