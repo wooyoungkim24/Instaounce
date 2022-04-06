@@ -1,7 +1,7 @@
 
 const SET_FOLLOWED_POSTS= 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
-
+const GET_COMMENTS = 'session/GET_COMMENTS'
 
 
 
@@ -11,16 +11,30 @@ const setFollowedPosts = (posts) => ({
     payload: posts
   });
 
-const likeAPost = (postId) => ({
+const likeAPost = (like) => ({
   type: CREATE_LIKE,
-  payload: postId
+  payload: like
 })
 
-export const createPost = (data) => async(dispatch) => {
+// const getAllComments = (comments) => ({
+//   type: GET_COMMENTS,
+//   payload: comments
+// })
+
+// export const getComments = (postId) => async(dispatch) => {
+//   const response = await fetch(`/api/posts/${postId}/comments`)
+//   if(response.ok){
+//       const comments = await response.json()
+//       await dispatch(getAllComments(comments))
+//   }
+// }
+
+export const createPost = (payload) => async(dispatch) => {
+
   const response = await fetch('/api/posts/', {
     method: "POST",
     // headers: {"Content-type": "application/JSON"},
-    body: data
+    body: payload
   })
 
   if (response.ok) {
@@ -36,11 +50,21 @@ export const getFollowedPosts = () => async (dispatch) => {
     }
 };
 
-export const like = () => async(dispatch) => {
+export const like = (postId) => async(dispatch) => {
+  const response = await fetch(`/api/posts/${postId}/likes`, {
+    method: "POST",
+    headers: {"Content-type": "application/json"},
+    body: JSON.stringify(postId)
+  })
 
-}
+  if (response.ok) {
+    const newLike = await response.json()
+    // console.log("NEW LIKE", newLike)
+    await dispatch(likeAPost(newLike))
+  };
+};
 
-const initialState = { followedPosts: {}, posts: {}}
+const initialState = { followedPosts: {}, posts: {}, comments: {}}
 
 export default function postsReducer(state = initialState, action) {
     const newState = {...state}
@@ -51,10 +75,15 @@ export default function postsReducer(state = initialState, action) {
         action.payload.posts.forEach(post => {
           newState.followedPosts[post.id] = post
         })
+        
         return newState
 
       case CREATE_LIKE:
-        return { }
+          // console.log(action.payload)
+          newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
+        return newState
+
+      // case GET_POST:
 
       default:
         return state;

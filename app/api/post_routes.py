@@ -1,5 +1,6 @@
+from crypt import methods
 from flask import Blueprint, jsonify, session, request
-from app.models import Post, db, User
+from app.models import Post, db, User, Like
 from flask_login import current_user, login_required
 import boto3
 import botocore
@@ -46,11 +47,37 @@ def read_posts():
     # print('currentId', user)
     # posts = Post.query.filter(user.is_following(Post.user_id)).all()
     followings = user.followed_posts()
-    print(followings[0].comments)
-    return {'posts': [following.to_dict() for following in followings]}
+    # print(followings[0].comments)
+    return {'posts':[following.to_dict() for following in followings]}
 
 
-@post_routes.route("/", methods=['POST'])
+# @post_routes.route('/<id>/comments')
+# def get_comments(id):
+#     post_id = id
+#     post = Post.query.get(post_id)
+#     comments = post.comments
+#     # print("currentpost",post_id)
+#     # print("all comments",[comment.to_dict() for comment in comments])
+#     return {'comments':[comment.to_dict() for comment in comments]}
+
+
+
+
+
+@post_routes.route("/<id>/likes", methods=["POST"])
+def create_like(id):
+    post_id = id
+    new_like = Like(
+        user_id = current_user.id,
+        post_id = post_id
+    )
+    db.session.add(new_like)
+    db.session.commit()
+    return new_like.to_dict()
+
+
+
+@post_routes.route("/", methods =['POST'])
 def create_post():
     files = request.files.getlist("file[]")
     # images = request.files

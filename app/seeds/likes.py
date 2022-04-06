@@ -4,10 +4,10 @@ faker = Faker()
 
 
 def seed_likes():
-    for _ in range(10):
+    for _ in range(30):
         like = Like(
-            user_id= faker.random_int(min=1, max=2),
-            post_id= faker.random_int(min=1, max=4)
+            user_id= faker.random_int(min=1, max=15),
+            post_id= faker.random_int(min=1, max=50)
         )
         db.session.add(like)
         db.session.commit()

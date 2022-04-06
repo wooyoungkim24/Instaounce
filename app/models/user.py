@@ -64,15 +64,13 @@ class User(db.Model, UserMixin):
         if not self.is_following(user):
             self.followed.append(user)
 
-    # def unfollow(self, user):
-    #     if self.is_following(user):
-    #         self.followed.remove(user)
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
 
-    # def is_following(self, user_id):
-    #     print('what is my id', self.id)
-    #     print('what is the other id', followers.c.followed_id)
-    #     return self.followed.filter(
-    #         followers.c.followed_id == user_id and followers.c.followed_id != self.id).count() > 0
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id and followers.c.followed_id != self.id).count() > 0
 
 
     def followed_posts(self):
