@@ -108,9 +108,10 @@ export default function postsReducer(state = initialState, action) {
           console.log("action.payload", action.payload)
           // original: (likes in the state is undefined)
           // newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
-          console.log("likes before", newState.followedPosts[action.payload['post_id']].likes)
+
+          console.log("likes before create", newState.followedPosts[action.payload['post_id']].likes)
           newState.followedPosts[action.payload['post_id']].likes.push(action.payload)
-          console.log("likes after", newState.followedPosts[action.payload['post_id']].likes)
+          console.log("likes after create", newState.followedPosts[action.payload['post_id']].likes)
 
         return newState
 
@@ -122,7 +123,7 @@ export default function postsReducer(state = initialState, action) {
           // console.log("action.likeId", action.likeId)
           const likes = newState.followedPosts[action.postId].likes
           console.log("likes before delete", likes)
-          
+
           const filteredLikes = likes.filter(like => like.id !== action.likeId)
           console.log("filteredlikes", filteredLikes)
 
