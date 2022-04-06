@@ -93,23 +93,9 @@ export default function postsReducer(state = initialState, action) {
         return newState
 
       case CREATE_COMMENT:
-        newState.followedPosts[action.payload['post_id']].comments.push(action.payload.comment)
+        newState.followedPosts[action.payload['post_id']].comments.push(action.payload)
         return newState
-
-        // const post_id = action.payload.comment.post_id
-        // const newArr = [action.payload.comment, ...state[post_id].followedPosts.comments.all] 
-        // console.log(action.payload)
-        // const newComment = {
-        //   ...action.payload.comment,
-        // }
-        // return {
-        //   ...state,
-        //   [post_id]: {
-        //     ...state[post_id].comments,
-        //     [action.payload.comment.id]: newComment,
-        //     comments: newArr
-        //   }
-        // }
+        
 
       default:
         return state;

@@ -2,7 +2,7 @@ import './CommentCard.css';
 import { useState } from 'react'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
-import createComment from '../../store/posts';
+import { createComment } from '../../store/posts';
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -46,20 +46,15 @@ const CommentCard = ({ post }) => {
             post_id: post.id,
             content: newComment
         }
-        // let createdComment;
-        console.log(comment)
-        dispatch(createComment({
-            user_id: sessionUser.id,
-            post_id: post.id,
-            content: newComment
-        }))
-        // .catch(async res => {
-        //     const data = await res.json();
-        //     if(data && data.errors) setErrors(data.errors)
-        // })
-        // if(createdComment){
-        //     setErrors([])
-        // }
+        let createdComment;
+        dispatch(createComment(comment))
+        .catch(async res => {
+            const data = await res.json();
+            if(data && data.errors) setErrors(data.errors)
+        })
+        if(createdComment){
+            setErrors([])
+        }
     }
 
     return (
