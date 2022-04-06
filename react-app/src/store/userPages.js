@@ -188,21 +188,21 @@ export default function userPageReducer(state = initialState, action) {
             newState[action.payload.id] = action.payload;
             return newState;
 
-        case CREATE_POST:
-            newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-            return newState;
+        // case CREATE_POST:
+        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+        //     return newState;
         
-        case UPDATE_POST:
-            newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-            return newState
+        // case UPDATE_POST:
+        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+        //     return newState
 
-        case DELETE_POST:
-            delete newState[action.payload.userId][action.payload.posts][action.payload.id];
-            return newState
+        // case DELETE_POST:
+        //     delete newState[action.payload.userId][action.payload.posts][action.payload.id];
+        //     return newState
 
-        case CREATE_COMMENT:
-            newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-            return newState;
+        // case CREATE_COMMENT:
+        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+        //     return newState;
             
         default:
             return state;

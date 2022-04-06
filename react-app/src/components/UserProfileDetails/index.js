@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 
 const UserProfileDetails = ({ user }) => {
-    
+
     const posts = Object.values(user.posts);
     const followers = Object.values(user.followers);
     const following = Object.values(user.following)
@@ -21,10 +21,10 @@ const UserProfileDetails = ({ user }) => {
                         <span className='profile-user-stat'>{posts.length}</span> posts
                     </div>
                     <div className='profile-user-stats-container'>
-                        <span className='profile-user-stat'>{followers.length - 1}</span> followers
+                        <span className='profile-user-stat'>{followers.length}</span> followers
                     </div>
                     <div className='profile-user-stats-container'>
-                        <span className='profile-user-stat'>{following.length - 1}</span> following
+                        <span className='profile-user-stat'>{following.length}</span> following
                     </div>
                 </div>
                 <div className='profile-user-bio'>

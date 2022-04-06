@@ -63,16 +63,26 @@ def read_posts():
 
 
 
-@post_routes.route("/<id>/likes", methods=["POST"])
+@post_routes.route("/<id>/likes", methods=["POST", "DELETE"])
 def create_like(id):
-    post_id = id
-    new_like = Like(
-        user_id = current_user.id,
-        post_id = post_id
-    )
-    db.session.add(new_like)
-    db.session.commit()
-    return new_like.to_dict()
+    if request.method == "POST":
+        post_id = id
+        new_like = Like(
+            user_id = current_user.id,
+            post_id = post_id
+        )
+        db.session.add(new_like)
+        db.session.commit()
+        return new_like.to_dict()
+    
+    elif request.method == "DELETE":
+        post_id = id
+        deleted_like = Like.query.filter(
+            Like.post_id == post_id and Like.user_id == current_user.id)
+        db.session.delete(deleted_like)
+        db.session.commit()
+        # NEEDS TO BE CHANGED
+        return deleted_like.to_dict()
 
 
 

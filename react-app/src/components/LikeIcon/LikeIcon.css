@@ -1,4 +1,11 @@
-.heart-icon {
+.heart-icon-liked {
+    font-size: 24px;
+    padding: 8px;
+    cursor: pointer;
+    color: #ed4956;
+}
+
+.heart-icon-notliked {
     font-size: 24px;
     padding: 8px;
     cursor: pointer;

@@ -16,15 +16,13 @@ const LikeIcon = ({ likes, postId }) => {
     };
 
     return (
-
-        <div>
+        <>
             {userLikes || foundLikes ?
-                <i className="fa-solid fa-heart"></i> :
-                <i className="fa-regular fa-heart heart-icon" onClick={() => createLikeHandler()}></i>
+                <i className="fa-solid fa-heart heart-icon-liked"></i> :
+                <i className="fa-regular fa-heart heart-icon-notliked" onClick={() => createLikeHandler()}></i>
             }
-        </div>
-
-
+        </>
     )
+
 }
 export default LikeIcon;
