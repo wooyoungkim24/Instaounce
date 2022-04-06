@@ -16,6 +16,10 @@ const HomeFeedCard = ({ post }) => {
         (state) => state.feedState.followedPosts[post.id].likes
     )
 
+    useSelector(
+        (state) => state.feedState
+    )
+
     console.log("likes from useSelector", likes)
 
     // testing block end
