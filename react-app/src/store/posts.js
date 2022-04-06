@@ -79,7 +79,6 @@ export default function postsReducer(state = initialState, action) {
         return newState
 
       case CREATE_LIKE:
-          // console.log(action.payload)
           newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
         return newState
 

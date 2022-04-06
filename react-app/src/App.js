@@ -50,7 +50,7 @@ function App() {
           <HomeFeed />
         </ProtectedRoute>
         <ProtectedRoute path='/posts/:postId/comments' exact={true}>
-          <CommentCard/>
+          <CommentCard />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

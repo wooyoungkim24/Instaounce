@@ -52,11 +52,11 @@ const NavBar = ({ user }) => {
                 <div className='navbar-right-container'>
                     <div className='navbar-icon-tray'>
                         <Link to='/' exact={true}>
-                            <i class="fa-solid fa-house-chimney"></i>
+                            <i className="fa-solid fa-house-chimney"></i>
                         </Link>
 
                         <button type='button' onClick={() => setShowModal(true)}>
-                            <i id='create-post-button' class="fa-solid fa-square-plus"></i>
+                            <i id='create-post-button' className="fa-solid fa-square-plus"></i>
                         </button>
 
 
@@ -67,7 +67,7 @@ const NavBar = ({ user }) => {
                         )}
 
                         <Link to='/explore' exact={true}>
-                            <i class="fa-solid fa-compass"></i>
+                            <i className="fa-solid fa-compass"></i>
                         </Link>
                     </div>
                     <div className='navbar-dropdown-container'>

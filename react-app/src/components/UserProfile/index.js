@@ -1,59 +1,31 @@
 import './UserProfile.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import UserProfileDetails from '../UserProfileDetails';
+import { loadUserPage } from '../../store/userPages';
 
 const UserProfile = () => {
 
-    const [user, setUser] = useState({});
     const [isLoaded, setIsLoaded] = useState(false);
-    const [posts, setPosts] = useState({})
     const { userId } = useParams();
+    const dispatch = useDispatch();
+    const pageData = useSelector(state => state.pageState[userId]);
 
     useEffect(() => {
-        if (!userId) {
-            return;
-        }
-        (async () => {
-            const response = await fetch(`/api/users/${userId}`);
-            const user = await response.json();
-
-            const res = await fetch(`/api/users/${userId}/posts`);
-            const posts = await res.json().then(() => setIsLoaded(true))
-
-            setUser(user);
-            setPosts(posts);
-            console.log(posts)
-            setIsLoaded(true);
-        })();
-    }, []);
-
-    if (!user) {
-        return null;
-    }
+        dispatch(loadUserPage(userId))
+        .then(() => setIsLoaded(true))
+    },[dispatch]);
 
 
     return (
-        <div>
+        <div className='user-profile-body'>
             {isLoaded &&
-                <UserProfileDetails userInfo={user} />
+                <UserProfileDetails user={pageData} />
             }
         </div>
 
     )
-    return (
-        <ul>
-            <li>
-                <strong>User Id</strong> {userId}
-            </li>
-            <li>
-                <strong>Username</strong> {user.username}
-            </li>
-            <li>
-                <strong>Email</strong> {user.email}
-            </li>
-        </ul>
-    );
 
 }
 

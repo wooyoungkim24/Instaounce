@@ -158,7 +158,7 @@ function CreatePostModalForm() {
                     Create New Post
                 </div>
                 <div className='photo-icon'>
-                    <i class="fa-solid fa-photo-film"></i>
+                    <i className="fa-solid fa-photo-film"></i>
                 </div>
                 <div>
                     <form>

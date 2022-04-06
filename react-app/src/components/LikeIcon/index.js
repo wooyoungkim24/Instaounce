@@ -19,7 +19,7 @@ const LikeIcon = ({ likes, postId }) => {
 
         <div>
             {userLikes || foundLikes ?
-                <i class="fa-solid fa-heart"></i> :
+                <i className="fa-solid fa-heart"></i> :
                 <i className="fa-regular fa-heart heart-icon" onClick={() => createLikeHandler()}></i>
             }
         </div>

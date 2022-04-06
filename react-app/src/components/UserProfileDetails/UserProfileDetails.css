@@ -1,0 +1,26 @@
+.profile-details-container {
+    width: 750px;
+    min-height: 300px;
+    display: flex;
+}
+
+.profile-details-image-container {
+    width: 30%;
+}
+
+.profile-details-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-details-text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-details-username {
+    font-size: 28px;
+    font-weight: 300;
+}

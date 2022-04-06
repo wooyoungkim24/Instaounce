@@ -42,7 +42,6 @@ def upload_file_to_s3(file, acl="public-read"):
 @post_routes.route("/")
 @login_required
 def read_posts():
-
     user = User.query.get(current_user.get_id())
     # print('currentId', user)
     # posts = Post.query.filter(user.is_following(Post.user_id)).all()
@@ -82,10 +81,6 @@ def create_post():
     files = request.files.getlist("file[]")
     # images = request.files
     caption = request.values['caption']
-    # data = request.get_json(force=True)
-    # photos = data["photos"]
-    # caption = data["caption"]
-    # print("############# PHOTOS INC:", files[0], caption)
     new_post = Post(
         user_id=current_user.id,
         image=["placeholder"],
