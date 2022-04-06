@@ -4,6 +4,8 @@ import "./index.css";
 import { createPost } from '../../store/posts';
 import { useDispatch } from 'react-redux';
 
+
+
 function CreatePostModalForm() {
     const [photos, setPhotos] = useState([])
     const [photoIndex, setPhotoIndex] =useState(0)
@@ -74,6 +76,8 @@ function CreatePostModalForm() {
 
     return (
         <div className='create-post-form-container'>
+
+
             {photoFinished&&
             <div className='adding-caption-container'>
                 <div className='top-adding-caption-nav'>
@@ -153,8 +157,12 @@ function CreatePostModalForm() {
                 <div className='no-photos-title'>
                     Create New Post
                 </div>
+                <div className='photo-icon'>
+                    <i class="fa-solid fa-photo-film"></i>
+                </div>
                 <div>
                     <form>
+                        <label id='add-photo-1-label' htmlFor='add-photo-1'>Select from computer</label>
                         <input
                         type='file'
                         required
