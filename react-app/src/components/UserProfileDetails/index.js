@@ -1,13 +1,31 @@
 import './UserProfileDetails.css';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { follow, unfollow } from '../../store/userPages';
 
 
 const UserProfileDetails = ({ user, sessionUser }) => {
+
+    const dispatch = useDispatch();
 
     const posts = Object.values(user.posts);
     const followers = Object.values(user.followers);
     const following = Object.values(user.following);
     const isUsersPage = user.id === sessionUser.id;
+    const isUserFollowing = user.followers[sessionUser.id];
+
+
+    const displayFollowIcon = () => {
+        return !isUsersPage && !isUserFollowing
+    };
+
+    const displayUnfollowIcon = () => {
+        return !isUsersPage && isUserFollowing
+    };
+
+    const followHandler = () => {
+        dispatch(follow(user.id));
+    };
 
 
     return (
@@ -20,9 +38,17 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                     <div className='profile-details-username'>
                         {user.username}
                     </div>
-                    <div classname='profile-details-follow-button'>
-                        follow
-                    </div>
+                    {displayFollowIcon() &&
+                        <div onClick={followHandler} className='profile-details-follow-button'>
+                            <span>Follow</span>
+                        </div>
+                    }
+                    {displayUnfollowIcon() &&
+                        <div className='profile-details-unfollow-button'>
+                            <i class="fa-solid fa-user user-icon"></i>
+                            <i class="fa-solid fa-check check-icon"></i>
+                        </div>
+                    }
                 </div>
                 <div className='profile-details-user-stats'>
                     <div className='profile-user-stats-container'>

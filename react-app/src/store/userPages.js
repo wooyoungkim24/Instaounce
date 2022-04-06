@@ -136,6 +136,8 @@ export const removeComment = (comment) => async (dispatch) => {
     };
 };
 
+
+
 // ======================= LIKES ===================
 
 const CREATE_LIKE = 'session/CREATE_LIKE';
@@ -177,6 +179,47 @@ export const unlike = (postId) => async (dispatch) => {
 
 
 
+// ======================= FOLLOWS ===================
+
+const CREATE_FOLLOW = 'session/CREATE_FOLLOW';
+const DELETE_FOLLOW = 'session/DELETE_FOLLOW';
+
+const createFollow = (user) => ({
+    type: CREATE_FOLLOW,
+    payload: like
+});
+
+const deleteFollow = (user) => ({
+    type: DELETE_FOLLOW,
+    payload: like
+});
+
+export const follow = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/users/${userId}/followers`, {
+        method: "POST"
+    });
+
+    if (res.ok) {
+        const newLike = await res.json();
+        await dispatch(createLike(newLike));
+    };
+};
+
+export const unfollow = (postId) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${postId}/likes`, {
+        method: "DELETE"
+    });
+
+    if (res.ok) {
+        const deletedLike = await res.json();
+        await dispatch(deleteLike(deletedLike));
+    };
+};
+
+
+
+// ======================= REDUCER ===================
+
 const initialState = {};
 
 export default function userPageReducer(state = initialState, action) {
@@ -187,6 +230,9 @@ export default function userPageReducer(state = initialState, action) {
         case GET_USER_PAGE:
             newState[action.payload.id] = action.payload;
             return newState;
+
+        case CREATE_FOLLOW:
+            
 
         // case CREATE_POST:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
