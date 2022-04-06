@@ -39,6 +39,41 @@ const deletePost = (post) => ({
     payload: post
 });
 
+export const newPost = (payload) => async (dispatch) => {
+    const res = await fetch('/api/posts/', {
+        method: "POST",
+        body: payload
+    });
+
+    if (res.ok) {
+        const post = res.json()
+        await dispatch(createPost(post))
+    };
+};
+
+export const editPost = (payload) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${payload.postId}`, {
+        method: "PUT",
+        body: payload
+    });
+
+    if (res.ok) {
+        const post = res.json()
+        await dispatch(updatePost(post))
+    };
+};
+
+export const removePost = (payload) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${payload.postId}`, {
+        method: "DELETE"
+    });
+
+    if (res.ok) {
+        const post = res.json()
+        await dispatch(deletePost(post))
+    };
+};
+
 
 
 
