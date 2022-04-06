@@ -4,8 +4,9 @@ import { NavLink, Link } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton'
 import logo from '../../assets/logo.png'
 import NavBarDropDown from '../NavBarDropDown';
-import {Modal} from "../../context/modal"
+import { Modal } from "../../context/modal"
 import CreatePostModalForm from '../CreatePostModalForm';
+
 
 const NavBar = ({ user }) => {
     const [showDropDown, setShowDropDown] = useState(false);
@@ -13,11 +14,38 @@ const NavBar = ({ user }) => {
     const clickHandler = () => {
         showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
     }
+    const [showConfirm, setShowConfirm] = useState(false)
 
+    const closeModals = () =>{
+        setShowModal(false)
+        setShowConfirm(false)
+    }
     console.log('where is my modal', showModal)
     return (
         <nav>
             <div className='navbar-container'>
+                {showConfirm &&
+                    <Modal onClose={() => setShowConfirm(false)}>
+                        <div className="close-modal-confirm">
+                            <div className="close-confirm-top">
+                                <div>
+                                    Discard post?
+                                </div>
+                                <div>
+                                    If you leave, your edits won't be saved.
+                                </div>
+                            </div>
+                            <div className="close-confirm-buttons">
+                                <button type='button' onClick={closeModals}>
+                                    Discard
+                                </button>
+                                <button type='button' onClick={()=> setShowConfirm(false)}>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </Modal>
+                }
                 <Link to="/">
                     <img src={logo} className="navbar-logo" alt='logo' />
                 </Link>
@@ -27,13 +55,13 @@ const NavBar = ({ user }) => {
                             <i class="fa-solid fa-house-chimney"></i>
                         </Link>
 
-                        <button type ='button' onClick={() => setShowModal(true)}>
+                        <button type='button' onClick={() => setShowModal(true)}>
                             <i id='create-post-button' class="fa-solid fa-square-plus"></i>
                         </button>
 
 
-                        {showModal &&(
-                            <Modal onClose={()=> setShowModal(false)}>
+                        {showModal && (
+                            <Modal onClose={() => setShowConfirm(true)}>
                                 <CreatePostModalForm />
                             </Modal>
                         )}
@@ -57,35 +85,35 @@ const NavBar = ({ user }) => {
 
         </nav>
     )
-    return (
-        <nav>
-            <ul>
-                <li>
-                    <NavLink to='/' exact={true} activeClassName='active'>
-                        Home
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/login' exact={true} activeClassName='active'>
-                        Login
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/sign-up' exact={true} activeClassName='active'>
-                        Sign Up
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to='/users' exact={true} activeClassName='active'>
-                        Users
-                    </NavLink>
-                </li>
-                <li>
-                    <LogoutButton />
-                </li>
-            </ul>
-        </nav>
-    );
+    // return (
+    //     <nav>
+    //         <ul>
+    //             <li>
+    //                 <NavLink to='/' exact={true} activeClassName='active'>
+    //                     Home
+    //                 </NavLink>
+    //             </li>
+    //             <li>
+    //                 <NavLink to='/login' exact={true} activeClassName='active'>
+    //                     Login
+    //                 </NavLink>
+    //             </li>
+    //             <li>
+    //                 <NavLink to='/sign-up' exact={true} activeClassName='active'>
+    //                     Sign Up
+    //                 </NavLink>
+    //             </li>
+    //             <li>
+    //                 <NavLink to='/users' exact={true} activeClassName='active'>
+    //                     Users
+    //                 </NavLink>
+    //             </li>
+    //             <li>
+    //                 <LogoutButton />
+    //             </li>
+    //         </ul>
+    //     </nav>
+    // );
 }
 
 export default NavBar;

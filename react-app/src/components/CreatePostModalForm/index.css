@@ -1,14 +1,16 @@
-.create-post-form-container{
+.create-post-form-container {
     width: 700px;
-    height:700px;
+    height: 700px;
     border-radius: 50px;
     border-collapse: separate;
 }
-#displayed-photo{
+
+#displayed-photo {
     width: 700px;
     height: 650px;
 }
-.add-more-photos-button{
+
+.add-more-photos-button {
     width: auto;
     height: 150px;
     border: black 2px solid;
@@ -18,27 +20,79 @@
     flex-direction: row;
 
 }
-.add-more-photos-button img{
+
+.add-more-photos-button img {
     width: 150px;
     height: 150px;
 }
-#add-more-photos-button{
+
+#add-more-photos-button {
     position: absolute;
-    left:575px;
-    bottom:10px;
+    left: 575px;
+    bottom: 10px;
 }
 
-.adding-caption-container{
+.adding-caption-container {
     display: flex;
     flex-direction: column;
 
 }
-.adding-caption-container img{
+
+.adding-caption-container img {
     width: 600px;
     height: 600px;
 
 }
-.finished-photos-bottom-container{
+
+.finished-photos-bottom-container {
     display: flex;
     flex-direction: row;
+}
+
+.photo-absent-modal {
+    display: flex;
+    flex-direction: column;
+}
+
+.no-photos-title {
+    width: 700px;
+    height: 50px;
+    border-bottom: 1px black solid;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(42, 42, 42);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=file] {
+    display: none;
+    margin: 10px;
+}
+
+#add-photo-1-label{
+    display: flex;
+    color: white;
+    border-radius: 6px;
+    background-color: rgb(0,149,246);
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+
+    position: absolute;
+    right: 270px;
+    top: 400px;
+}
+.photo-icon{
+    font-size: 200px;
+    color:black;
+    position: absolute;
+    left: 235px;
+    top: 150px;
 }
