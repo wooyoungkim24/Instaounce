@@ -2,13 +2,30 @@ import './HomeFeedCard.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
-import { Modal } from '../../context/modal'
+import { Modal } from '../../context/modal';
 import CommentCard from '../CommentCard';
+import { useSelector } from 'react-redux';
 
 const HomeFeedCard = ({ post }) => {
     const user = post.users;
     const images = post.image;
     const likes = post.likes;
+
+    // testing block start
+    // console.log("post prop", post)
+
+    // const likes = useSelector(
+    //     (state) => state.feedState.followedPosts[post.id].likes
+    // )
+
+    // useSelector(
+    //     (state) => state.feedState
+    // )
+
+    // console.log("likes from useSelector", likes)
+
+    // testing block end
+
     const comments = post.comments
     const [currentImage, setCurrentImage] = useState(0);
     const [showModal, setShowModal] = useState(false);
