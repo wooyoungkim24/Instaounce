@@ -44,7 +44,6 @@ export const createComment = (comment) => async(dispatch) => {
     body: JSON.stringify(comment)
   })
   if (response.ok){
-    console.log(response)
     const comment = await response.json()
     await dispatch(makeComment(comment))
   }
@@ -81,7 +80,6 @@ export const createPost = (payload) => async(dispatch) => {
 
   const response = await fetch('/api/posts/', {
     method: "POST",
-    // headers: {"Content-type": "application/JSON"},
     body: payload
   })
 
@@ -107,7 +105,6 @@ export const like = (postId) => async(dispatch) => {
 
   if (response.ok) {
     const newLike = await response.json()
-    // console.log("NEW LIKE", newLike)
     await dispatch(likeAPost(newLike))
   };
 };
@@ -123,7 +120,6 @@ export default function postsReducer(state = initialState, action) {
         action.payload.posts.forEach(post => {
           newState.followedPosts[post.id] = post
         })
-        
         return newState
 
       case CREATE_LIKE:
@@ -135,20 +131,12 @@ export default function postsReducer(state = initialState, action) {
         return newState
 
       case DELETE_COMMENT:
-        
-        // console.log(newState.followedPosts)
         delete newState.followedPosts[action.payload.postId].comments[action.payload.commentId]
-
         return newState
 
       case EDIT_COMMENT:
         newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload
         return newState
-        // const comments = newState.followedPosts[action.payload['post_id']].comments
-        // const edited = comments.find(comment => comment.id === action.payload.comment["id"])
-        // comments[edited] = action.payload.comment
-
-        // return newState
 
       default:
         return state;
