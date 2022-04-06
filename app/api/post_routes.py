@@ -139,22 +139,24 @@ def create_post():
 def update_post(id):
     print("begging!!!!!!")
     form = UpdatePostForm()
-    # print("wahtthalddd")
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    print("form", form.data)
     if form.validate_on_submit():
+        post_id = id
+        print("post_id", post_id)
+        target_post = Post.query.filter(Post.id == post_id).first()
+        print("target_post before update", target_post)
+
         data = form.data
         caption = data['caption']
         print('cation in route!!!', caption)
-        post_id = id
-        print("post_id", post_id)
-        target_post = Post.query.filter(Post.id == post_id)
-        print("target_post before update", target_post)
 
         target_post.caption = caption
 
         db.session.commit()
 
         print("target_post after update", target_post)
-        return { target_post.to_dict() }
+        return target_post.to_dict()
     return "Bad"
 
 
