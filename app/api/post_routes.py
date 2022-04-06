@@ -56,6 +56,19 @@ def create_like(id):
     db.session.commit()
     return new_like.to_dict()
 
+@post_routes.route("/<id>/likes/", methods=['DELETE'])
+def delete_like(id):
+  post_id = id
+#   like_id = like_id
+# TODO   need to grab the user id or like id
+  user_id = current_user.id
+  like = Like.query.filter(Like.post_id == post_id and Like.user_id == user_id)
+  like.delete()
+  db.session.commit()
+#   return like.to_dict()
+  return f"Deleted like id: "
+
+
 
 
 @post_routes.route("/", methods =['POST'])

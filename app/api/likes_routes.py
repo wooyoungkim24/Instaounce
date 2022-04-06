@@ -6,7 +6,10 @@ from flask_login import current_user, login_required
 likes_routes = Blueprint('likes', __name__)
 
 
-@likes_routes.route("/")
-@login_required
-def read_likes():
-    
+# @likes_routes.route("/")
+# # @login_required
+# # # def read_likes():
+
+
+
+
