@@ -141,14 +141,15 @@ def update_post(id):
     form = UpdatePostForm()
     # print("wahtthalddd")
     if form.validate_on_submit():
-
+        data = form.data
+        caption = data['caption']
+        print('cation in route!!!', caption)
         post_id = id
         print("post_id", post_id)
         target_post = Post.query.filter(Post.id == post_id)
         print("target_post before update", target_post)
 
-
-        target_post.caption = request.values['caption']
+        target_post.caption = caption
 
         db.session.commit()
 
