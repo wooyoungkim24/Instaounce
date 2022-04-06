@@ -1,6 +1,6 @@
 from crypt import methods
 from flask import Blueprint, jsonify, session, request
-from app.models import Post, db, User, Like
+from app.models import Post, db, User, Like, Comment
 from flask_login import current_user, login_required
 import boto3
 import botocore
@@ -50,17 +50,18 @@ def read_posts():
     return {'posts':[following.to_dict() for following in followings]}
 
 
-# @post_routes.route('/<id>/comments')
-# def get_comments(id):
-#     post_id = id
-#     post = Post.query.get(post_id)
-#     comments = post.comments
-#     # print("currentpost",post_id)
-#     # print("all comments",[comment.to_dict() for comment in comments])
-#     return {'comments':[comment.to_dict() for comment in comments]}
-
-
-
+@post_routes.route('/comments', methods=["POST"])
+def create_comment():
+    data = request.get_json(force=True)
+    new_comment = Comment(
+        user_id=data["user_id"],
+        post_id=data["post_id"],
+        content=data["content"],
+    )
+    print(data)
+    db.session.add(new_comment)
+    db.session.commit()
+    return new_comment.to_dict()
 
 
 @post_routes.route("/<id>/likes", methods=["POST", "DELETE"])
@@ -106,10 +107,10 @@ def create_post():
         # print("########## PHOTO:", photo)
         file.filename = f"Post{post_id}/{file.filename}"
 
-        print('#############', file.filename)
+        # print('#############', file.filename)
         upload = upload_file_to_s3(file)
         if "url" not in upload:
-            print('######error####', upload)
+            # print('######error####', upload)
             return upload, 400
 
         url = upload["url"]
