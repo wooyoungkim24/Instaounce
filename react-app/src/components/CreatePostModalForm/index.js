@@ -3,7 +3,8 @@ import postsReducer from '../../store/posts';
 import "./index.css";
 import { createPost } from '../../store/posts';
 import { useDispatch } from 'react-redux';
-
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 
 function CreatePostModalForm() {
@@ -47,26 +48,29 @@ function CreatePostModalForm() {
 
     }
     const openShowMore = () => {
-        if (showMorePhotos) return;
-        setShowMorePhotos(true);
+        if (showMorePhotos) {
+            setShowMorePhotos(false)
+        }
+        else{
+            setShowMorePhotos(true);
+        }
+
     }
     // console.log('why',showMorePhotos)
 
 
     useEffect(() => {
         if (!showMorePhotos) return;
-        let ignore = document.querySelector('.add-more-photos-button')
+        let ignore1 = document.querySelector('.add-more-photos-button')
+        let ignore2 = document.querySelector('#add-more-photos-button')
 
         const closeShowMore = (event) => {
             let target = event.target
-            if (target === ignore || ignore.contains(target)) {
+            if (target === ignore1 || ignore1.contains(target) || target === ignore2 || ignore2.contains(target)) {
                 return;
             }
             setShowMorePhotos(false)
         }
-
-
-
 
         const modal = document.querySelector(".create-post-form-container")
         modal.addEventListener('click', closeShowMore)
@@ -74,14 +78,14 @@ function CreatePostModalForm() {
         return () => modal.removeEventListener("click", closeShowMore);
 
     }, [showMorePhotos])
-    useEffect(()=>{
-        console.log('these are my photos',photos)
+    useEffect(() => {
+        console.log('these are my photos', photos)
         let imageCollect = document.querySelectorAll(".photo-preview-container > img")
         imageCollect.forEach(ele => {
             ele.addEventListener("dragstart", handleDragStart);
             ele.addEventListener('dragend', handleDragEnd);
 
-            // ele.addEventListener('dragenter', handleDragEnter);
+            // ele.addEventListener('dragenter', handleDragOver);
             // ele.addEventListener('dragleave', handleDragLeave);
             ele.addEventListener('dragover', handleDragOver)
             ele.addEventListener('drop', handleTheDrop);
@@ -118,39 +122,44 @@ function CreatePostModalForm() {
         // }
 
         function handleTheDrop(e) {
-            e.stopImmediatePropagation() // stops the browser from redirecting.
+            e.stopPropagation() // stops the browser from redirecting.
             let dragImage = e.dataTransfer.getData('text/uri-list')
+            console.log('start of photos', photos)
             // console.log('what is the drag', dragImage)
             // console.log('how many times are you running per move')
             // console.log('what is the drop', e.target.src)
-            let dragIndex = e.dataTransfer.getData('text/plain').split("-")[2]
-            let dropIndex = e.target.className.split("-")[2]
+            let dragIndex = parseInt(e.dataTransfer.getData('text/plain').split("-")[2])
+            let dropIndex = parseInt(e.target.className.split("-")[2])
             let dragSwitch = photos[dragIndex]
             let dropSwitch = photos[dropIndex]
             let photosCopy = [...photos]
-            photosCopy.splice(dragIndex, 1, dropSwitch)
-            photosCopy.splice(dropIndex, 1, dragSwitch)
+            // console.log('indexes', dropIndex, typeof dropIndex)
+            let tmpDrag = photosCopy[dragIndex]
+            photosCopy[dragIndex] = photosCopy[dropIndex]
+            photosCopy[dropIndex] = tmpDrag
+            // photosCopy.splice(parseInt(dragIndex), 1, dropSwitch)
+            // photosCopy.splice(parseInt(dropIndex), 1, dragSwitch)
             console.log('what are my photos', photos, photosCopy)
-            // setPhotos(...photosCopy)
-            let dragImageClassName = e.dataTransfer.getData('text/plain')
+            setPhotoIndex(dropIndex)
+            // let dragImageClassName = e.dataTransfer.getData('text/plain')
             // console.log('dragclass',dragImageClassName)
 
-            let dropImage = e.target.src
-            let dropImageClassName = e.target.className
+            // let dropImage = e.target.src
+            // let dropImageClassName = e.target.className
 
             // console.log('dropclass', dropImageClassName)
 
-            e.target.src = dragImage
+            // e.target.src = URL.createObjectURL(dragSwitch)
 
             // console.log('before', e.target.className)
             // e.target.className = dragImageClassName
-            console.log('wtf',typeof dragImageClassName, dragImageClassName)
+            // console.log('wtf',typeof dragImageClassName, dragImageClassName)
             // console.log('after', e.target.className)
 
             // console.log('differences', dropImage, dragImage)
-            let oldImg = document.querySelector(`.${e.dataTransfer.getData('text/plain')}`)
+            // let oldImg = document.querySelector(`.${e.dataTransfer.getData('text/plain')}`)
             // console.log('what is the old image', oldImg)
-            oldImg.src = dropImage
+            // oldImg.src = URL.createObjectURL(dropSwitch)
             // oldImg.className = dropImageClassName
             // console.log('target clas', e.target.className, e.target.src)
 
@@ -159,14 +168,30 @@ function CreatePostModalForm() {
             //     e.target.innerHTML = e.dataTransfer.getData('text/html');
             // }
 
+            setPhotos([...photosCopy])
+
             return false;
         }
-    },[photos, showMorePhotos])
+        return (function () {
+            imageCollect.forEach(ele => {
+                ele.removeEventListener("dragstart", handleDragStart);
+                ele.removeEventListener('dragend', handleDragEnd);
+                ele.removeEventListener('dragover', handleDragOver);
+                ele.removeEventListener('drop', handleTheDrop);
+            })
+        })
+    }, [photos, showMorePhotos])
 
 
 
+    function deletePhoto(index) {
+
+        let photoCopy = [...photos]
+        photoCopy.splice(index, 1)
+        setPhotos([...photoCopy])
 
 
+    }
     return (
         <div className='create-post-form-container'>
 
@@ -221,20 +246,31 @@ function CreatePostModalForm() {
                         </div>
                     </div>
                     <div id='photo-wrapper'>
+                        {console.log('final photos', photos)}
                         <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])}></img>
                         <button id='add-more-photos-button' type='button' onClick={openShowMore}>
-                            Add more photos
+                            <i class="fa-solid fa-images"></i>
                         </button>
                         {showMorePhotos &&
                             <div className='add-more-photos-button'>
                                 <div className='photo-preview-container'>
+
                                     {photos.map((ele, i) => {
                                         return (
-                                            <img draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                            <>
+                                                {photos.length > 1 &&
+                                                    <button type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
+                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                    </button>}
+                                                <img draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                            </>
+
                                         )
                                     })}
-                                </div>
 
+
+                                </div>
+                                <label id='add-more-photos-label' htmlFor='add-more-photos'><i class="fa-solid fa-circle-plus"></i></label>
                                 <input
                                     type='file'
                                     accept='image/*'
