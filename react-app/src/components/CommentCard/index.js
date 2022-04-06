@@ -21,10 +21,10 @@ const CommentCard = ({ comment }) => {
 
     return ReactDOM.createPortal(
         <div>
-           <div id="modal">
-            <div id="modal-background" onClick={onClose}/>
+            <div id="modal">
+                <div id="modal-background" onClick={onClose} />
                 <div id="modal-content">
-                    
+
                 </div>
             </div>
         </div>
