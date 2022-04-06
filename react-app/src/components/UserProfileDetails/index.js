@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 
 const UserProfileDetails = ({ user }) => {
-    console.log(user)
+    
     const posts = Object.values(user.posts);
     const followers = Object.values(user.followers);
     const following = Object.values(user.following)

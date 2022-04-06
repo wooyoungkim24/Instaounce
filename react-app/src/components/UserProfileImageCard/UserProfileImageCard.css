@@ -1,0 +1,42 @@
+.profile-image-card-container {
+    position: relative;
+    height: 300px;
+    width: 300px;
+}
+
+.profile-image-card-image {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    background-color: white;
+}
+
+.profile-image-card-hover-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.446);
+    z-index: 1;
+}
+
+.profile-image-like-stat {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    color: white;
+    z-index: 2;
+    font-size: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.profile-image-comment-stat {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    color: white;
+    z-index: 2;
+    font-size: 20px;
+    display: flex;
+    gap: 10px;
+}

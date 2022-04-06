@@ -1,11 +1,16 @@
 .profile-details-container {
-    width: 750px;
+    width: 940px;
     min-height: 300px;
     display: flex;
+    border-bottom: 1px solid #a4a4a4ba;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 30px;
 }
 
 .profile-details-image-container {
-    width: 30%;
+    width: 40%;
+    display: flex;
+    justify-content: center;
 }
 
 .profile-details-image {
@@ -18,9 +23,21 @@
 .profile-details-text-container {
     display: flex;
     flex-direction: column;
+    gap: 35px;
 }
 
 .profile-details-username {
     font-size: 28px;
     font-weight: 300;
+}
+
+.profile-details-user-stats {
+    display: flex;
+    gap: 60px;
+}
+
+.profile-user-stat {
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 3px;
 }
