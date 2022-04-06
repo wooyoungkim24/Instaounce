@@ -22,19 +22,21 @@ const LikeIcon = ({ likes, postId }) => {
 
     const deleteLikeHandler = () => {
         // dispatch(deleteLike(postId)).then(() => setUserLikes(false))
-        console.log()
-        dispatch(deleteLike(postId, currentUserLike.id))
+        // console.log()
+        console.log("hey")
+        dispatch(deleteLike(postId, currentUserLike?.id))
     }
 
     return (
 
         <div>
             {userLikes || foundLikes ?
-                <i class="fa-solid fa-heart"></i> :
+                <i class="fa-solid fa-heart" onClick={deleteLikeHandler}></i> :
                 <i className="fa-regular fa-heart heart-icon" onClick={() => createLikeHandler()}></i>
             }
-            <button type="submit" onClick={createLikeHandler}>LIKE</button>
-            <button type="submit" onClick={deleteLikeHandler}>DELETE</button>
+
+
+            {/* <button type="submit" onClick={deleteLikeHandler}>Unlike</button> */}
         </div>
 
 
