@@ -6,7 +6,7 @@ import { Modal } from '../../context/modal';
 const UserProfileImageCard = ({ post, user }) => {
     const [isHovering, setIsHovering] = useState(false);
 
-    const [showCommentCard, setShowCommentCard] = useState(false)
+    const [showPostDetailCard, setShowPostDetailCard] = useState(false)
     const [showEditForm, setShowEditForm] = useState(false)
 
 
@@ -33,12 +33,11 @@ const UserProfileImageCard = ({ post, user }) => {
                 <i className="fa-solid fa-comment fa-flip-horizontal  profile-image-card-comment-icon"></i>
                 {comments.length}
             </div>
-            <div className='profile-image-card-hover-wrapper' onClick={() => setShowCommentCard(true)}>
-            {showCommentCard && (
-                 <Modal onClose={() => showCommentCard(false)}>
+            <div className='profile-image-card-hover-wrapper' onClick={() => setShowPostDetailCard(true)}>
+            {showPostDetailCard && (
+                 <Modal onClose={() => setShowPostDetailCard(false)}>
                     <PostDetailCard post={post} user={user}/>
                 </Modal>
-
             )}
             </div>
             </>

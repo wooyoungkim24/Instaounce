@@ -58,7 +58,9 @@ const PostDetailCard = ({ post, user }) => {
                       <div className="user">
                           <img src={user.profileImage}></img>
                           <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                          <button>Edit</button>
                       </div>
+
 
                       <div className='comment-card-icon-tray' >
                           <div className='home-card-icon-tray-top-left'>

@@ -3,7 +3,7 @@ const SET_FOLLOWED_POSTS= 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
 const DELETE_LIKE = 'session/DELETE_LIKE';
 const GET_COMMENTS = 'session/GET_COMMENTS';
-
+const UPDATE_A_POST = 'session/UPDATE_A_POST'
 
 
 
@@ -12,13 +12,11 @@ const setFollowedPosts = (posts) => ({
     payload: posts
   });
 
-// original
-// const likeAPost = (like) => ({
-//   type: CREATE_LIKE,
-//   payload: like
-// })
+const updatePost = (post) => ({
+  type: UPDATE_A_POST,
+  payload: post
+})
 
-//
 const likeAPost = (like) => ({
   type: CREATE_LIKE,
   payload: like
@@ -43,6 +41,20 @@ export const createPost = (payload) => async(dispatch) => {
   }
 }
 
+export const editPost = (payload) => async dispatch => {
+  const response = await csrfFetch(`/api/event/${data.id}`, {
+    method: "PUT",
+    headers: { 'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
+
+  if (response.ok) {
+    const post = await response.json();
+    await dispatch(updatePost(post));
+
+  }
+}
+
 export const getFollowedPosts = () => async (dispatch) => {
     const response = await fetch('/api/posts/')
     if(response.ok){
@@ -51,20 +63,7 @@ export const getFollowedPosts = () => async (dispatch) => {
     }
 };
 
-// original
-// export const like = (postId) => async(dispatch) => {
-//   const response = await fetch(`/api/posts/${postId}/likes`, {
-//     method: "POST",
-//     headers: {"Content-type": "application/json"},
-//     body: JSON.stringify(postId)
-//   })
 
-//   if (response.ok) {
-//     const newLike = await response.json()
-//     // console.log("NEW LIKE", newLike)
-//     await dispatch(likeAPost(newLike))
-//   };
-// };
 
 export const like = (postId) => async(dispatch) => {
   const response = await fetch(`/api/posts/${postId}/likes`, {
@@ -105,7 +104,7 @@ export default function postsReducer(state = initialState, action) {
         action.payload.posts.forEach(post => {
           newState.followedPosts[post.id] = post
         })
-        
+
         return newState
 
       case CREATE_LIKE:
