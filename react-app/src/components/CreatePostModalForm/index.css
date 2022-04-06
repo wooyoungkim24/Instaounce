@@ -112,3 +112,12 @@
 #displayed-photo {
     object-fit: cover;
 }
+
+.photo-preview-container{
+    display: flex;
+    flex-direction: row;
+}
+.photo-preview-container img{
+    width: 150px;
+    height: 150px;
+}
