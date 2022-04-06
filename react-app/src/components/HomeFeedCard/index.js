@@ -85,12 +85,12 @@ const HomeFeedCard = ({ post }) => {
                     {post.caption}
                 </div>
                 <div className='home-card-view-comments'>
-                    <div onClick={()=> setShowModal(true)}>{viewComments()}</div>
-                 {showModal && (
-                    <Modal onClose={() => setShowModal(false)}>
-                        <CommentCard post={post}/>
-                    </Modal>
-                 )}
+                    <div onClick={() => setShowModal(true)}>{viewComments()}</div>
+                    {showModal && (
+                        <Modal onClose={() => setShowModal(false)}>
+                            <CommentCard post={post} />
+                        </Modal>
+                    )}
                 </div>
             </div>
         </div>
