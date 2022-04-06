@@ -1,10 +1,57 @@
 import './UpdatePostForm.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import LikeIcon from '../LikeIcon';
+import { editPost } from '../../store/posts';
 
-const UpdatePostFormCard = ({ post }) => {
-  const [currentImage, setCurrentImage] = useState(post.image)
+const UpdatePostForm = ({ post, user }) => {
+  console.log(post, "post!!!!from update form")
+  // console.log(user, "user!!!! from update form")
+  const dispatch = useDispatch()
+  const [currentImage, setCurrentImage] = useState(0)
   const [caption, setCaption] = useState(post.caption)
+  const [user_id, setUserId] = useState(post.user_id)
+
+  console.log(post.caption,"post.caption from update form")
+
+  const images = post.image
+
+  console.log(images, "images from update form")
+
+  const rightClickHandler = () => {
+    if (currentImage !== images.length - 1) {
+        setCurrentImage(currentImage + 1);
+    };
+};
+
+  const leftClickHandler = () => {
+      if (currentImage !== 0) {
+          setCurrentImage(currentImage - 1);
+      };
+  };
+
+  const submitHandler = async () => {
+    const payload = {
+      ...post,
+      user_id,
+      caption,
+      image: images,
+    }
+    console.log("new payload", payload)
+    await dispatch(editPost(payload))
+
+  }
+
+
+const activeDotClass = (index) => {
+    if (index === currentImage) {
+        return "fa-solid fa-circle active-dot";
+    } else {
+        return "fa-solid fa-circle inactive-dot";
+    };
+};
+
+
   return (
     <div className='post-dialog'>
 
@@ -21,14 +68,10 @@ const UpdatePostFormCard = ({ post }) => {
                 <div className='comment-card-nonimage-content'>
                         <div className="user">
                             <img src={user.profile_image}></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
                         </div>
 
                         <div className='comment-card-icon-tray' >
-                            <div className='home-card-icon-tray-top-left'>
-                                <LikeIcon likes={likes} postId={post.id} />
-                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
-                            </div>
+
                             {images.length > 1 &&
                                 <div className='home-card-icon-tray-dots'>
                                     {images.map((image, index) => (
@@ -37,18 +80,24 @@ const UpdatePostFormCard = ({ post }) => {
                                 </div>
                             }
                         </div>
-                        <div className='comment-card-likes-tray'>
-                            {likes.length} likes
-                        </div>
+
                         <div className='comment-card-caption-area'>
-                                <img src={user.profile_image}></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+
                             <div  id="caption-container">
-                                {post.caption}
-                                <div id='date-time'>{post.updated_at}</div>
+                              <form onSubmit={submitHandler}>
+                                <textarea
+                                  type="text"
+                                  name='caption'
+                                  value={caption}
+                                  onChange={ e => setCaption(e.target.value)}
+                                >
+                                </textarea>
+                                <button>Done</button>
+
+                              </form>
                             </div>
                         </div>
-  
+
                     </div>
 
             </div>
@@ -56,3 +105,5 @@ const UpdatePostFormCard = ({ post }) => {
 
   )
 }
+
+export default UpdatePostForm

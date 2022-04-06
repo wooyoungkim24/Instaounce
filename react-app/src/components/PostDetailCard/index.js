@@ -3,12 +3,14 @@ import { useState } from 'react'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Modal } from '../../context/modal';
+import UpdatePostForm from '../UpdatePostForm'
 
 
 const PostDetailCard = ({ post, user }) => {
   // const user = post.users;
-  console.log(post, "post!!!!")
-  console.log(user, "user!!!!")
+  // console.log(post, "post!!!!")
+  // console.log(user, "user!!!!")
   const likes = Object.values(post.likes);
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -32,6 +34,10 @@ const PostDetailCard = ({ post, user }) => {
           setCurrentImage(currentImage - 1);
       };
   };
+
+  const editClickHandler = () => {
+    setShowEditForm(true)
+  }
 
   const activeDotClass = (index) => {
       if (index === currentImage) {
@@ -58,7 +64,12 @@ const PostDetailCard = ({ post, user }) => {
                       <div className="user">
                           <img src={user.profileImage}></img>
                           <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                          <button>Edit</button>
+                          <button onClick={editClickHandler}>Edit</button>
+                          {showEditForm && (
+                            <Modal>
+                              <UpdatePostForm post={post} user={user} />
+                            </Modal>
+                          )}
                       </div>
 
 

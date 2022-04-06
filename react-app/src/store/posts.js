@@ -42,7 +42,7 @@ export const createPost = (payload) => async(dispatch) => {
 }
 
 export const editPost = (payload) => async dispatch => {
-  const response = await csrfFetch(`/api/event/${data.id}`, {
+  const response = await fetch(`/api/posts/${payload.id}`, {
     method: "PUT",
     headers: { 'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
@@ -99,6 +99,9 @@ export default function postsReducer(state = initialState, action) {
     const newState = {...state}
 
     switch (action.type) {
+      case UPDATE_A_POST:
+
+        return {...state, [action.payload.id]: action.post }
 
       case SET_FOLLOWED_POSTS:
         action.payload.posts.forEach(post => {
@@ -108,13 +111,13 @@ export default function postsReducer(state = initialState, action) {
         return newState
 
       case CREATE_LIKE:
-          console.log("action.payload", action.payload)
+          // console.log("action.payload", action.payload)
           // original: (likes in the state is undefined)
           // newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
 
-          console.log("likes before create", newState.followedPosts[action.payload['post_id']].likes)
+          // console.log("likes before create", newState.followedPosts[action.payload['post_id']].likes)
           newState.followedPosts[action.payload['post_id']].likes.push(action.payload)
-          console.log("likes after create", newState.followedPosts[action.payload['post_id']].likes)
+          // console.log("likes after create", newState.followedPosts[action.payload['post_id']].likes)
 
         return newState
 
@@ -125,13 +128,13 @@ export default function postsReducer(state = initialState, action) {
           // console.log("action.postId", action.postId)
           // console.log("action.likeId", action.likeId)
           const likes = newState.followedPosts[action.postId].likes
-          console.log("likes before delete", likes)
+          // console.log("likes before delete", likes)
 
           const filteredLikes = likes.filter(like => like.id !== action.likeId)
-          console.log("filteredlikes", filteredLikes)
+          // console.log("filteredlikes", filteredLikes)
 
           newState.followedPosts[action.postId].likes = filteredLikes
-          console.log("likes after delete", newState.followedPosts[action.postId].likes)
+          // console.log("likes after delete", newState.followedPosts[action.postId].likes)
           return newState
 
       default:

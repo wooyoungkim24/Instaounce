@@ -2,18 +2,12 @@ import './CommentCard.css';
 import { useState } from 'react'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 
 const CommentCard = ({ post }) => {
     const user = post.users;
     const likes = post.likes;
     const [currentImage, setCurrentImage] = useState(0);
-
-       // add usestate to show the edit form
-       const [showEditForm, setShowEditForm] = useState(false)
-       // grab sessionUser to compare to the post.user
-       const sessionUser = useSelector(state => state.session.user)
 
     const comments = post.comments
     const images = post.image
