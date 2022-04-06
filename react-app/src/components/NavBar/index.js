@@ -55,8 +55,8 @@ const NavBar = ({ user }) => {
                             <i className="fa-solid fa-house-chimney"></i>
                         </Link>
 
-                        <button type='button' onClick={() => setShowModal(true)}>
-                            <i id='create-post-button' className="fa-solid fa-square-plus"></i>
+                        <button id='create-post-button' type='button' onClick={() => setShowModal(true)}>
+                            <i  className="fa-solid fa-square-plus"></i>
                         </button>
 
 

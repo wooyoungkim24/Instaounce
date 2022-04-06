@@ -72,7 +72,11 @@ function CreatePostModalForm() {
 
 
 
-
+    Draggable.create("#map img", {
+        type:"x,y",
+            bounds:"#wrapper",
+            edgeResistance:0.5
+     });
 
     return (
         <div className='create-post-form-container'>
@@ -116,8 +120,9 @@ function CreatePostModalForm() {
             <div className='photo-exists-modal'>
                 <div className='top-photos-nav'>
                     <div className='photos-back-button'>
+
                     </div>
-                    <div>
+                    <div className='one-photo-title'>
                         Your photos
                     </div>
                     <div className='next-photos-button'>
@@ -126,7 +131,7 @@ function CreatePostModalForm() {
                         </button>
                     </div>
                 </div>
-                <div>
+                <div id='photo-wrapper'>
                     <img id='displayed-photo' src ={URL.createObjectURL(photos[photoIndex])}></img>
                     <button id='add-more-photos-button' type='button' onClick={openShowMore}>
                         Add more photos
@@ -160,7 +165,7 @@ function CreatePostModalForm() {
                 <div className='photo-icon'>
                     <i className="fa-solid fa-photo-film"></i>
                 </div>
-                <div>
+                <div className='add-first-photo-div'>
                     <form>
                         <label id='add-photo-1-label' htmlFor='add-photo-1'>Select from computer</label>
                         <input
