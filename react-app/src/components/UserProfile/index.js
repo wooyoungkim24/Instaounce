@@ -27,7 +27,7 @@ const UserProfile = () => {
                 <UserProfileDetails user={pageData} />
             <div className='user-profile-images'>
                 {posts.map(post => (
-                    <UserProfileImageCard post={post} />
+                    <UserProfileImageCard post={post} user={pageData} />
                     ))}
             </div>
         </div>

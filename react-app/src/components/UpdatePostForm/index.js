@@ -1,46 +1,12 @@
-import './CommentCard.css';
-import { useState } from 'react'
-import LikeIcon from '../LikeIcon';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import './UpdatePostForm.css'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-
-const CommentCard = ({ post }) => {
-    const user = post.users;
-    const likes = post.likes;
-    const [currentImage, setCurrentImage] = useState(0);
-
-       // add usestate to show the edit form
-       const [showEditForm, setShowEditForm] = useState(false)
-       // grab sessionUser to compare to the post.user
-       const sessionUser = useSelector(state => state.session.user)
-
-    const comments = post.comments
-    const images = post.image
-
-
-    const rightClickHandler = () => {
-        if (currentImage !== images.length - 1) {
-            setCurrentImage(currentImage + 1);
-        };
-    };
-
-    const leftClickHandler = () => {
-        if (currentImage !== 0) {
-            setCurrentImage(currentImage - 1);
-        };
-    };
-
-    const activeDotClass = (index) => {
-        if (index === currentImage) {
-            return "fa-solid fa-circle active-dot";
-        } else {
-            return "fa-solid fa-circle inactive-dot";
-        };
-    };
-
-    return (
-        <div className='post-dialog'>
+const UpdatePostFormCard = ({ post }) => {
+  const [currentImage, setCurrentImage] = useState(post.image)
+  const [caption, setCaption] = useState(post.caption)
+  return (
+    <div className='post-dialog'>
 
             <div className="post-details-container">
                 <div className='comment-card-images'>
@@ -82,22 +48,11 @@ const CommentCard = ({ post }) => {
                                 <div id='date-time'>{post.updated_at}</div>
                             </div>
                         </div>
-                        <div className='view-comments'>
-                            <ul className='comments-container'>
-                                {comments.map(comment => (
-                                    <>
-                                        <li key={comment.id}>{comment.content}</li>
-                                        <li>{comment.updated_at}</li>
-                                    </>
-                                ))}
-                            </ul>
-
-                        </div>
+  
                     </div>
 
             </div>
         </div>
-    )
-}
 
-export default CommentCard;
+  )
+}

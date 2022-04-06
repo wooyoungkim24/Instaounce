@@ -140,8 +140,13 @@ def update_post():
     if form.validate_on_submit():
         post_id = id
         target_post = Post.query.filter(Post.id == post_id)
+        print("target_post before update", target_post)
+
         target_post.caption = request.values['caption']
         db.session.commit()
+
+        print("target_post after update", target_post)
+        
         return target_post.to_dict()
 
 
