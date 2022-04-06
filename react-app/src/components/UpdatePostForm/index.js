@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LikeIcon from '../LikeIcon';
 import { editPost } from '../../store/posts';
+import { Link } from 'react-router-dom';
 
 const UpdatePostForm = ({ post, user }) => {
   console.log(post, "post!!!!from update form")
@@ -30,7 +31,9 @@ const UpdatePostForm = ({ post, user }) => {
       };
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault()
+
     const payload = {
       ...post,
       user_id,
@@ -68,6 +71,7 @@ const activeDotClass = (index) => {
                 <div className='comment-card-nonimage-content'>
                         <div className="user">
                             <img src={user.profile_image}></img>
+                            {user.username}
                         </div>
 
                         <div className='comment-card-icon-tray' >
@@ -85,6 +89,7 @@ const activeDotClass = (index) => {
 
                             <div  id="caption-container">
                               <form onSubmit={submitHandler}>
+                                {/* <label htmlFor='caption'></label> */}
                                 <textarea
                                   type="text"
                                   name='caption'

@@ -134,20 +134,27 @@ def create_post():
     db.session.commit()
     return new_post.to_dict()
 
-@post_routes.route("/<id>", methods =['PUT'])
-def update_post():
+@post_routes.route("/<id>", methods=["PUT"])
+@login_required
+def update_post(id):
+    print("begging!!!!!!")
     form = UpdatePostForm()
+    # print("wahtthalddd")
     if form.validate_on_submit():
+
         post_id = id
+        print("post_id", post_id)
         target_post = Post.query.filter(Post.id == post_id)
         print("target_post before update", target_post)
 
+
         target_post.caption = request.values['caption']
+
         db.session.commit()
 
         print("target_post after update", target_post)
-        
-        return target_post.to_dict()
+        return { target_post.to_dict() }
+    return "Bad"
 
 
 # @posts_routes.route('/', methods=['GET','POST'])
