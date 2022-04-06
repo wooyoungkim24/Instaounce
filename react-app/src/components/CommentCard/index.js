@@ -4,6 +4,9 @@ import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
 import { createComment } from '../../store/posts';
 import { useSelector, useDispatch } from 'react-redux'
+import { Modal } from '../../context/modal';
+import { EditDeleteComment } from './editComment';
+import { Comments } from './comments'
 
 
 const CommentCard = ({ post }) => {
@@ -12,10 +15,11 @@ const CommentCard = ({ post }) => {
     const likes = post.likes;
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
-    const comments = post.comments
+    const comments = Object.values(post.comments)
     const images = post.image
     const sessionUser = useSelector(state => state.session.user);
     const [errors, setErrors] = useState([])
+    const [showModal, setShowModal] = useState(false)
    
 
     const rightClickHandler = () => {
@@ -56,6 +60,7 @@ const CommentCard = ({ post }) => {
             setErrors([])
         }
     }
+  
 
     return (
         <div className='post-dialog'>
@@ -89,13 +94,7 @@ const CommentCard = ({ post }) => {
                                 </div>
                                     <ul className="comments-container">
                                         {comments.map(comment => (
-                                            <div className='comments'>
-                                                <img src={comment.users.profile_image}></img>
-                                                <div className='comments-flex'>
-                                                    <li className="view-comments" key={comment.id}>{comment.content}</li>
-                                                    <li id="date-time">{comment.updated_at}</li>
-                                                </div>
-                                            </div>
+                                            <Comments key={comment.id} post={post} comment={comment} />
                                         ))}
                                     </ul>
                             </div>

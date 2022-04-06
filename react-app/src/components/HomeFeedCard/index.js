@@ -9,7 +9,7 @@ const HomeFeedCard = ({ post }) => {
     const user = post.users;
     const images = post.image;
     const likes = post.likes;
-    const comments = post.comments
+    const comments = Object.values(post.comments)
     const [currentImage, setCurrentImage] = useState(0);
     const [showModal, setShowModal] = useState(false);
     // console.log(post);

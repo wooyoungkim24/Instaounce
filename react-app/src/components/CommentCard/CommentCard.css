@@ -134,3 +134,15 @@
     display:flex;
     flex-direction: column;
 }
+
+.edit-comment-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
+}
+
+
+
