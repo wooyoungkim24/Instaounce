@@ -2,6 +2,8 @@ import './HomeFeedCard.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
+import { Modal } from '../../context/modal'
+import CommentCard from '../CommentCard';
 
 const HomeFeedCard = ({ post }) => {
     const user = post.users;
@@ -9,6 +11,7 @@ const HomeFeedCard = ({ post }) => {
     const likes = post.likes;
     const comments = post.comments
     const [currentImage, setCurrentImage] = useState(0);
+    const [showModal, setShowModal] = useState(false);
     // console.log(post);
 
     const rightClickHandler = () => {
@@ -82,9 +85,12 @@ const HomeFeedCard = ({ post }) => {
                     {post.caption}
                 </div>
                 <div className='home-card-view-comments'>
-                    <Link to={`/posts/${post.id}/comments`}>
-                        {viewComments()}
-                    </Link>
+                    <div onClick={()=> setShowModal(true)}>{viewComments()}</div>
+                 {showModal && (
+                    <Modal onClose={() => setShowModal(false)}>
+                        <CommentCard post={post}/>
+                    </Modal>
+                 )}
                 </div>
             </div>
         </div>
