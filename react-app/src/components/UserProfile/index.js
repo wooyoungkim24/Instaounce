@@ -12,6 +12,7 @@ const UserProfile = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
 
+    const sessionUser = useSelector(state => state.session.user)
     const pageData = useSelector(state => state.pageState[userId]);
     let posts;
     if (pageData) posts = Object.values(pageData.posts)
@@ -24,7 +25,7 @@ const UserProfile = () => {
 
     return isLoaded && (
         <div className='user-profile-body'>
-                <UserProfileDetails user={pageData} />
+                <UserProfileDetails user={pageData} sessionUser={sessionUser} />
             <div className='user-profile-images'>
                 {posts.map(post => (
                     <UserProfileImageCard post={post} />
