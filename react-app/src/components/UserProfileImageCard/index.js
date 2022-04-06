@@ -7,7 +7,7 @@ const UserProfileImageCard = ({ post, user }) => {
     const [isHovering, setIsHovering] = useState(false);
 
     const [showPostDetailCard, setShowPostDetailCard] = useState(false)
-    const [showEditForm, setShowEditForm] = useState(false)
+    // const [showEditForm, setShowEditForm] = useState(false)
 
 
     const comments = Object.values(post.comments);
@@ -22,6 +22,8 @@ const UserProfileImageCard = ({ post, user }) => {
     };
 
     return (
+        <>
+
         <div onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="profile-image-card-container">
             {isHovering &&
             <>
@@ -34,16 +36,18 @@ const UserProfileImageCard = ({ post, user }) => {
                 {comments.length}
             </div>
             <div className='profile-image-card-hover-wrapper' onClick={() => setShowPostDetailCard(true)}>
-            {showPostDetailCard && (
-                 <Modal onClose={() => setShowPostDetailCard(false)}>
-                    <PostDetailCard post={post} user={user}/>
-                </Modal>
-            )}
+
             </div>
             </>
 }
             <img src={post.image[0]} alt='pic' className="profile-image-card-image" />
         </div>
+        {showPostDetailCard && (
+                 <Modal onClose={() => setShowPostDetailCard(false)}>
+                    <PostDetailCard post={post} user={user}/>
+                </Modal>
+            )}
+        </>
     )
 };
 
