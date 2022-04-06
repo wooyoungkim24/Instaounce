@@ -42,8 +42,22 @@ def read_posts():
     # print('currentId', user)
     # posts = Post.query.filter(user.is_following(Post.user_id)).all()
     followings = user.followed_posts()
-    print(followings[0].comments)
+    # print(followings[0].comments)
     return {'posts':[following.to_dict() for following in followings]}
+
+
+# @post_routes.route('/<id>/comments')
+# def get_comments(id):
+#     post_id = id
+#     post = Post.query.get(post_id)
+#     comments = post.comments
+#     # print("currentpost",post_id)
+#     # print("all comments",[comment.to_dict() for comment in comments])
+#     return {'comments':[comment.to_dict() for comment in comments]}
+
+
+
+
 
 @post_routes.route("/<id>/likes", methods=["POST"])
 def create_like(id):

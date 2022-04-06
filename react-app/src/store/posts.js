@@ -1,7 +1,7 @@
 
 const SET_FOLLOWED_POSTS= 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
-
+const GET_COMMENTS = 'session/GET_COMMENTS'
 
 
 
@@ -15,6 +15,19 @@ const likeAPost = (like) => ({
   type: CREATE_LIKE,
   payload: like
 })
+
+// const getAllComments = (comments) => ({
+//   type: GET_COMMENTS,
+//   payload: comments
+// })
+
+// export const getComments = (postId) => async(dispatch) => {
+//   const response = await fetch(`/api/posts/${postId}/comments`)
+//   if(response.ok){
+//       const comments = await response.json()
+//       await dispatch(getAllComments(comments))
+//   }
+// }
 
 export const createPost = (payload) => async(dispatch) => {
 
@@ -51,7 +64,7 @@ export const like = (postId) => async(dispatch) => {
   };
 };
 
-const initialState = { followedPosts: {}, posts: {}}
+const initialState = { followedPosts: {}, posts: {}, comments: {}}
 
 export default function postsReducer(state = initialState, action) {
     const newState = {...state}
@@ -62,12 +75,15 @@ export default function postsReducer(state = initialState, action) {
         action.payload.posts.forEach(post => {
           newState.followedPosts[post.id] = post
         })
+        
         return newState
 
       case CREATE_LIKE:
-          console.log(action.payload)
+          // console.log(action.payload)
           newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
         return newState
+
+      // case GET_POST:
 
       default:
         return state;

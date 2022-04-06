@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import HomeFeed from './components/HomeFeed';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import CommentCard from './components/CommentCard'
 import { authenticate } from './store/session';
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <HomeFeed />
+        </ProtectedRoute>
+        <ProtectedRoute path='/posts/:postId/comments' exact={true}>
+          <CommentCard/>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

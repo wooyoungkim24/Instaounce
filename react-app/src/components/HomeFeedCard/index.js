@@ -82,7 +82,7 @@ const HomeFeedCard = ({ post }) => {
                     {post.caption}
                 </div>
                 <div className='home-card-view-comments'>
-                    <Link to={`/posts/${post.id}`}>
+                    <Link to={`/posts/${post.id}/comments`}>
                         {viewComments()}
                     </Link>
                 </div>
