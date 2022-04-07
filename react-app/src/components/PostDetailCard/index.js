@@ -8,7 +8,7 @@ import UpdatePostForm from '../UpdatePostForm'
 import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 
-const PostDetailCard = ({ post, user }) => {
+const PostDetailCard = ({ post, user, hidePost }) => {
   // const user = post.users;
   // console.log(post, "post!!!!")
   // console.log(user, "user!!!!")
@@ -122,7 +122,7 @@ const PostDetailCard = ({ post, user }) => {
 
       {showConfirmModal && (
               <Modal onClose={() => setShowConfirmModal(false)}>
-                <ConfirmDeleteModal post={post} hideForm={() => setShowConfirmModal(false)}/>
+                <ConfirmDeleteModal post={post} hidePost={hidePost} hideForm={() => setShowConfirmModal(false)}/>
               </Modal>
       )}
       </>
