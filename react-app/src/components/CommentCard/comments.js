@@ -11,7 +11,7 @@ export const Comments = ({comment, post}) => {
 
     return (
         <div key={comment.id} className='comments'>
-            <img src={comment.users.profile_image}></img>
+            <img src={comment.users.profile_image} alt="profile pic"></img>
             <div className='comments-flex'>
                 <Link to={`/users/${comment.users.id}`} className="home-card-username-bottom">{comment.users.username}</Link>
                 <li className="view-comments" key={comment.id}>{comment.content}</li>

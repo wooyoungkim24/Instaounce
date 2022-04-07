@@ -8,7 +8,7 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
     const dispatch = useDispatch()
     const [editedComment, setEditedComment] = useState(comment.content)
     const sessionUser = useSelector(state => state.session.user);
-    const [errors, setErrors] = useState([])
+    // const [errors, setErrors] = useState([])
 
     const handleDeleteComment = async(e) => {
         e.preventDefault()

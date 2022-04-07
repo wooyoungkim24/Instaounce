@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
 import { Modal } from '../../context/modal';
 import CommentCard from '../CommentCard';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const HomeFeedCard = ({ post }) => {
     const user = post.users;
@@ -68,7 +68,12 @@ const HomeFeedCard = ({ post }) => {
                 <div className='home-card-icon-tray' >
                     <div className='home-card-icon-tray-top-left'>
                         <LikeIcon likes={likes} postId={post.id} />
-                        <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                        <div onClick={() => setShowModal(true)}><i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"/></div>
+                        {showModal && (
+                            <Modal onClose={() => setShowModal(false)}>
+                                <CommentCard post={post} />
+                            </Modal>
+                        )}
                     </div>
                     {images.length > 1 &&
                         <div className='home-card-icon-tray-dots'>

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import postsReducer from '../../store/posts';
+// import postsReducer from '../../store/posts';
 import "./index.css";
 import { createPost } from '../../store/posts';
 import { useDispatch, useSelector } from 'react-redux';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Modal } from "../../context/modal"
 
@@ -193,15 +192,15 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
 
         function handleTheDrop(e) {
             e.stopPropagation() // stops the browser from redirecting.
-            let dragImage = e.dataTransfer.getData('text/uri-list')
+            // let dragImage = e.dataTransfer.getData('text/uri-list')
             // console.log('start of photos', photos)
             // console.log('what is the drag', dragImage)
             // console.log('how many times are you running per move')
             // console.log('what is the drop', e.target.src)
             let dragIndex = parseInt(e.dataTransfer.getData('text/plain').split("-")[2])
             let dropIndex = parseInt(e.target.className.split("-")[2])
-            let dragSwitch = photos[dragIndex]
-            let dropSwitch = photos[dropIndex]
+            // let dragSwitch = photos[dragIndex]
+            // let dropSwitch = photos[dropIndex]
             let photosCopy = [...photos]
             // console.log('indexes', dropIndex, typeof dropIndex)
             let tmpDrag = photosCopy[dragIndex]
@@ -413,7 +412,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                     </div>
                     <div id='photo-wrapper'>
                         {console.log('gotcha', photos, photoIndex)}
-                        <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])}></img>
+                        <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])} alt='displayed pic' ></img>
 
                         {photoIndex < photos.length - 1 &&
                             <button id='goForward' onClick={goForward}>

@@ -2,7 +2,7 @@ import './UpdatePostForm.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LikeIcon from '../LikeIcon';
-import { editPost } from '../../store/posts';
+import { editPost } from '../../store/userPages';
 import { Link } from 'react-router-dom';
 
 const UpdatePostForm = ({ post, user, hideForm }) => {
@@ -12,7 +12,7 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
   const [currentImage, setCurrentImage] = useState(0)
 
   const [caption, setCaption] = useState(post.caption)
-  const [user_id, setUserId] = useState(post.user_id)
+  // const [user_id, setUserId] = useState(post.user_id)
 
 
   console.log(post.caption,"post.caption from update form")
@@ -36,7 +36,7 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
 
     const payload = {
       ...post,
-      user_id,
+      // user_id,
       caption,
       image: images,
     }
@@ -77,7 +77,7 @@ const activeDotClass = (index) => {
                 </div>
                 <div className='comment-card-nonimage-content'>
                         <div className="user">
-                            <img src={user.profile_image}></img>
+                            <img src={user.profile_image} alt="profile pic"></img>
                             {user.username}
                         </div>
 

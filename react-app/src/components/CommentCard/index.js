@@ -1,11 +1,11 @@
 import './CommentCard.css';
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
 import { createComment } from '../../store/posts';
 import { useSelector, useDispatch } from 'react-redux'
-import { Modal } from '../../context/modal';
-import { EditDeleteComment } from './editComment';
+// import { Modal } from '../../context/modal';
+// import { EditDeleteComment } from './editComment';
 import { Comments } from './comments'
 
 
@@ -18,8 +18,13 @@ const CommentCard = ({ post }) => {
     const comments = Object.values(post.comments)
     const images = post.image
     const sessionUser = useSelector(state => state.session.user);
-    const [errors, setErrors] = useState([])
-    const [showModal, setShowModal] = useState(false)
+
+    
+    const comment = useRef()
+
+    // const [errors, setErrors] = useState([])
+    // const [showModal, setShowModal] = useState(false)
+
    
 
     const rightClickHandler = () => {
@@ -55,6 +60,16 @@ const CommentCard = ({ post }) => {
     }
   
 
+    const handleCommentClick = () => {
+        // const commentForm = document.querySelector('.make-comment')
+        // const text = commentForm.querySelector('textarea').focus()
+        // console.log(text)
+        // document.getElementById('new-comment-input').focus()
+        comment.current.focus()
+    }
+
+
+
     return (
         <div className='post-dialog'>
 
@@ -72,13 +87,13 @@ const CommentCard = ({ post }) => {
                     <div className='comment-content'>
 
                             <div className="user">
-                                <img src={user.profile_image}></img>
+                                <img src={user.profile_image} alt='profile pic'></img>
                                 <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
                             </div>
                             
                             <div className='view-all-comments'>
                                 <div className='comment-card-caption-area'>
-                                        <img src={user.profile_image}></img>
+                                        <img src={user.profile_image} alt='profile pic'></img>
                                     <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
                                     <div  id="caption-container">
                                         {post.caption}
@@ -95,7 +110,9 @@ const CommentCard = ({ post }) => {
                                 <div className='comment-card-icon-tray' >
                                     <div className='home-card-icon-tray-top-left'>
                                         <LikeIcon likes={likes} postId={post.id} />
-                                        <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                                        <div onClick={handleCommentClick}>
+                                            <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                                        </div>
                                     </div>
                                     {images.length > 1 &&
                                         <div className='home-card-icon-tray-dots'>
@@ -111,6 +128,7 @@ const CommentCard = ({ post }) => {
 
                                 <form className="make-comment" onSubmit={handleCommentSubmit}>
                                         <textarea
+                                        ref={comment}
                                         id='new-comment-input'
                                         placeholder="Add a comment..."
                                         value={newComment}
