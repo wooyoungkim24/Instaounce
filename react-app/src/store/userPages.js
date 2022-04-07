@@ -267,9 +267,7 @@ export default function userPageReducer(state = initialState, action) {
         //     return newState;
 
         case UPDATE_POST:
-            console.log("new state from update_post state", newState)
-            console.log("action.payload", action.payload)
-            // newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+            
             newState[action.payload.user_id].posts[action.payload.id] = action.payload;
             return newState
 
