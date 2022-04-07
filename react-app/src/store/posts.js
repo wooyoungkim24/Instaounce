@@ -160,10 +160,11 @@ const initialState = { followedPosts: {}, posts: {} }
 export default function postsReducer(state = initialState, action) {
   const newState = { ...state }
 
-  switch (action.type) {
-    case UPDATE_A_POST:
+    switch (action.type) {
+      // case UPDATE_A_POST:
+      //   newState.pageState
 
-      return { ...state, [action.payload.id]: action.post }
+      //   return
 
     case SET_FOLLOWED_POSTS:
       action.payload.posts.forEach(post => {
@@ -171,9 +172,9 @@ export default function postsReducer(state = initialState, action) {
       })
       return newState
 
-    // case CREATE_LIKE:
-    //   newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
-    //   return newState
+      // case CREATE_LIKE:
+      //   newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
+      //   return newState
 
     case CREATE_COMMENT:
       newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload

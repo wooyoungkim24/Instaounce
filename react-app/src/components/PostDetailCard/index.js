@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 import { Modal } from '../../context/modal';
 import UpdatePostForm from '../UpdatePostForm'
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 
-const PostDetailCard = ({ post, user }) => {
+const PostDetailCard = ({ post, user, hidePost }) => {
     // const user = post.users;
     // console.log(post, "post!!!!")
     // console.log(user, "user!!!!")
@@ -16,8 +17,7 @@ const PostDetailCard = ({ post, user }) => {
 
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
-    // grab sessionUser to compare to the post.user
-    // const sessionUser = useSelector(state => state.session.user)
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
 
     const comments = Object.values(post.comments)
     const images = post.image
@@ -37,6 +37,10 @@ const PostDetailCard = ({ post, user }) => {
 
     const editClickHandler = () => {
         setShowEditForm(true)
+    }
+
+    const deleteClickHandler = () => {
+        setShowConfirmModal(true)
     }
 
     const activeDotClass = (index) => {
@@ -63,9 +67,10 @@ const PostDetailCard = ({ post, user }) => {
                     </div>
                     <div className='comment-card-nonimage-content'>
                         <div className="user">
-                            <img src={user.profileImage} alt="profile pic"></img>
+                            <img src={user.profileImage}></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
                             <button onClick={editClickHandler}>Edit</button>
+                            <button onClick={deleteClickHandler}>Delete</button>
 
                         </div>
 
@@ -112,6 +117,12 @@ const PostDetailCard = ({ post, user }) => {
             {showEditForm && (
                 <Modal onClose={() => setShowEditForm(false)}>
                     <UpdatePostForm post={post} user={user} hideForm={() => setShowEditForm(false)} />
+                </Modal>
+            )}
+
+            {showConfirmModal && (
+                <Modal onClose={() => setShowConfirmModal(false)}>
+                    <ConfirmDeleteModal post={post} hidePost={hidePost} hideForm={() => setShowConfirmModal(false)} />
                 </Modal>
             )}
         </>

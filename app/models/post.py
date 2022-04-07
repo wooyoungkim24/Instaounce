@@ -11,7 +11,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default = datetime.utcnow)
     updated_at = db.Column(db.DateTime, default = datetime.utcnow)
     users = db.relationship("User", back_populates="posts")
-    comments = db.relationship("Comment", back_populates="posts")
+    comments = db.relationship("Comment", back_populates="posts", cascade="all, delete")
     likes = db.relationship("Like", back_populates="posts", cascade="all, delete")
 
     def to_dict(self):
@@ -27,7 +27,7 @@ class Post(db.Model):
           "likes":[like.to_dict() for like in self.likes],
           "users":self.users.to_dict()
         }
-        
+
     def to_dict_user_page(self):
         return {
             'id': self.id,

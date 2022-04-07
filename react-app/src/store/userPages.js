@@ -51,25 +51,40 @@ export const newPost = (payload) => async (dispatch) => {
     };
 };
 
-export const editPost = (payload) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${payload.postId}`, {
-        method: "PUT",
-        body: payload
+// original:
+// export const editPost = (payload) => async (dispatch) => {
+//     const res = await fetch(`/api/posts/${payload.postId}`, {
+//         method: "PUT",
+//         body: payload
+//     });
+
+//     if (res.ok) {
+//         const post = res.json()
+//         await dispatch(updatePost(post))
+//     };
+// };
+
+export const editPost = (payload) => async dispatch => {
+    const response = await fetch(`/api/posts/${payload.id}`, {
+      method: "PUT",
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
     });
 
-    if (res.ok) {
-        const post = res.json()
-        await dispatch(updatePost(post))
-    };
-};
+    if (response.ok) {
+      const post = await response.json();
+      await dispatch(updatePost(post));
+
+    }
+  }
 
 export const removePost = (payload) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${payload.postId}`, {
+    const res = await fetch(`/api/posts/${payload.id}`, {
         method: "DELETE"
     });
 
     if (res.ok) {
-        const post = res.json()
+        const post = await res.json()
         await dispatch(deletePost(post))
     };
 };
@@ -250,19 +265,22 @@ export default function userPageReducer(state = initialState, action) {
         // case CREATE_POST:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
         //     return newState;
-        
-        // case UPDATE_POST:
-        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-        //     return newState
 
-        // case DELETE_POST:
-        //     delete newState[action.payload.userId][action.payload.posts][action.payload.id];
-        //     return newState
+        case UPDATE_POST:
+
+            newState[action.payload.user_id].posts[action.payload.id] = action.payload;
+            return newState
+
+        case DELETE_POST:
+            console.log("newstate from delete post case", newState)
+            console.log("posts in state", newState[action.payload.user_id])
+            delete newState[action.payload.user_id].posts[action.payload.id];
+            return newState
 
         // case CREATE_COMMENT:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
         //     return newState;
-            
+
         default:
             return state;
     };

@@ -44,7 +44,7 @@ const UserProfileImageCard = ({ post, user }) => {
         </div>
         {showPostDetailCard && (
                  <Modal onClose={() => setShowPostDetailCard(false)}>
-                    <PostDetailCard post={post} user={user}/>
+                    <PostDetailCard post={post} user={user} hidePost={() => setShowPostDetailCard(false)}/>
                 </Modal>
             )}
         </>
