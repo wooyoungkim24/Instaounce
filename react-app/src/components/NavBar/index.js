@@ -1,7 +1,7 @@
 import './NavBar.css'
 import { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import LogoutButton from '../auth/LogoutButton'
+import { Link } from 'react-router-dom';
+// import LogoutButton from '../auth/LogoutButton'
 import logo from '../../assets/logo.png'
 import NavBarDropDown from '../NavBarDropDown';
 import { Modal } from "../../context/modal"

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import postsReducer from '../../store/posts';
+// import postsReducer from '../../store/posts';
 import "./index.css";
 import { createPost } from '../../store/posts';
 import { useDispatch } from 'react-redux';
-import Carousel from 'react-multi-carousel';
+// import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Modal } from "../../context/modal"
 
@@ -130,15 +130,15 @@ function CreatePostModalForm() {
 
         function handleTheDrop(e) {
             e.stopPropagation() // stops the browser from redirecting.
-            let dragImage = e.dataTransfer.getData('text/uri-list')
+            // let dragImage = e.dataTransfer.getData('text/uri-list')
             // console.log('start of photos', photos)
             // console.log('what is the drag', dragImage)
             // console.log('how many times are you running per move')
             // console.log('what is the drop', e.target.src)
             let dragIndex = parseInt(e.dataTransfer.getData('text/plain').split("-")[2])
             let dropIndex = parseInt(e.target.className.split("-")[2])
-            let dragSwitch = photos[dragIndex]
-            let dropSwitch = photos[dropIndex]
+            // let dragSwitch = photos[dragIndex]
+            // let dropSwitch = photos[dropIndex]
             let photosCopy = [...photos]
             // console.log('indexes', dropIndex, typeof dropIndex)
             let tmpDrag = photosCopy[dragIndex]
@@ -247,7 +247,7 @@ function CreatePostModalForm() {
                     </div>
                     <div className='finished-photos-bottom-container'>
                         <div>
-                            <img src={URL.createObjectURL(photos[0])}></img>
+                            <img src={URL.createObjectURL(photos[0])} alt='first pic'></img>
                         </div>
                         <div className='captions-adding-form'>
                             <form>
@@ -306,7 +306,7 @@ function CreatePostModalForm() {
                     </div>
                     <div id='photo-wrapper'>
                         {console.log('gotcha', photos, photoIndex)}
-                        <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])}></img>
+                        <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])} alt='displayed pic' ></img>
 
                         {photoIndex < photos.length - 1 &&
                             <button id='goForward' onClick={goForward}>
@@ -335,7 +335,7 @@ function CreatePostModalForm() {
                                                     <button key={ele.name} type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
                                                         <i className="fa-solid fa-circle-xmark"></i>
                                                     </button>}
-                                                <img onClick ={() => setPhotoIndex(i) }draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                                <img onClick ={() => setPhotoIndex(i) } draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)} alt='draggable pic'></img>
                                             </>
 
                                         )

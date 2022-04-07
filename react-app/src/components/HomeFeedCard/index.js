@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
 import { Modal } from '../../context/modal';
 import CommentCard from '../CommentCard';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 const HomeFeedCard = ({ post }) => {
     const user = post.users;
