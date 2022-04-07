@@ -2,7 +2,7 @@
 const SET_FOLLOWED_POSTS= 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
 const DELETE_LIKE = 'session/DELETE_LIKE';
-const GET_COMMENTS = 'session/GET_COMMENTS';
+// const GET_COMMENTS = 'session/GET_COMMENTS';
 const CREATE_COMMENT = 'session/CREATE_COMMENT'
 const DELETE_COMMENT = 'session/DELETE_COMMENT'
 const EDIT_COMMENT = 'session/EDIT_COMMENT'

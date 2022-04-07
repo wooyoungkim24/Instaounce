@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { login } from '../../store/session';
-import { loadUserPage } from '../../store/userPages';
+// import { loadUserPage } from '../../store/userPages';
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
