@@ -45,8 +45,8 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                     }
                     {displayUnfollowIcon() &&
                         <div className='profile-details-unfollow-button'>
-                            <i class="fa-solid fa-user user-icon"></i>
-                            <i class="fa-solid fa-check check-icon"></i>
+                            <i className="fa-solid fa-user user-icon"></i>
+                            <i className="fa-solid fa-check check-icon"></i>
                         </div>
                     }
                 </div>

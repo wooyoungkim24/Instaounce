@@ -86,10 +86,10 @@ class User(db.Model, UserMixin):
 
 
     def followed_by_user(self):
-        return User.query.filter(followers.c.follower_id == self.id)
+        return self.query.filter(followers.c.follower_id == self.id).all()
     
     def following_users(self):
-        return User.query.filter(followers.c.followed_id == self.id)
+        return self.query.filter(followers.c.followed_id == self.id).all()
 
 
     def to_dict_user_page(self):
@@ -105,4 +105,7 @@ class User(db.Model, UserMixin):
             "posts": {post.id: post.to_dict_user_page() for post in self.posts},
             "followers": {user.id: user.to_dict() for user in self.followed_by_user()},
             "following": {user.id: user.to_dict() for user in self.following_users()}
+            # "followers": {},
+            # "following": {}
+            
         }

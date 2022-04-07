@@ -20,7 +20,7 @@ const UserProfileImageCard = ({ post }) => {
             {isHovering &&
             <>
                 <div className='profile-image-like-stat'>
-                <i class="fa-solid fa-heart profile-image-card-heart"></i>
+                <i className="fa-solid fa-heart profile-image-card-heart"></i>
                 {likes.length}
             </div>
             <div className='profile-image-comment-stat'>

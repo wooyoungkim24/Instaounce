@@ -184,9 +184,9 @@ export const unlike = (postId) => async (dispatch) => {
 const CREATE_FOLLOW = 'session/CREATE_FOLLOW';
 const DELETE_FOLLOW = 'session/DELETE_FOLLOW';
 
-const createFollow = (user) => ({
+const createFollow = (users) => ({
     type: CREATE_FOLLOW,
-    payload: like
+    payload: users
 });
 
 const deleteFollow = (user) => ({
@@ -200,8 +200,8 @@ export const follow = (userId) => async (dispatch) => {
     });
 
     if (res.ok) {
-        const newLike = await res.json();
-        await dispatch(createLike(newLike));
+        const users = await res.json();
+        await dispatch(createFollow(users));
     };
 };
 
@@ -229,11 +229,16 @@ export default function userPageReducer(state = initialState, action) {
 
         case GET_USER_PAGE:
             newState[action.payload.id] = action.payload;
+            console.log("######## NEW USER STATE", newState[action.payload.id])
             return newState;
 
         case CREATE_FOLLOW:
-            
-
+            console.log(action.payload)
+            if (newState[action.payload.currentUser.id]) {
+                newState[action.payload.currentUser.id].following[action.payload.user.id] = action.payload.user
+            };
+            newState[action.payload.user.id].followers[action.payload.currentUser.id] = action.payload.currentUser
+            return newState;
         // case CREATE_POST:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
         //     return newState;
