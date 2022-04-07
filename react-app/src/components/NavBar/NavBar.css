@@ -1,16 +1,29 @@
 nav {
-    display: flex;
+    height: 60px;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-    height: 50px;
-    margin-bottom: 15px;
+    display: flex;
+    position: fixed;
+    background-color: white;
+    z-index:10;
+    top:0px;
+    width: 100%;;
+    border-bottom: 1px solid rgb((var(--b6a, 219, 219, 219), 1));
+    margin: 0;
 }
 
 .navbar-container {
-    width: 640px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    background-color: white;
+    z-index:10;
+    top:0px;
+    width: 640px;
+    padding: 0px 20px;
 }
 
 .navbar-logo {
