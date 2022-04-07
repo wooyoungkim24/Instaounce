@@ -122,7 +122,7 @@ const PostDetailCard = ({ post, user }) => {
 
       {showConfirmModal && (
               <Modal onClose={() => setShowConfirmModal(false)}>
-                <ConfirmDeleteModal/>
+                <ConfirmDeleteModal post={post} hideForm={() => setShowConfirmModal(false)}/>
               </Modal>
       )}
       </>
