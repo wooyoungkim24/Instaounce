@@ -49,7 +49,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
         data.append("caption", caption)
 
 
-        // dispatch(createPost(data))
+        dispatch(createPost(data))
         setPhotoPosted(true)
         setFinalPage(true)
 
