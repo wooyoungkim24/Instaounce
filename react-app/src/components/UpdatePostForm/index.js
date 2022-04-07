@@ -5,7 +5,7 @@ import LikeIcon from '../LikeIcon';
 import { editPost } from '../../store/posts';
 import { Link } from 'react-router-dom';
 
-const UpdatePostForm = ({ post, user }) => {
+const UpdatePostForm = ({ post, user, hideForm }) => {
   console.log(post, "post!!!!from update form")
   // console.log(user, "user!!!! from update form")
   const dispatch = useDispatch()
@@ -13,6 +13,7 @@ const UpdatePostForm = ({ post, user }) => {
 
   const [caption, setCaption] = useState(post.caption)
   const [user_id, setUserId] = useState(post.user_id)
+
 
   console.log(post.caption,"post.caption from update form")
 
@@ -42,7 +43,13 @@ const UpdatePostForm = ({ post, user }) => {
     console.log("new payload", payload)
     await dispatch(editPost(payload))
 
+    hideForm()
 
+
+  }
+
+  const cancelHandler = () => {
+    hideForm()
   }
 
 
@@ -97,8 +104,8 @@ const activeDotClass = (index) => {
                                   onChange={ (e) => setCaption(e.target.value)}
                                 >
                                 </textarea>
-                                <button>Done</button>
-                                <button>Cancel</button>
+                                <button type='submit'>Done</button>
+                                <button type='button' onClick={cancelHandler}>Cancel</button>
 
                               </form>
                             </div>

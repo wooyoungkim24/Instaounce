@@ -111,7 +111,7 @@ const PostDetailCard = ({ post, user }) => {
       </div>
       {showEditForm && (
                             <Modal onClose={() => setShowEditForm(false)}>
-                              <UpdatePostForm post={post} user={user} />
+                              <UpdatePostForm post={post} user={user} hideForm={() => setShowEditForm(false)} />
                             </Modal>
                           )}
       </>
