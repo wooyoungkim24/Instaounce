@@ -51,7 +51,7 @@ const NavBar = ({ user }) => {
                 </Link>
                 <div className='navbar-right-container'>
                     <div className='navbar-icon-tray'>
-                        <Link to='/' exact={true}>
+                        <Link to='/'>
                             <i className="fa-solid fa-house-chimney"></i>
                         </Link>
 
@@ -66,7 +66,7 @@ const NavBar = ({ user }) => {
                             </Modal>
                         )}
 
-                        <Link to='/explore' exact={true}>
+                        <Link to='/explore' >
                             <i className="fa-solid fa-compass"></i>
                         </Link>
                     </div>
@@ -85,35 +85,6 @@ const NavBar = ({ user }) => {
 
         </nav>
     )
-    // return (
-    //     <nav>
-    //         <ul>
-    //             <li>
-    //                 <NavLink to='/' exact={true} activeClassName='active'>
-    //                     Home
-    //                 </NavLink>
-    //             </li>
-    //             <li>
-    //                 <NavLink to='/login' exact={true} activeClassName='active'>
-    //                     Login
-    //                 </NavLink>
-    //             </li>
-    //             <li>
-    //                 <NavLink to='/sign-up' exact={true} activeClassName='active'>
-    //                     Sign Up
-    //                 </NavLink>
-    //             </li>
-    //             <li>
-    //                 <NavLink to='/users' exact={true} activeClassName='active'>
-    //                     Users
-    //                 </NavLink>
-    //             </li>
-    //             <li>
-    //                 <LogoutButton />
-    //             </li>
-    //         </ul>
-    //     </nav>
-    // );
 }
 
 export default NavBar;
