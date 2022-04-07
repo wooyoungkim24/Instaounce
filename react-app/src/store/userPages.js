@@ -284,20 +284,16 @@ export default function userPageReducer(state = initialState, action) {
         //     return newState;
 
         case UPDATE_POST:
-            console.log("newstate from update post case", newState)
-            console.log("posts in state", newState[action.payload.user_id])
+
             newState[action.payload.user_id].posts[action.payload.id] = action.payload;
             return newState
 
         case DELETE_POST:
-            // console.log("posts in state", newState[action.payload.user_id])
             delete newState[action.payload.user_id].posts[action.payload.id];
             return newState
 
         case CREATE_NEW_LIKE:
-            console.log("newstate from delete post case", newState)
-            console.log("")
-            console.log("action.payload", action.payload)
+
             newState[action.payload.user_id].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
             return newState
 
