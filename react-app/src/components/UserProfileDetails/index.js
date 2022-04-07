@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { follow, unfollow } from '../../store/userPages';
 import { Modal } from '../../context/modal';
 import { useState } from 'react';
+import { getFollowedPosts } from '../../store/posts';
+import { removePosts } from '../../store/posts';
 
 
 const UserProfileDetails = ({ user, sessionUser }) => {
@@ -26,11 +28,13 @@ const UserProfileDetails = ({ user, sessionUser }) => {
     };
 
     const followHandler = () => {
-        dispatch(follow(user.id));
+        dispatch(follow(user.id))
+        .then(() => dispatch(getFollowedPosts()))
     };
 
     const unfollowHandler = () => {
-        dispatch(unfollow(user.id));
+        dispatch(unfollow(user.id))
+        .then(() => dispatch(removePosts(user.id)));
         setShowModal(false);
     };
 
