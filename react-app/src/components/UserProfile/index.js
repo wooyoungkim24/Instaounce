@@ -21,7 +21,7 @@ const UserProfile = () => {
     useEffect(() => {
         dispatch(loadUserPage(userId))
         .then(() => setIsLoaded(true))
-    },[dispatch]);
+    },[dispatch, userId]);
 
 
     return isLoaded && (
