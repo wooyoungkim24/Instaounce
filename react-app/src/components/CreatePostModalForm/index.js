@@ -269,7 +269,7 @@ function CreatePostModalForm() {
                     <div className='top-photos-nav'>
                         <div className='photos-back-button'>
                             <button type='button' id='firstBackButton' onClick={firstBackButton}>
-                                <i class="fa-solid fa-arrow-left"></i>
+                                <i className="fa-solid fa-arrow-left"></i>
                             </button>
                             {showConfirmBack &&
 
@@ -310,18 +310,18 @@ function CreatePostModalForm() {
 
                         {photoIndex < photos.length - 1 &&
                             <button id='goForward' onClick={goForward}>
-                                <i class="fa-solid fa-angle-right"></i>
+                                <i className="fa-solid fa-angle-right"></i>
                             </button>
                         }
 
                         {photoIndex !== 0 &&
                             <button id='goBackward' onClick={goBack}>
-                                <i class="fa-solid fa-angle-left"></i>
+                                <i className="fa-solid fa-angle-left"></i>
                             </button>
                         }
 
                         <button id='add-more-photos-button' type='button' onClick={openShowMore}>
-                            <i class="fa-solid fa-images"></i>
+                            <i className="fa-solid fa-images"></i>
                         </button>
                         {showMorePhotos &&
                             <div className='add-more-photos-button'>
@@ -333,7 +333,7 @@ function CreatePostModalForm() {
                                             <>
                                                 {photos.length > 1 &&
                                                     <button key={ele.name} type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
-                                                        <i class="fa-solid fa-circle-xmark"></i>
+                                                        <i className="fa-solid fa-circle-xmark"></i>
                                                     </button>}
                                                 <img onClick ={() => setPhotoIndex(i) }draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
                                             </>

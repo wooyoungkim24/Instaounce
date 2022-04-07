@@ -1,8 +1,14 @@
 import './UserProfileImageCard.css'
 import { useState } from 'react'
+import PostDetailCard from '../PostDetailCard';
+import { Modal } from '../../context/modal';
 
-const UserProfileImageCard = ({ post }) => {
+const UserProfileImageCard = ({ post, user }) => {
     const [isHovering, setIsHovering] = useState(false);
+
+    const [showPostDetailCard, setShowPostDetailCard] = useState(false)
+    const [showEditForm, setShowEditForm] = useState(false)
+
 
     const comments = Object.values(post.comments);
     const likes = Object.values(post.likes);
@@ -27,7 +33,13 @@ const UserProfileImageCard = ({ post }) => {
                 <i className="fa-solid fa-comment fa-flip-horizontal  profile-image-card-comment-icon"></i>
                 {comments.length}
             </div>
-            <div className='profile-image-card-hover-wrapper'></div>
+            <div className='profile-image-card-hover-wrapper' onClick={() => setShowPostDetailCard(true)}>
+            {showPostDetailCard && (
+                 <Modal onClose={() => setShowPostDetailCard(false)}>
+                    <PostDetailCard post={post} user={user}/>
+                </Modal>
+            )}
+            </div>
             </>
 }
             <img src={post.image[0]} alt='pic' className="profile-image-card-image" />

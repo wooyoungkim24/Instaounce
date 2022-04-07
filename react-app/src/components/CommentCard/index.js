@@ -122,7 +122,7 @@ const CommentCard = ({ post }) => {
                             </div>
                         </div>
                     </div>
-        
+
             </div>
         </div>
     )

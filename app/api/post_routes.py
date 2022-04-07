@@ -5,6 +5,7 @@ from flask_login import current_user, login_required
 import boto3
 import botocore
 import os
+from app.forms.update_post_form import UpdatePostForm
 
 s3 = boto3.client(
     "s3",
@@ -98,7 +99,7 @@ def create_like(id):
         db.session.add(new_like)
         db.session.commit()
         return new_like.to_dict()
-    
+
     elif request.method == "DELETE":
         post_id = id
         deleted_like = Like.query.filter(
@@ -156,6 +157,32 @@ def create_post():
     new_post_edit.image = new_images
     db.session.commit()
     return new_post.to_dict()
+
+@post_routes.route("/<id>", methods=["PUT"])
+@login_required
+def update_post(id):
+    print("begging!!!!!!")
+    form = UpdatePostForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    print("form", form.data)
+    if form.validate_on_submit():
+        post_id = id
+        print("post_id", post_id)
+        target_post = Post.query.filter(Post.id == post_id).first()
+        print("target_post before update", target_post)
+
+        data = form.data
+        caption = data['caption']
+        print('cation in route!!!', caption)
+
+        target_post.caption = caption
+
+        db.session.commit()
+
+        print("target_post after update", target_post)
+        return target_post.to_dict()
+    return "Bad"
+
 
 # @posts_routes.route('/', methods=['GET','POST'])
 # def create_post():
