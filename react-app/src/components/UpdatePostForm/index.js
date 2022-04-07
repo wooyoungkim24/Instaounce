@@ -2,7 +2,7 @@ import './UpdatePostForm.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import LikeIcon from '../LikeIcon';
-import { editPost } from '../../store/posts';
+import { editPost } from '../../store/userPages';
 import { Link } from 'react-router-dom';
 
 const UpdatePostForm = ({ post, user, hideForm }) => {
