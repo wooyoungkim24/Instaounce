@@ -1,11 +1,18 @@
 nav {
-    display: flex;
-    margin-bottom: 15px;
+    height: 60px;
     justify-content: center;
+    align-items: center;
+    display: flex;
+    position: fixed;
+    background-color: white;
+    z-index:10;
+    top:0px;
+    width: 100%;;
+    border-bottom: 1px solid rgb((var(--b6a, 219, 219, 219), 1));
+    margin: 0;
 }
 
 .navbar-container {
-    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     height: 60px;
     justify-content: center;
     align-items: center;
