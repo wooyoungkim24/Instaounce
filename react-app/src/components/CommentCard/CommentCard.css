@@ -110,12 +110,8 @@
     display:flex;
     flex-direction: column;
     gap: 20px;
+    
 }
-
-/* .comment-content {
-    width:fit-content;
-    height:fit-content;
-} */
 
 .comments {
     display:flex;
@@ -123,12 +119,6 @@
     list-style:none;
 }
 
-/* .comment-card-nonimage-content {
-    display: block;
-    height: 630px;
-
-
-} */
 
 .comments-flex {
     display:flex;
@@ -144,5 +134,18 @@
     height: 200px;
 }
 
+.make-comment {
+    margin: 20px;
+    display: flex;
+    flex-direction:row;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.make-comment button {
+    border: none;
+    color: rgb(59, 174, 212, .7)
+}
 
 

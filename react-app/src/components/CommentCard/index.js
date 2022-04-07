@@ -50,15 +50,8 @@ const CommentCard = ({ post }) => {
             post_id: post.id,
             content: newComment
         }
-        let createdComment;
         dispatch(createComment(comment))
-        .catch(async res => {
-            const data = await res.json();
-            if(data && data.errors) setErrors(data.errors)
-        })
-        if(createdComment){
-            setErrors([])
-        }
+        setNewComment('')
     }
   
 
@@ -112,7 +105,7 @@ const CommentCard = ({ post }) => {
                                         </div>
                                     }
                                 </div>
-                                <div className='comment-card-likes-tray'>
+                                <div className='home-card-likes-tray'>
                                     {likes.length} likes
                                 </div>
 
