@@ -2,14 +2,20 @@ import './CommentCard.css';
 import { useState } from 'react'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
+import createComment from '../../store/posts';
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const CommentCard = ({ post }) => {
+    const dispatch = useDispatch()
     const user = post.users;
     const likes = post.likes;
     const [currentImage, setCurrentImage] = useState(0);
+    const [newComment, setNewComment] = useState('');
     const comments = post.comments
     const images = post.image
+    const sessionUser = useSelector(state => state.session.user);
+    const [errors, setErrors] = useState([])
    
 
     const rightClickHandler = () => {
@@ -31,6 +37,30 @@ const CommentCard = ({ post }) => {
             return "fa-solid fa-circle inactive-dot";
         };
     };
+    
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault()
+
+        const comment = {
+            user_id: sessionUser.id,
+            post_id: post.id,
+            content: newComment
+        }
+        // let createdComment;
+        console.log(comment)
+        dispatch(createComment({
+            user_id: sessionUser.id,
+            post_id: post.id,
+            content: newComment
+        }))
+        // .catch(async res => {
+        //     const data = await res.json();
+        //     if(data && data.errors) setErrors(data.errors)
+        // })
+        // if(createdComment){
+        //     setErrors([])
+        // }
+    }
 
     return (
         <div className='post-dialog'>
@@ -84,8 +114,17 @@ const CommentCard = ({ post }) => {
                                     </>
                                 ))}
                             </ul>
-                            
                         </div>
+                        <form className="make-comment" onSubmit={handleCommentSubmit}>
+                                <textarea
+                                id='new-comment-input'
+                                placeholder="Add a comment..."
+                                value={newComment}
+                                required
+                                onChange={e => setNewComment(e.target.value)}
+                                />
+                            <button type='submit'>Post</button>
+                        </form>
                     </div>
         
             </div>

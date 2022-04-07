@@ -3,6 +3,7 @@ const SET_FOLLOWED_POSTS= 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
 const DELETE_LIKE = 'session/DELETE_LIKE';
 const GET_COMMENTS = 'session/GET_COMMENTS';
+const CREATE_COMMENT = 'session/CREATE_COMMENT'
 
 
 
@@ -29,6 +30,28 @@ const cancelLike = (likeId, postId) => ({
   likeId,
   postId
 })
+const makeComment = (comment) => ({
+  type: CREATE_COMMENT,
+  payload: comment
+})
+
+
+export const createComment = (comment) => async(dispatch) => {
+  const response = await fetch(`/api/posts/comments`,{
+    method:"POST",
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comment)
+  })
+  if (response.ok){
+    console.log(response)
+    const comment = await response.json()
+    await dispatch(makeComment(comment))
+  }
+}
+
 
 export const createPost = (payload) => async(dispatch) => {
 
@@ -125,6 +148,25 @@ export default function postsReducer(state = initialState, action) {
 
           newState.followedPosts[action.postId].likes = filteredLikes
           return newState
+          
+      case CREATE_COMMENT:
+        newState.followedPosts[action.payload['post_id']].comments.push(action.payload.comment)
+        return newState
+
+        // const post_id = action.payload.comment.post_id
+        // const newArr = [action.payload.comment, ...state[post_id].followedPosts.comments.all] 
+        // console.log(action.payload)
+        // const newComment = {
+        //   ...action.payload.comment,
+        // }
+        // return {
+        //   ...state,
+        //   [post_id]: {
+        //     ...state[post_id].comments,
+        //     [action.payload.comment.id]: newComment,
+        //     comments: newArr
+        //   }
+        // }
 
       default:
         return state;

@@ -74,3 +74,15 @@
     font-size: 14px;
     line-height: 18px;
 }
+
+.make-comment textarea {
+    flex-grow: 1;
+    font-size: inherit;
+    height: 18px;
+    max-height: 80px;
+    outline: 0;
+    padding: 0;
+    resize: none;
+    width: 100%;
+    overflow:auto;
+}
