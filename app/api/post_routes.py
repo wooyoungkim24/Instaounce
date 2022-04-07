@@ -176,6 +176,15 @@ def update_post(id):
         return target_post.to_dict()
     return "Bad"
 
+@post_routes.route('/<id>', methods=["DELETE"])
+def delete_post(id):
+    if request.method == "DELETE":
+        post = Post.query.filter(Post.id == id).first()
+        print("post from delete route", post)
+        db.session.delete(post)
+        db.session.commit()
+        return post.to_dict()
+
 
 # @posts_routes.route('/', methods=['GET','POST'])
 # def create_post():

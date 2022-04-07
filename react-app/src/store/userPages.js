@@ -79,7 +79,7 @@ export const editPost = (payload) => async dispatch => {
   }
 
 export const removePost = (payload) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${payload.postId}`, {
+    const res = await fetch(`/api/posts/${payload.id}`, {
         method: "DELETE"
     });
 
@@ -267,13 +267,15 @@ export default function userPageReducer(state = initialState, action) {
         //     return newState;
 
         case UPDATE_POST:
-            
+
             newState[action.payload.user_id].posts[action.payload.id] = action.payload;
             return newState
 
-        // case DELETE_POST:
-        //     delete newState[action.payload.userId][action.payload.posts][action.payload.id];
-        //     return newState
+        case DELETE_POST:
+            console.log("newstate from delete post case", newState)
+            console.log("posts in state", newState[action.payload.user_id])
+            delete newState[action.payload.user_id].posts[action.payload.id];
+            return newState
 
         // case CREATE_COMMENT:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
