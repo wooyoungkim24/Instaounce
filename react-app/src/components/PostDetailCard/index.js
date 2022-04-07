@@ -18,6 +18,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
+    
 
     const comments = Object.values(post.comments)
     const images = post.image

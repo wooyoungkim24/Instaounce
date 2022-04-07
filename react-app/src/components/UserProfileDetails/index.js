@@ -5,6 +5,7 @@ import { Modal } from '../../context/modal';
 import { useState } from 'react';
 import { getFollowedPosts } from '../../store/posts';
 import { removePosts } from '../../store/posts';
+import FollowingModal from '../FollowingModal';
 
 
 const UserProfileDetails = ({ user, sessionUser }) => {
@@ -16,7 +17,9 @@ const UserProfileDetails = ({ user, sessionUser }) => {
     const following = Object.values(user.following);
     const isUsersPage = user.id === sessionUser.id;
     const isUserFollowing = user.followers[sessionUser.id];
-    const [showModal, setShowModal] = useState(false);
+    const [showFollowModal, setShowFollowModal] = useState(false);
+    const [showFollowersModal, setShowFollowersModal] = useState(false)
+    const [showFollowingModal, setShowFollowingModal] = useState(false)
 
 
     const displayFollowIcon = () => {
@@ -35,7 +38,7 @@ const UserProfileDetails = ({ user, sessionUser }) => {
     const unfollowHandler = () => {
         dispatch(unfollow(user.id))
         .then(() => dispatch(removePosts(user.id)));
-        setShowModal(false);
+        setShowFollowModal(false);
     };
 
 
@@ -57,7 +60,7 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                                 </div>
                             }
                             {displayUnfollowIcon() &&
-                                <div onClick={() => setShowModal(true)} className='profile-details-unfollow-button'>
+                                <div onClick={() => setShowFollowModal(true)} className='profile-details-unfollow-button'>
                                     <i className="fa-solid fa-user user-icon"></i>
                                     <i className="fa-solid fa-check check-icon"></i>
                                 </div>
@@ -71,7 +74,7 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                         <div className='profile-user-stats-container'>
                             <span className='profile-user-stat'>{followers.length}</span> followers
                         </div>
-                        <div className='profile-user-stats-container'>
+                        <div onClick={() => setShowFollowingModal(true)} className='profile-user-stats-container'>
                             <span className='profile-user-stat'>{following.length}</span> following
                         </div>
                     </div>
@@ -80,9 +83,9 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                     </div>
                 </div>
             </div>
-            {showModal &&
+            {showFollowModal &&
 
-                <Modal onClose={() => setShowModal(false)}>
+                <Modal onClose={() => setShowFollowModal(false)}>
                     <div className="profile-user-unfollow-modal">
                         <div className="close-confirm-top">
                             <div className='profile-details-modal-image-container'>
@@ -96,11 +99,24 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                             <button id='discardButton' type='button' onClick={unfollowHandler}>
                                 Unfollow
                             </button>
-                            <button id='cancelDiscardButton' type='button' onClick={() => setShowModal(false)}>
+                            <button id='cancelDiscardButton' type='button' onClick={() => setShowFollowModal(false)}>
                                 Cancel
                             </button>
                         </div>
                     </div>
+                </Modal>
+            }
+
+            {showFollowingModal &&
+                <Modal onClose={() => setShowFollowingModal(false)}>
+                    <FollowingModal 
+                    props={{
+                        followers,
+                        following,
+                        isUserFollowing,
+                        user
+                    }}
+                    />
                 </Modal>
             }
         </>
