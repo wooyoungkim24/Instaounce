@@ -23,7 +23,18 @@ class Post(db.Model):
           'caption': self.caption,
           'image': self.image,
           'updated_at':self.updated_at,
-          'comments':[comment.to_dict() for comment in self.comments],
+          'comments':{comment.id: comment.to_dict() for comment in self.comments},
           "likes":[like.to_dict() for like in self.likes],
           "users":self.users.to_dict()
+        }
+        
+    def to_dict_user_page(self):
+        return {
+            'id': self.id,
+            'userId': self.user_id,
+            'caption': self.caption,
+            'image': self.image,
+            'updatedAt': self.updated_at,
+            'comments': {comment.id: comment.to_dict() for comment in self.comments},
+            "likes": {like.id: like.to_dict() for like in self.likes}
         }

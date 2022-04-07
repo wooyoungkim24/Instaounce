@@ -11,12 +11,12 @@ const NavBarDropDown = ({ user }) => {
             </div> */}
             <div className='navbar-dropdown-list'>
                 <div>
-                    <NavLink to={`/users/${user.id}`} exact={true}>
+                    <NavLink to={`/users/${user.id}`} >
                         Profile
                     </NavLink>
                 </div>
                 <div>
-                    <NavLink to='/users' exact={true} activeClassName='active'>
+                    <NavLink to='/users' activeClassName='active'>
                         Users
                     </NavLink>
                 </div>

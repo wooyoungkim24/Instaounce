@@ -8,6 +8,7 @@ def seed_users():
         username='Demo', email='demo@aa.io', password='password', first_name="Demo", last_name="User", profile_image="https://as2.ftcdn.net/v2/jpg/03/64/21/11/1000_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg", bio="Hello I am the Demo User")
     marnie = User(
         username='marnie', email='marnie@aa.io', password='password', first_name="Marnie", last_name="Delgato", profile_image="https://previews.123rf.com/images/fizkes/fizkes2010/fizkes201001384/157765614-profile-picture-of-smiling-indian-female-isolated-on-grey-studio-background-show-optimism-and-positi.jpg", bio="Hello my name is Marnie")
+    
     db.session.add(demo)
     db.session.add(marnie)
     for _ in range(15):

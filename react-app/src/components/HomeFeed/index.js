@@ -8,11 +8,9 @@ const HomeFeed = () => {
     const dispatch = useDispatch()
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const [posts, setPosts] = useState([]);
 
-
-    const followedPosts = useSelector(state => state.feedState.followedPosts);
-    const followedPostsArr = Object.values(followedPosts);
+    const followedPosts = useSelector(state => state.feedState);
+    const followedPostsArr = Object.values(followedPosts.followedPosts);
 
     useEffect(() => {
         dispatch(getFollowedPosts()).then(() => setIsLoaded(true))
