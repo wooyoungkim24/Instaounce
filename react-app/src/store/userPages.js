@@ -189,9 +189,9 @@ const createFollow = (users) => ({
     payload: users
 });
 
-const deleteFollow = (user) => ({
+const deleteFollow = (users) => ({
     type: DELETE_FOLLOW,
-    payload: like
+    payload: users
 });
 
 export const follow = (userId) => async (dispatch) => {
@@ -205,14 +205,14 @@ export const follow = (userId) => async (dispatch) => {
     };
 };
 
-export const unfollow = (postId) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${postId}/likes`, {
+export const unfollow = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/users/${userId}/followers`, {
         method: "DELETE"
     });
 
     if (res.ok) {
-        const deletedLike = await res.json();
-        await dispatch(deleteLike(deletedLike));
+        const users = await res.json();
+        await dispatch(deleteFollow(users));
     };
 };
 
@@ -233,12 +233,20 @@ export default function userPageReducer(state = initialState, action) {
             return newState;
 
         case CREATE_FOLLOW:
-            console.log(action.payload)
             if (newState[action.payload.currentUser.id]) {
                 newState[action.payload.currentUser.id].following[action.payload.user.id] = action.payload.user
             };
             newState[action.payload.user.id].followers[action.payload.currentUser.id] = action.payload.currentUser
             return newState;
+
+        case DELETE_FOLLOW:
+            console.log(action.payload)
+            if (newState[action.payload.currentUserId]) {
+                delete newState[action.payload.currentUserId].following[action.payload.userId]
+            };
+            delete newState[action.payload.userId].followers[action.payload.currentUserId]
+            return newState;
+
         // case CREATE_POST:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
         //     return newState;

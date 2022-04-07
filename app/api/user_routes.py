@@ -42,4 +42,4 @@ def user_follow(id):
 
         user.unfollow(follow_user)
         db.session.commit()
-        return {"currentUser": user.id, "user": follow_user.id}
+        return {"currentUserId": user.id, "userId": follow_user.id}

@@ -29,8 +29,8 @@
 .profile-details-top-container {
     display: flex;
     align-items: center;
-    width: 50%;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: left;
 }
 
 .profile-details-username {
@@ -38,17 +38,24 @@
     font-weight: 300;
 }
 
+.profile-details-follow-icons-tray {
+    height: 30px;
+    width: 85px;
+    display: flex;
+    justify-content: center;
+    margin-left: 25px;
+}
+
 .profile-details-follow-button {
     border-radius: 4px;
     background-color: #4e95f6;
     color: white;
     height: 30px;
-    width: 85px;
+    width: 63.4px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* font-weight: 600; */
     font-size: 14px;
     font-style: bold;
 }
@@ -57,7 +64,7 @@
     display: flex;
     border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     height: 30px;
-    width: 45px;
+    width: 44px;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
@@ -82,4 +89,42 @@
     font-weight: 600;
     font-size: 16px;
     margin-right: 3px;
+}
+
+.profile-user-unfollow-modal {
+    border-radius: 15px;
+    background-color: white;
+    width: 400px;
+    height: 293px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-details-image-modal {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-details-modal-image-container {
+    display: flex;
+    height: 90px;
+    width: 368px;
+    margin: 16px 16px 16px 16px;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    font-size:20px;
+    font-weight: 600
+}
+
+.profile-details-modal-username-container {
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-size: 14px;
+    height: 11px;
+    width: 336px;
+    margin: 18px 32px;
 }

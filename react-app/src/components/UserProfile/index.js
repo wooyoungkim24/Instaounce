@@ -13,7 +13,8 @@ const UserProfile = () => {
     const dispatch = useDispatch();
 
     const sessionUser = useSelector(state => state.session.user)
-    const pageData = useSelector(state => state.pageState[userId]);
+    const pageStateData = useSelector(state => state.pageState);
+    const pageData = pageStateData[userId]
     let posts;
     if (pageData) posts = Object.values(pageData.posts)
 

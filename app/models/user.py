@@ -4,12 +4,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 
-followers = db.Table('followers',
-    db.Column('follower_id', db.Integer,
-    db.ForeignKey('users.id')),
-    db.Column('followed_id', db.Integer,
-    db.ForeignKey('users.id'))
+followers = db.Table(
+    'followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
     )
+
 
 
 class User(db.Model, UserMixin):
@@ -36,6 +36,7 @@ class User(db.Model, UserMixin):
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+    
 
     def to_dict(self):
         print('testing if it hits')
@@ -84,12 +85,8 @@ class User(db.Model, UserMixin):
     #     return self.followed.filter(
     #         followers.c.followed_id == user.id)
 
-
-    def followed_by_user(self):
-        return self.query.filter(followers.c.follower_id == self.id).all()
-    
-    def following_users(self):
-        return self.query.filter(followers.c.followed_id == self.id).all()
+    def get_followers(self):
+        return self.followers.filter(followers.c.followed_id == self.id).all()
 
 
     def to_dict_user_page(self):
@@ -103,9 +100,6 @@ class User(db.Model, UserMixin):
             "bio": self.bio,
             "updatedAt": self.updated_at,
             "posts": {post.id: post.to_dict_user_page() for post in self.posts},
-            "followers": {user.id: user.to_dict() for user in self.followed_by_user()},
-            "following": {user.id: user.to_dict() for user in self.following_users()}
-            # "followers": {},
-            # "following": {}
-            
+            "following": {user.id: user.to_dict() for user in self.followed},
+            "followers": {user.id: user.to_dict() for user in self.get_followers()}
         }
