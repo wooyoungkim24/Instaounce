@@ -1,5 +1,6 @@
 import './PostDetailCard.css';
 import { useState } from 'react'
+import { useSelector} from 'react-redux'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
@@ -18,6 +19,10 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+    const sessionUser = useSelector(state => state.session.user);
+    console.log("sessionUser id", sessionUser.id)
+    console.log("post", post)
 
     const comments = Object.values(post.comments)
     const images = post.image
@@ -69,9 +74,12 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                         <div className="user">
                             <img src={user.profileImage}></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                            <button onClick={editClickHandler}>Edit</button>
-                            <button onClick={deleteClickHandler}>Delete</button>
-
+                            {sessionUser.id === post.userId && (
+                                <div>
+                                    <button onClick={editClickHandler}>Edit</button>
+                                    <button onClick={deleteClickHandler}>Delete</button>
+                                </div>
+                            )}
                         </div>
 
 
@@ -92,8 +100,8 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                             {likes.length} likes
                         </div>
                         <div className='comment-card-caption-area'>
-                            <img src={user.profile_image} alt="profile pic"></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                            {/* <img src={user.profile_image} alt="profile pic"></img>
+                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link> */}
                             <div id="caption-container">
                                 {post.caption}
                                 <div id='date-time'>{post.updated_at}</div>
