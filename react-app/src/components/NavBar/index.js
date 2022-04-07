@@ -28,18 +28,18 @@ const NavBar = ({ user }) => {
                     <Modal onClose={() => setShowConfirm(false)}>
                         <div className="close-modal-confirm">
                             <div className="close-confirm-top">
-                                <div>
+                                <div className='discardPostDiv'>
                                     Discard post?
                                 </div>
-                                <div>
+                                <div className='ifLeaveDiv'>
                                     If you leave, your edits won't be saved.
                                 </div>
                             </div>
                             <div className="close-confirm-buttons">
-                                <button type='button' onClick={closeModals}>
+                                <button id='discardButton' type='button' onClick={closeModals}>
                                     Discard
                                 </button>
-                                <button type='button' onClick={()=> setShowConfirm(false)}>
+                                <button id = 'cancelDiscardButton' type='button' onClick={()=> setShowConfirm(false)}>
                                     Cancel
                                 </button>
                             </div>

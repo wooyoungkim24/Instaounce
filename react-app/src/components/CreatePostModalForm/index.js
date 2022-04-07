@@ -5,7 +5,7 @@ import { createPost } from '../../store/posts';
 import { useDispatch } from 'react-redux';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
+import { Modal } from "../../context/modal"
 
 function CreatePostModalForm() {
     const [photos, setPhotos] = useState([])
@@ -14,7 +14,7 @@ function CreatePostModalForm() {
     const [showMorePhotos, setShowMorePhotos] = useState(false)
     const [photoFinished, setPhotoFinished] = useState(false)
     const [caption, setCaption] = useState('')
-
+    const [showConfirmBack, setShowConfirmBack] = useState(false)
     const dispatch = useDispatch();
 
 
@@ -51,7 +51,7 @@ function CreatePostModalForm() {
         if (showMorePhotos) {
             setShowMorePhotos(false)
         }
-        else{
+        else {
             setShowMorePhotos(true);
         }
 
@@ -63,10 +63,11 @@ function CreatePostModalForm() {
         if (!showMorePhotos) return;
         let ignore1 = document.querySelector('.add-more-photos-button')
         let ignore2 = document.querySelector('#add-more-photos-button')
-
+        let ignore3 = document.querySelector('#goForward')
+        let ignore4 = document.querySelector('#goBackward')
         const closeShowMore = (event) => {
             let target = event.target
-            if (target === ignore1 || ignore1.contains(target) || target === ignore2 || ignore2.contains(target)) {
+            if (target === ignore1 || ignore1.contains(target) || target === ignore2 || ignore2.contains(target) || target === ignore3 || ignore3.contains(target) || target === ignore4 || ignore4.contains(target)) {
                 return;
             }
             setShowMorePhotos(false)
@@ -77,7 +78,7 @@ function CreatePostModalForm() {
 
         return () => modal.removeEventListener("click", closeShowMore);
 
-    }, [showMorePhotos])
+    }, [showMorePhotos, photos])
     useEffect(() => {
         console.log('these are my photos', photos)
         let imageCollect = document.querySelectorAll(".photo-preview-container > img")
@@ -182,15 +183,32 @@ function CreatePostModalForm() {
         })
     }, [photos, showMorePhotos])
 
+    const closeModals = () => {
+        setPhotoExist(false)
+        setShowConfirmBack(false)
+        setPhotos([])
+    }
 
+    function firstBackButton() {
+        setShowConfirmBack(true)
+    }
 
     function deletePhoto(index) {
 
         let photoCopy = [...photos]
         photoCopy.splice(index, 1)
         setPhotos([...photoCopy])
+    }
 
-
+    function goForward(){
+        let oldI = photoIndex
+        oldI +=1
+        setPhotoIndex(oldI)
+    }
+    function goBack() {
+        let oldI = photoIndex
+        oldI -=1
+        setPhotoIndex(oldI)
     }
     return (
         <div className='create-post-form-container'>
@@ -234,13 +252,38 @@ function CreatePostModalForm() {
                 <div className='photo-exists-modal'>
                     <div className='top-photos-nav'>
                         <div className='photos-back-button'>
+                            <button type='button' id='firstBackButton' onClick={firstBackButton}>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            {showConfirmBack &&
 
+                                <Modal onClose={() => setShowConfirmBack(false)}>
+                                    <div className="close-modal-confirm">
+                                        <div className="close-confirm-top">
+                                            <div className='discardPostDiv'>
+                                                Discard post?
+                                            </div>
+                                            <div className='ifLeaveDiv'>
+                                                If you leave, your edits won't be saved.
+                                            </div>
+                                        </div>
+                                        <div className="close-confirm-buttons">
+                                            <button id='discardButton' type='button' onClick={closeModals}>
+                                                Discard
+                                            </button>
+                                            <button id = 'cancelDiscardButton' type='button' onClick={() => setShowConfirmBack(false)}>
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </Modal>
+                            }
                         </div>
                         <div className='one-photo-title'>
                             Your photos
                         </div>
                         <div className='next-photos-button'>
-                            <button type='button' onClick={() => setPhotoFinished(true)}>
+                            <button id='firstNextButton' type='button' onClick={() => setPhotoFinished(true)}>
                                 Next
                             </button>
                         </div>
@@ -248,6 +291,19 @@ function CreatePostModalForm() {
                     <div id='photo-wrapper'>
                         {console.log('final photos', photos)}
                         <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])}></img>
+
+                        {photoIndex < photos.length - 1 &&
+                            <button id='goForward' onClick={goForward}>
+                                <i class="fa-solid fa-angle-right"></i>
+                            </button>
+                        }
+
+                        {photoIndex !== 0 &&
+                            <button id='goBackward' onClick={goBack}>
+                                <i class="fa-solid fa-angle-left"></i>
+                            </button>
+                        }
+
                         <button id='add-more-photos-button' type='button' onClick={openShowMore}>
                             <i class="fa-solid fa-images"></i>
                         </button>
