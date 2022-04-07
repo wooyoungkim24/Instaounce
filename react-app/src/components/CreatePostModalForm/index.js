@@ -293,6 +293,15 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
     function secondBackButton() {
         setPhotoFinished(false)
     }
+    function settingFocus(index){
+        let focusedImage = document.querySelector(`.draggable-image-${index}`)
+        for (let i = 0; i < photos.length; i ++){
+            document.querySelector(`.draggable-image-${i}`).classList.remove('focus')
+        }
+        setPhotoIndex(index)
+        focusedImage.classList.add('focus')
+    }
+
 
     return (
         <div className='create-post-form-container'>
@@ -432,7 +441,11 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                                                     <button key={ele.name} type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
                                                         <i className="fa-solid fa-circle-xmark"></i>
                                                     </button>}
-                                                <img onClick={() => setPhotoIndex(i)} draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                                {photoIndex === i
+                                                ?<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i} focus`} src={URL.createObjectURL(ele)}></img>
+                                                :<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                                }
+
                                             </>
 
                                         )
@@ -461,8 +474,11 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                         <div className='photo-icon'>
                             <i className="fa-solid fa-photo-film"></i>
                         </div>
+                        <div className='drag-instruct'>
+                            Drag first photo here
+                        </div>
                         <div className='add-first-photo-div'>
-                            <form>
+
                                 <label id='add-photo-1-label' htmlFor='add-photo-1'>Select from computer</label>
                                 <input
                                     type='file'
@@ -471,7 +487,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                                     id='add-photo-1'
                                     onChange={updateImageFirst}>
                                 </input>
-                            </form>
+
                         </div>
                     </div>
 
