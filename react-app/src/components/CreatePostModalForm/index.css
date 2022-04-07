@@ -1,5 +1,3 @@
-
-
 #displayed-photo {
     width: 700px;
     height: 650px;
@@ -10,14 +8,29 @@
     max-width: 660px;
     height: 140px;
     border-radius: 10px;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0, 0, 0, .7);
     position: absolute;
     bottom: 70px;
-    right:0px;
+    right: 0px;
     display: flex;
     flex-direction: row;
     margin-right: 20px;
+    animation-duration: .75s;
+    animation-name: fadeUp
+}
 
+@keyframes fadeUp {
+    from {
+        bottom: 30px;
+        opacity: .5;
+
+    }
+
+    to {
+        opacity: 1;
+        bottom: 70px;
+
+    }
 }
 
 
@@ -27,16 +40,17 @@
     left: 635px;
     bottom: 20px;
     font-size: 20px;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0, 0, 0, .7);
     border: none;
     width: 40px;
     height: 40px;
-    border-radius:30px;
-    cursor:pointer;
+    border-radius: 30px;
+    cursor: pointer;
 
 }
-#add-more-photos-button i{
-   color: white;
+
+#add-more-photos-button i {
+    color: white;
 }
 
 .adding-caption-container {
@@ -46,16 +60,25 @@
     height: 700px;
     border-radius: 30px;
     border-collapse: separate;
-
+    animation-duration: 1s;
+    animation-name: expand;
     background-color: white;
     margin: 0px;
+}
+@keyframes expand {
+    from{
+        width: 700px
+    }
+    to{
+        width: 1000px;
+    }
 }
 
 .adding-caption-container img {
     width: 700px;
     height: 650px;
     object-fit: cover;
-    border-bottom-left-radius:30px;
+    border-bottom-left-radius: 30px;
 
 
 
@@ -67,6 +90,8 @@
 }
 
 .photo-absent-modal {
+    animation-duration: .15s;
+    animation-name: appear;
     display: flex;
     flex-direction: column;
     width: 700px;
@@ -74,12 +99,27 @@
     border-radius: 30px;
     border-collapse: separate;
 }
-.one-photo-title{
+
+@keyframes appear {
+    from {
+        width: 850px;
+        height: 850px;
+        background-color: rgba(0, 0, 0, .7);
+    }
+
+    to {
+        width: 700px;
+        height: 700px;
+        background-color: white;
+    }
+}
+
+.one-photo-title {
     font-size: 18px;
 }
 
 .no-photos-title {
-    width: 700px;
+    width: auto;
     height: 50px;
     border-bottom: 1px black solid;
     font-family: Arial, Helvetica, sans-serif;
@@ -90,6 +130,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .top-photos-nav {
     width: 700px;
     height: 50px;
@@ -106,14 +147,26 @@
 
 .add-first-photo-div input[type=file] {
     display: none;
-    margin: 10px;
 }
 
-#add-photo-1-label{
+.add-first-photo-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drag-instruct {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+
+}
+
+#add-photo-1-label {
     display: flex;
     color: white;
+
     border-radius: 6px;
-    background-color: rgb(0,149,246);
+    background-color: rgb(0, 149, 246);
     justify-content: center;
     align-items: center;
     width: 160px;
@@ -122,31 +175,48 @@
     font-size: 13.5px;
     font-weight: 600;
     cursor: pointer;
-    position: absolute;
-    right: 270px;
-    top: 450px;
+    position: relative;
+    top: 40%;
+
 }
-.photo-icon{
+
+.photo-icon {
     font-size: 200px;
-    color:black;
-    position: absolute;
-    left: 235px;
-    top: 150px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 2%;
 }
+
 #displayed-photo {
     object-fit: cover;
-    border-bottom-left-radius:30px;
-    border-bottom-right-radius:30px;
+    animation-duration: .3s;
+    animation-name: fadeIn;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
     height: 650px;
 }
 
-.photo-preview-container{
+@keyframes fadeIn {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.photo-preview-container {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
     margin-right: 15px;
 }
-.photo-preview-container img{
+
+.photo-preview-container img {
     max-width: 100px;
     max-height: 100px;
     min-width: 100px;
@@ -157,29 +227,34 @@
     top: 10px;
     padding-left: 8px;
     cursor: grab;
+    filter:brightness(30%)
+}
+.photo-preview-container img.focus{
+    filter:brightness(100%)
 }
 .add-more-photos-button input[type=file] {
     display: none;
     margin: 10px;
 }
-#add-more-photos-label{
+
+#add-more-photos-label {
     display: flex;
     color: white;
     font-size: 40px;
-    height:40px;
-    border-radius:20px;
+    height: 40px;
+    border-radius: 20px;
 
     cursor: pointer;
     position: relative;
     top: 40px;
     right: 8px;
-    margin-left:2px;
+    margin-left: 2px;
 }
-#delete-photo-button{
-    font-size: 18px;
 
+#delete-photo-button {
+    font-size: 18px;
     background-color: transparent;
-    border:none;
+    border: none;
     height: 22px;
     width: 20px;
     border-radius: 10px;
@@ -188,39 +263,45 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    left: 95px;
+    left: 100px;
     top: 15px;
     z-index: 1;
 }
-#delete-photo-button i{
-    color:rgba(0,0,0,.7);
+
+#delete-photo-button i {
+    color: rgba(0, 0, 0, .7);
     cursor: pointer;
 }
+#delete-photo-button i:hover{
+    color: white;
+}
 
-#firstBackButton{
+#firstBackButton {
     margin-left: 20px;
     font-size: 24px;
-    border:none;
+    border: none;
     background-color: transparent;
     cursor: pointer;
 }
 
-#firstNextButton{
+#firstNextButton {
     margin-right: 20px;
     font-size: 14px;
-    color: rgb(0,149,246);
+    color: rgb(0, 149, 246);
     background-color: transparent;
     border: none;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
 }
-#goForward{
+
+#goForward {
     font-size: 20px;
     position: absolute;
     bottom: 330px;
     right: 10px;
-    background-color: rgba(0,0,0,.7);;
+    background-color: rgba(0, 0, 0, .7);
+    ;
     border: none;
     height: 35px;
     width: 35px;
@@ -230,15 +311,18 @@
     align-items: center;
     cursor: pointer;
 }
-#goForward i{
+
+#goForward i {
     color: white;
 }
-#goBackward{
+
+#goBackward {
     font-size: 20px;
     position: absolute;
     bottom: 330px;
     left: 10px;
-    background-color: rgba(0,0,0,.7);;
+    background-color: rgba(0, 0, 0, .7);
+    ;
     border: none;
     height: 35px;
     width: 35px;
@@ -248,13 +332,16 @@
     align-items: center;
     cursor: pointer;
 }
-#goBackward i{
+
+#goBackward i {
     color: white;
 }
-.top-adding-caption-nav{
+
+.top-adding-caption-nav {
     width: 1000px;
     height: 50px;
-
+    animation-duration: 1s;
+    animation-name: expand;
 
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
@@ -265,69 +352,130 @@
     justify-content: space-between;
     align-items: center;
 }
-.photo-exists-modal{
+
+.photo-exists-modal {
     width: 700px;
     height: 700px;
     border-radius: 30px;
     border-collapse: separate;
 }
-#second-back-button{
+
+#second-back-button {
     margin-left: 20px;
     font-size: 24px;
-    border:none;
+    border: none;
     background-color: transparent;
     cursor: pointer;
 }
-#share-button{
+
+#share-button {
     margin-right: 20px;
     font-size: 14px;
-    color: rgb(0,149,246);
+    color: rgb(0, 149, 246);
     background-color: transparent;
     border: none;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
 }
-.captions-adding-form{
-    border-top:rgb(219,219,219) 1px solid;
+
+.captions-adding-form {
+    border-top: rgb(219, 219, 219) 1px solid;
     width: 300px;
+    animation-duration: 1s;
+    animation-name: expandCaption;
 }
-.create-post-user{
+@keyframes expandCaption {
+    from{
+        width: 0px;
+        opacity: 0;
+    }
+    90%{
+        opacity: 1
+    }
+    to{
+        width: 300px;
+    }
+}
+.create-post-user {
 
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.create-post-user-picture img{
-    width:35px;
-    height:35px;
+@keyframes expandUser {
+    from{
+        width:0px;
+        opacity: 0;
+    }
+    66%{
+        opacity:1;
+    }
+    to{
+
+        width: 35px;
+    }
+}
+@keyframes expandUserImg {
+    from{
+
+        opacity: 0;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+.create-post-user-picture img {
+    animation-duration: 1s;
+    animation-name: expandUserImg;
+    width: 35px;
+    height: 35px;
     border-radius: 30px;
     margin-left: 15px;
-    margin-top:20px;
+    margin-top: 20px;
 }
-.create-post-username{
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+.create-post-username {
+    animation-duration: 1.5s;
+    animation-name: expandUser;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 600;
     display: flex;
     align-items: center;
     margin-left: 15px;
-    margin-top:10px;
+    margin-top: 10px;
 }
-.create-post-comment-input{
+
+.create-post-comment-input {
     margin-left: 15px;
-    margin-top:10px;
+    margin-top: 10px;
 }
-.create-post-comment-input textarea{
+
+.create-post-comment-input textarea {
+    animation-duration: 1s;
+    animation-name: expandText;
     width: 260px;
     height: 200px;
     resize: none;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     overflow-y: auto;
+    background-color:transparent
 }
-.character-count{
+@keyframes expandText {
+    from{
+        width: 50px;
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+        width: 260px;
+    }
+}
+.character-count {
 
     display: flex;
     justify-content: end;
@@ -335,15 +483,16 @@
     font-size: 14px;
 }
 
-.photo-posted-container{
-    width:700px;
+.photo-posted-container {
+    width: 700px;
     height: 650px;
 }
-.photo-posted-title{
+
+.photo-posted-title {
     width: 700px;
     height: 50px;
 
-    border-bottom: rgb(219,219,219) 1px solid;
+    border-bottom: rgb(219, 219, 219) 1px solid;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 600;
@@ -353,7 +502,8 @@
     justify-content: center;
     align-items: center;
 }
-.photo-posted-check{
+
+.photo-posted-check {
 
     display: flex;
     flex-direction: column;
@@ -361,21 +511,29 @@
     align-items: center;
     width: 700px;
 }
-.gif img{
+
+.gif img {
     height: 110px;
     width: 110px;
     margin-top: 200px;
 }
-.gif-text{
+
+.gif-text {
     margin-top: 20px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
 }
+
 .dropzone.highlight {
-    background-color: rgba(0,0,0,.3);
+    background-color: rgba(0, 0, 0, .3);
 }
-.dropzone{
+
+.dropzone {
     height: 700px;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
