@@ -2,14 +2,15 @@ import './HomeFeedCard.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
-import { Modal } from '../../context/modal'
+import { Modal } from '../../context/modal';
 import CommentCard from '../CommentCard';
+import { useSelector } from 'react-redux';
 
 const HomeFeedCard = ({ post }) => {
     const user = post.users;
     const images = post.image;
     const likes = post.likes;
-    const comments = post.comments
+    const comments = Object.values(post.comments)
     const [currentImage, setCurrentImage] = useState(0);
     const [showModal, setShowModal] = useState(false);
     // console.log(post);
@@ -85,12 +86,14 @@ const HomeFeedCard = ({ post }) => {
                     {post.caption}
                 </div>
                 <div className='home-card-view-comments'>
-                    <div onClick={()=> setShowModal(true)}>{viewComments()}</div>
-                 {showModal && (
-                    <Modal onClose={() => setShowModal(false)}>
-                        <CommentCard post={post}/>
-                    </Modal>
-                 )}
+                    {/* <Link to={`/${post.id}/comments`}> */}
+                        <div onClick={() => setShowModal(true)}>{viewComments()}</div>
+                        {showModal && (
+                            <Modal onClose={() => setShowModal(false)}>
+                                <CommentCard post={post} />
+                            </Modal>
+                        )}
+                    {/* </Link> */}
                 </div>
             </div>
         </div>

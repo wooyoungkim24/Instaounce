@@ -39,6 +39,8 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 115px;
+    height: 30px;
 }
 .navbar-icon-tray #create-post-button{
     font-size: 25px;
@@ -56,4 +58,64 @@ nav {
     position: relative;
     display: flex;
     align-items: center;
+}
+#modal-content .close-modal-confirm {
+    border-radius: 15px;
+    background-color: white;
+    width: 400px;
+    height: 187px;
+    display: flex;
+    flex-direction: column;
+}
+.close-confirm-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: rgb(219,219,219) 1px solid;
+    padding-bottom: 15px;
+}
+.discardPostDiv{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    font-size:20px;
+    font-weight: 600
+}
+.ifLeaveDiv{
+    display: flex;
+    justify-content: center;
+    color: gray;
+    font-size: 14px;
+}
+
+#create-post-button{
+    border: none;
+    background: none;
+    padding:0px;
+    position: relative;
+    top: 1px;
+}
+.close-confirm-buttons{
+    display: flex;
+    flex-direction: column;
+}
+#discardButton{
+    height: 50px;
+    border:none;
+    border-bottom:rgb(219,219,219) 1px solid;
+    background-color: transparent;
+    font-weight: 600;
+    color: red;
+    font-size: 14px;
+    cursor:pointer;
+}
+#cancelDiscardButton{
+    height:50px;
+    border:none;
+    background-color: transparent;
+    cursor:pointer;
+    font-size:14px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }

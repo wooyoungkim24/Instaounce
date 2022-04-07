@@ -7,8 +7,8 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import HomeFeed from './components/HomeFeed';
 import UsersList from './components/UsersList';
-import User from './components/User';
-import CommentCard from './components/CommentCard'
+import UserProfile from './components/UserProfile';
+import CommentCard from './components/CommentCard';
 import { authenticate } from './store/session';
 
 function App() {
@@ -44,13 +44,13 @@ function App() {
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
+          <UserProfile />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           <HomeFeed />
         </ProtectedRoute>
         <ProtectedRoute path='/posts/:postId/comments' exact={true}>
-          <CommentCard/>
+          <CommentCard />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
