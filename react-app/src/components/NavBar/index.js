@@ -15,10 +15,23 @@ const NavBar = ({ user }) => {
         showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
     }
     const [showConfirm, setShowConfirm] = useState(false)
-
+    const [finalPage, setFinalPage] = useState(false)
+    const [firstPage, setFirstPage] = useState(true)
     const closeModals = () =>{
         setShowModal(false)
         setShowConfirm(false)
+    }
+
+    function conditionalSetShowConfirm() {
+        if(firstPage){
+            setShowModal(false)
+        }
+        else if(!finalPage){
+            setShowConfirm(true)
+        }
+        else{
+            setShowModal(false)
+        }
     }
     console.log('where is my modal', showModal)
     return (
@@ -61,8 +74,8 @@ const NavBar = ({ user }) => {
 
 
                         {showModal && (
-                            <Modal onClose={() => setShowConfirm(true)}>
-                                <CreatePostModalForm />
+                            <Modal onClose={conditionalSetShowConfirm}>
+                                <CreatePostModalForm setFinalPage = {setFinalPage} setFirstPage = {setFirstPage}/>
                             </Modal>
                         )}
 
