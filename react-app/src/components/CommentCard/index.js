@@ -15,7 +15,7 @@ const CommentCard = ({ post }) => {
     const comments = post.comments
     const images = post.image
     const sessionUser = useSelector(state => state.session.user);
-    const [errors, setErrors] = useState([])
+    // const [errors, setErrors] = useState([])
    
 
     const rightClickHandler = () => {
