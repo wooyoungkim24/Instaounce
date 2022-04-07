@@ -5,7 +5,7 @@ nav {
     display: flex;
     position: fixed;
     background-color: white;
-    z-index:10;
+    z-index:5;
     top:0px;
     width: 100%;;
     border-bottom: 1px solid rgb((var(--b6a, 219, 219, 219), 1));
@@ -20,7 +20,7 @@ nav {
     justify-content: space-between;
     position: fixed;
     background-color: white;
-    z-index:10;
+    z-index:5;
     top:0px;
     width: 640px;
     padding: 0px 20px;
