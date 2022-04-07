@@ -64,11 +64,17 @@ function CreatePostModalForm() {
         let ignore1 = document.querySelector('.add-more-photos-button')
         let ignore2 = document.querySelector('#add-more-photos-button')
         let ignore3 = document.querySelector('#goForward')
+
         let ignore4 = document.querySelector('#goBackward')
+
         const closeShowMore = (event) => {
             let target = event.target
-            if (target === ignore1 || ignore1.contains(target) || target === ignore2 || ignore2.contains(target) || target === ignore3 || ignore3.contains(target) || target === ignore4 || ignore4.contains(target)) {
+            if (target === ignore1 || ignore1.contains(target) || target === ignore2 || ignore2.contains(target)) {
                 return;
+            }else if(ignore3 && (target === ignore3 || ignore3.contains(target))){
+                return;
+            }else if (ignore4 && (target === ignore4 || ignore4.contains(target))){
+                return
             }
             setShowMorePhotos(false)
         }
@@ -80,7 +86,7 @@ function CreatePostModalForm() {
 
     }, [showMorePhotos, photos])
     useEffect(() => {
-        console.log('these are my photos', photos)
+        // console.log('these are my photos', photos)
         let imageCollect = document.querySelectorAll(".photo-preview-container > img")
         imageCollect.forEach(ele => {
             ele.addEventListener("dragstart", handleDragStart);
@@ -125,7 +131,7 @@ function CreatePostModalForm() {
         function handleTheDrop(e) {
             e.stopPropagation() // stops the browser from redirecting.
             let dragImage = e.dataTransfer.getData('text/uri-list')
-            console.log('start of photos', photos)
+            // console.log('start of photos', photos)
             // console.log('what is the drag', dragImage)
             // console.log('how many times are you running per move')
             // console.log('what is the drop', e.target.src)
@@ -140,7 +146,7 @@ function CreatePostModalForm() {
             photosCopy[dropIndex] = tmpDrag
             // photosCopy.splice(parseInt(dragIndex), 1, dropSwitch)
             // photosCopy.splice(parseInt(dropIndex), 1, dragSwitch)
-            console.log('what are my photos', photos, photosCopy)
+            // console.log('what are my photos', photos, photosCopy)
             setPhotoIndex(dropIndex)
             // let dragImageClassName = e.dataTransfer.getData('text/plain')
             // console.log('dragclass',dragImageClassName)
@@ -194,9 +200,19 @@ function CreatePostModalForm() {
     }
 
     function deletePhoto(index) {
-
+        console.log('what is i', index)
+        console.log('what is photos', photos)
         let photoCopy = [...photos]
+        console.log('what is photocopy', photoCopy[1], photoCopy)
         photoCopy.splice(index, 1)
+        let oldIndex = photoIndex
+        if(oldIndex >0){
+           oldIndex = photoIndex-1;
+        }else{
+            oldIndex = 0;
+        }
+
+        setPhotoIndex(oldIndex)
         setPhotos([...photoCopy])
     }
 
@@ -289,7 +305,7 @@ function CreatePostModalForm() {
                         </div>
                     </div>
                     <div id='photo-wrapper'>
-                        {console.log('final photos', photos)}
+                        {console.log('gotcha', photos, photoIndex)}
                         <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])}></img>
 
                         {photoIndex < photos.length - 1 &&
@@ -312,13 +328,14 @@ function CreatePostModalForm() {
                                 <div className='photo-preview-container'>
 
                                     {photos.map((ele, i) => {
+                                        console.log('delete bug' ,ele, i)
                                         return (
                                             <>
                                                 {photos.length > 1 &&
-                                                    <button type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
+                                                    <button key={ele.name} type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
                                                         <i class="fa-solid fa-circle-xmark"></i>
                                                     </button>}
-                                                <img draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                                <img onClick ={() => setPhotoIndex(i) }draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
                                             </>
 
                                         )
