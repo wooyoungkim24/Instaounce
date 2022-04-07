@@ -84,7 +84,7 @@ export const removePost = (payload) => async (dispatch) => {
     });
 
     if (res.ok) {
-        const post = res.json()
+        const post = await res.json()
         await dispatch(deletePost(post))
     };
 };

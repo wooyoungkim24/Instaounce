@@ -177,9 +177,11 @@ def update_post(id):
     return "Bad"
 
 @post_routes.route('/<id>', methods=["DELETE"])
+@login_required
 def delete_post(id):
+    print("delete route begins")
     post = Post.query.filter(Post.id == id).first()
-    print("post from delete route", post)
+    print("post from delete route", post.to_dict())
     db.session.delete(post)
     db.session.commit()
     return post.to_dict()
