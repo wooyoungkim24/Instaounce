@@ -331,15 +331,9 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                         </div>
                     </div>
                     <div className='finished-photos-bottom-container'>
-<<<<<<< HEAD
-                        <div>
-                            <img src={URL.createObjectURL(photos[0])} alt='first pic'></img>
-                        </div>
-=======
 
                         <img src={URL.createObjectURL(photos[0])}></img>
 
->>>>>>> new_create_post_branch
                         <div className='captions-adding-form'>
                             <div className='create-post-user'>
                                 <div className='create-post-user-picture'>
@@ -438,11 +432,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                                                     <button key={ele.name} type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
                                                         <i className="fa-solid fa-circle-xmark"></i>
                                                     </button>}
-<<<<<<< HEAD
-                                                <img onClick ={() => setPhotoIndex(i) } draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)} alt='draggable pic'></img>
-=======
                                                 <img onClick={() => setPhotoIndex(i)} draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
->>>>>>> new_create_post_branch
                                             </>
 
                                         )
