@@ -23,7 +23,7 @@ class Post(db.Model):
           'caption': self.caption,
           'image': self.image,
           'updated_at':self.updated_at,
-          'comments':[comment.to_dict() for comment in self.comments],
+          'comments':{comment.id: comment.to_dict() for comment in self.comments},
           "likes":[like.to_dict() for like in self.likes],
           "users":self.users.to_dict()
         }

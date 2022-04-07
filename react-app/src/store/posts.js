@@ -4,6 +4,8 @@ const CREATE_LIKE = 'session/CREATE_LIKE';
 const DELETE_LIKE = 'session/DELETE_LIKE';
 const GET_COMMENTS = 'session/GET_COMMENTS';
 const CREATE_COMMENT = 'session/CREATE_COMMENT'
+const DELETE_COMMENT = 'session/DELETE_COMMENT'
+const EDIT_COMMENT = 'session/EDIT_COMMENT'
 
 
 
@@ -35,6 +37,16 @@ const makeComment = (comment) => ({
   payload: comment
 })
 
+const commentDelete = (commentId) => ({
+  type: DELETE_COMMENT,
+  payload: commentId
+})
+
+const commentEdit = (comment) => ({
+  type: EDIT_COMMENT,
+  payload: comment
+})
+
 
 export const createComment = (comment) => async(dispatch) => {
   const response = await fetch(`/api/posts/comments`,{
@@ -46,9 +58,34 @@ export const createComment = (comment) => async(dispatch) => {
     body: JSON.stringify(comment)
   })
   if (response.ok){
-    console.log(response)
     const comment = await response.json()
     await dispatch(makeComment(comment))
+  }
+}
+
+export const deleteComment = (commentId) => async(dispatch) => {
+  const response = await fetch(`api/posts/comments/${commentId}`,{
+    method: "DELETE"
+  })
+  if (response.ok){
+    const comment = await response.json()
+    dispatch(commentDelete(comment))
+  }
+}
+
+export const editComment = (comment) => async(dispatch) => {
+  const response = await fetch(`/api/posts/comments/${comment.id}`,{
+    method: "PUT",
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(comment)
+  })
+
+  if(response.ok){
+    const comment = await response.json()
+    await dispatch(commentEdit(comment))
   }
 }
 
@@ -57,7 +94,6 @@ export const createPost = (payload) => async(dispatch) => {
 
   const response = await fetch('/api/posts/', {
     method: "POST",
-    // headers: {"Content-type": "application/JSON"},
     body: payload
   })
 
@@ -98,7 +134,6 @@ export const like = (postId) => async(dispatch) => {
 
   if (response.ok) {
     const newLike = await response.json()
-    // console.log("NEW LIKE", newLike)
     await dispatch(likeAPost(newLike))
   };
 };
@@ -128,45 +163,23 @@ export default function postsReducer(state = initialState, action) {
         action.payload.posts.forEach(post => {
           newState.followedPosts[post.id] = post
         })
-        
         return newState
 
       case CREATE_LIKE:
-          console.log("action.payload", action.payload)
-          // original: (likes in the state is undefined)
-          // newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
-
-          newState.followedPosts[action.payload['post_id']].likes.push(action.payload)
-
+        newState.followedPosts[action.payload['post_id']].likes.push(action.payload.like)
+        return newState
+        
+        case CREATE_COMMENT:
+        newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload
         return newState
 
-      case DELETE_LIKE:
-          delete newState.followedPosts[action.postId].likes[action.likeId]
-          const likes = newState.followedPosts[action.postId].likes
-
-          const filteredLikes = likes.filter(like => like.id !== action.likeId)
-
-          newState.followedPosts[action.postId].likes = filteredLikes
-          return newState
-          
-      case CREATE_COMMENT:
-        newState.followedPosts[action.payload['post_id']].comments.push(action.payload.comment)
+      case DELETE_COMMENT:
+        delete newState.followedPosts[action.payload.postId].comments[action.payload.commentId]
         return newState
 
-        // const post_id = action.payload.comment.post_id
-        // const newArr = [action.payload.comment, ...state[post_id].followedPosts.comments.all] 
-        // console.log(action.payload)
-        // const newComment = {
-        //   ...action.payload.comment,
-        // }
-        // return {
-        //   ...state,
-        //   [post_id]: {
-        //     ...state[post_id].comments,
-        //     [action.payload.comment.id]: newComment,
-        //     comments: newArr
-        //   }
-        // }
+      case EDIT_COMMENT:
+        newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload
+        return newState
 
       default:
         return state;

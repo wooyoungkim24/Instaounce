@@ -58,10 +58,33 @@ def create_comment():
         post_id=data["post_id"],
         content=data["content"],
     )
-    print(data)
     db.session.add(new_comment)
     db.session.commit()
     return new_comment.to_dict()
+
+@post_routes.route('/comments/<id>', methods=["DELETE", "PUT"])
+def deleteComment(id):
+    if request.method == "DELETE":
+        comment = Comment.query.filter(Comment.id == id).first()
+        post_id = comment.post_id
+        db.session.delete(comment)
+        db.session.commit()
+        return {
+            "postId": post_id,
+            "commentId": id
+        }
+    elif request.method == "PUT":
+        comment = Comment.query.filter(Comment.id == id).first()
+        data = request.get_json(force=True)
+        # print(comment.content)
+        comment.user_id = data["user_id"]
+        comment.post_id = data["post_id"]
+        comment.content = data["content"]
+
+        db.session.add(comment)
+        db.session.commit()
+        return comment.to_dict()
+
 
 
 @post_routes.route("/<id>/likes", methods=["POST", "DELETE"])

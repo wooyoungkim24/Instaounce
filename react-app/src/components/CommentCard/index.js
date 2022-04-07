@@ -2,8 +2,11 @@ import './CommentCard.css';
 import { useState } from 'react'
 import LikeIcon from '../LikeIcon';
 import { Link } from 'react-router-dom';
-import createComment from '../../store/posts';
+import { createComment } from '../../store/posts';
 import { useSelector, useDispatch } from 'react-redux'
+import { Modal } from '../../context/modal';
+import { EditDeleteComment } from './editComment';
+import { Comments } from './comments'
 
 
 const CommentCard = ({ post }) => {
@@ -12,10 +15,11 @@ const CommentCard = ({ post }) => {
     const likes = post.likes;
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
-    const comments = post.comments
+    const comments = Object.values(post.comments)
     const images = post.image
     const sessionUser = useSelector(state => state.session.user);
-    // const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState([])
+    const [showModal, setShowModal] = useState(false)
    
 
     const rightClickHandler = () => {
@@ -46,21 +50,10 @@ const CommentCard = ({ post }) => {
             post_id: post.id,
             content: newComment
         }
-        // let createdComment;
-        console.log(comment)
-        dispatch(createComment({
-            user_id: sessionUser.id,
-            post_id: post.id,
-            content: newComment
-        }))
-        // .catch(async res => {
-        //     const data = await res.json();
-        //     if(data && data.errors) setErrors(data.errors)
-        // })
-        // if(createdComment){
-        //     setErrors([])
-        // }
+        dispatch(createComment(comment))
+        setNewComment('')
     }
+  
 
     return (
         <div className='post-dialog'>
@@ -76,55 +69,58 @@ const CommentCard = ({ post }) => {
                         }
                 </div>
                 <div className='comment-card-nonimage-content'>
-                        <div className="user">
-                            <img src={user.profile_image}></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                        </div>
-                        
-                        <div className='comment-card-icon-tray' >
-                            <div className='home-card-icon-tray-top-left'>
-                                <LikeIcon likes={likes} postId={post.id} />
-                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
-                            </div>
-                            {images.length > 1 &&
-                                <div className='home-card-icon-tray-dots'>
-                                    {images.map((image, index) => (
-                                        <i key={index} className={activeDotClass(index)}></i>
-                                    ))}
-                                </div>
-                            }
-                        </div>
-                        <div className='comment-card-likes-tray'>
-                            {likes.length} likes
-                        </div>
-                        <div className='comment-card-caption-area'>
+                    <div className='comment-content'>
+
+                            <div className="user">
                                 <img src={user.profile_image}></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                            <div  id="caption-container">
-                                {post.caption}
-                                <div id='date-time'>{post.updated_at}</div>
+                                <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                            </div>
+                            
+                            <div className='view-all-comments'>
+                                <div className='comment-card-caption-area'>
+                                        <img src={user.profile_image}></img>
+                                    <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                                    <div  id="caption-container">
+                                        {post.caption}
+                                        <div id='date-time'>{post.updated_at}</div>
+                                    </div>
+                                </div>
+                                    <ul className="comments-container">
+                                        {comments.map(comment => (
+                                            <Comments key={comment.id} post={post} comment={comment} />
+                                        ))}
+                                    </ul>
+                            </div>
+                            <div className='interact-comment-section'>
+                                <div className='comment-card-icon-tray' >
+                                    <div className='home-card-icon-tray-top-left'>
+                                        <LikeIcon likes={likes} postId={post.id} />
+                                        <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                                    </div>
+                                    {images.length > 1 &&
+                                        <div className='home-card-icon-tray-dots'>
+                                            {images.map((image, index) => (
+                                                <i key={index} className={activeDotClass(index)}></i>
+                                            ))}
+                                        </div>
+                                    }
+                                </div>
+                                <div className='home-card-likes-tray'>
+                                    {likes.length} likes
+                                </div>
+
+                                <form className="make-comment" onSubmit={handleCommentSubmit}>
+                                        <textarea
+                                        id='new-comment-input'
+                                        placeholder="Add a comment..."
+                                        value={newComment}
+                                        required
+                                        onChange={e => setNewComment(e.target.value)}
+                                        />
+                                    <button type='submit'>Post</button>
+                                </form>
                             </div>
                         </div>
-                        <div className='view-comments'>
-                            <ul className='comments-container'>
-                                {comments.map(comment => (
-                                    <>
-                                        <li key={comment.id}>{comment.content}</li>
-                                        <li>{comment.updated_at}</li>
-                                    </>
-                                ))}
-                            </ul>
-                        </div>
-                        <form className="make-comment" onSubmit={handleCommentSubmit}>
-                                <textarea
-                                id='new-comment-input'
-                                placeholder="Add a comment..."
-                                value={newComment}
-                                required
-                                onChange={e => setNewComment(e.target.value)}
-                                />
-                            <button type='submit'>Post</button>
-                        </form>
                     </div>
         
             </div>

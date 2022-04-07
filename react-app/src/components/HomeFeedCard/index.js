@@ -10,23 +10,7 @@ const HomeFeedCard = ({ post }) => {
     const user = post.users;
     const images = post.image;
     const likes = post.likes;
-
-    // testing block start
-    // console.log("post prop", post)
-
-    // const likes = useSelector(
-    //     (state) => state.feedState.followedPosts[post.id].likes
-    // )
-
-    // useSelector(
-    //     (state) => state.feedState
-    // )
-
-    // console.log("likes from useSelector", likes)
-
-    // testing block end
-
-    const comments = post.comments
+    const comments = Object.values(post.comments)
     const [currentImage, setCurrentImage] = useState(0);
     const [showModal, setShowModal] = useState(false);
     // console.log(post);
