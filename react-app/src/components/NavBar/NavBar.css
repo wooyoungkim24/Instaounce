@@ -1,16 +1,22 @@
 nav {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-    height: 50px;
     margin-bottom: 15px;
+    justify-content: center;
 }
 
 .navbar-container {
-    width: 640px;
+    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    height: 60px;
+    justify-content: center;
+    align-items: center;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    background-color: white;
+    z-index:10;
+    top:0px;
+    width: 640px;
+    padding: 0px 20px;
 }
 
 .navbar-logo {
