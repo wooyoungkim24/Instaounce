@@ -161,25 +161,18 @@ def create_post():
 @post_routes.route("/<id>", methods=["PUT"])
 @login_required
 def update_post(id):
-    print("begging!!!!!!")
     form = UpdatePostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
-    print("form", form.data)
+    # if we are using wtform, we need to add csrf_token
+
     if form.validate_on_submit():
         post_id = id
-        print("post_id", post_id)
         target_post = Post.query.filter(Post.id == post_id).first()
-        print("target_post before update", target_post)
-
         data = form.data
         caption = data['caption']
-        print('cation in route!!!', caption)
-
         target_post.caption = caption
-
         db.session.commit()
 
-        print("target_post after update", target_post)
         return target_post.to_dict()
     return "Bad"
 
