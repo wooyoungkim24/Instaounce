@@ -1,5 +1,4 @@
 import './UserProfileDetails.css';
-import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { follow, unfollow } from '../../store/userPages';
 import { Modal } from '../../context/modal';
