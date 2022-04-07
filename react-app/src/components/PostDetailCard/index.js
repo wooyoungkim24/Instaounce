@@ -48,6 +48,7 @@ const PostDetailCard = ({ post, user }) => {
   };
 
   return (
+      <>
       <div className='post-dialog'>
 
           <div className="post-details-container">
@@ -65,11 +66,7 @@ const PostDetailCard = ({ post, user }) => {
                           <img src={user.profileImage}></img>
                           <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
                           <button onClick={editClickHandler}>Edit</button>
-                          {showEditForm && (
-                            <Modal>
-                              <UpdatePostForm post={post} user={user} />
-                            </Modal>
-                          )}
+
                       </div>
 
 
@@ -112,6 +109,12 @@ const PostDetailCard = ({ post, user }) => {
 
           </div>
       </div>
+      {showEditForm && (
+                            <Modal onClose={() => setShowEditForm(false)}>
+                              <UpdatePostForm post={post} user={user} />
+                            </Modal>
+                          )}
+      </>
   )
 }
 
