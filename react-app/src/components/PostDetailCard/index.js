@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 import { Modal } from '../../context/modal';
 import { postComment } from '../../store/userPages'
+import { Comments } from '../CommentCard/comments'
 
 import UpdatePostForm from '../UpdatePostForm'
 import ConfirmDeleteModal from '../ConfirmDeleteModal';
@@ -77,13 +78,11 @@ const PostDetailCard = ({ post, user, hidePost }) => {
 
     return (
         <>
-            <div className='post-detail-card'>
+            <div className='post-dialog'>
 
-                <div className="post-detail-card-container">
-                    <div className='post-detail-card-images'>
-                        <div className='image-container'>
-                            <img src={images[currentImage]} alt='post pic' />
-                        </div>
+                <div className="post-details-container">
+                    <div className='comment-card-images'>
+                        <img src={images[currentImage]} alt='post pic' />
                         {currentImage !== 0 && images.length > 1 &&
                             <i className="fa-solid fa-circle-chevron-left left-arrow" onClick={leftClickHandler}></i>
                         }
@@ -91,7 +90,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                             <i className="fa-solid fa-circle-chevron-right right-arrow" onClick={rightClickHandler}></i>
                         }
                     </div>
-                    <div className='post-detail-content'>
+                    <div className='comment-card-nonimage-content'>
                         <div className="user">
                             <img src={user.profileImage}></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
@@ -122,26 +121,26 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                                 <div id='date-time'>{post.updated_at}</div>
                             </div>
                             {sessionUser.id === post.userId && (
-                                <div>
-                                    {/* <button onClick={editClickHandler}>Edit</button> */}
-                                    <i class="fa-regular fa-pen-to-square edit-icon" onClick={editClickHandler}></i>
-                                    {/* <button onClick={deleteClickHandler}>Delete</button> */}
-                                    <i class="fa-regular fa-trash-can delete-icon" onClick={deleteClickHandler}></i>
+                            <div>
+                                {/* <button onClick={editClickHandler}>Edit</button> */}
+                                <i class="fa-regular fa-pen-to-square edit-icon" onClick={editClickHandler}></i>
+                                {/* <button onClick={deleteClickHandler}>Delete</button> */}
+                                <i class="fa-regular fa-trash-can delete-icon" onClick={deleteClickHandler}></i>
 
-                                </div>
+                            </div>
                             )}
                         </div>
-                        <div className='view-comments'>
-                            <ul className='comments-container'>
-                                {comments.map(comment => (
-                                    <>
-                                        <li key={comment.id}>{comment.content}</li>
-                                        <li>{comment.updated_at}</li>
-                                    </>
-                                ))}
-                            </ul>
+                        <div className='view-all-comments'>
+                                <div className='comment-card-caption-area'>
 
-                        </div>
+
+                                </div>
+                                    <ul className="comments-container">
+                                        {comments.map(comment => (
+                                            <Comments key={comment.id} post={post} comment={comment} />
+                                        ))}
+                                    </ul>
+                            </div>
 
                         <form className="make-comment" onSubmit={handleCommentSubmit}>
                                         <textarea
