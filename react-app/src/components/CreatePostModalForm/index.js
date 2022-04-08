@@ -136,7 +136,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
             } else if (ignore3 && (target === ignore3 || ignore3.contains(target))) {
                 return;
             } else if (ignore4 && (target === ignore4 || ignore4.contains(target))) {
-                return
+                return;
             }
             setShowMorePhotos(false)
         }
@@ -146,7 +146,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
 
         return () => modal.removeEventListener("click", closeShowMore);
 
-    }, [showMorePhotos, photos])
+    }, [showMorePhotos, photos, photoIndex])
     useEffect(() => {
         // console.log('these are my photos', photos)
         let imageCollect = document.querySelectorAll(".photo-preview-container > img")
