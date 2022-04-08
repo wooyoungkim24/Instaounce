@@ -276,7 +276,9 @@ export default function userPageReducer(state = initialState, action) {
             if (newState[action.payload.currentUserId]) {
                 delete newState[action.payload.currentUserId].following[action.payload.userId]
             };
-            delete newState[action.payload.userId].followers[action.payload.currentUserId]
+            if (newState[action.payload.userId]) {
+                delete newState[action.payload.userId].followers[action.payload.currentUserId]
+            };
             return newState;
 
         // case CREATE_POST:
