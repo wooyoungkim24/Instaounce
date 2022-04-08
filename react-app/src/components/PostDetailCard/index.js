@@ -105,15 +105,16 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                                 {post.caption}
                                 <div id='date-time'>{post.updated_at}</div>
                             </div>
+
                             {sessionUser.id === post.userId && (
                             <div>
                                 {/* <button onClick={editClickHandler}>Edit</button> */}
                                 <i class="fa-regular fa-pen-to-square edit-icon" onClick={editClickHandler}></i>
                                 {/* <button onClick={deleteClickHandler}>Delete</button> */}
                                 <i class="fa-regular fa-trash-can delete-icon" onClick={deleteClickHandler}></i>
-
                             </div>
                             )}
+
                         </div>
                         <div className='view-all-comments'>
                                 <div className='comment-card-caption-area'>
