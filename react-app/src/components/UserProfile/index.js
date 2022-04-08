@@ -9,10 +9,11 @@ import UserProfileImageCard from '../UserProfileImageCard';
 const UserProfile = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const { userId, commentId } = useParams();
+    const { userId } = useParams();
     const dispatch = useDispatch();
 
-    const sessionUser = useSelector(state => state.session.user)
+    const session = useSelector(state => state.session)
+    const sessionUser = session.user
     const pageStateData = useSelector(state => state.pageState);
     const pageData = pageStateData[userId]
     let posts;
@@ -20,18 +21,22 @@ const UserProfile = () => {
 
     useEffect(() => {
         dispatch(loadUserPage(userId))
-        .then(() => setIsLoaded(true))
-    },[dispatch, userId]);
+            .then(() => setIsLoaded(true))
+    }, [dispatch, userId]);
 
 
     return isLoaded && (
         <div className='user-profile-body'>
-                <UserProfileDetails user={pageData} sessionUser={sessionUser} />
-            <div className='user-profile-images'>
-                {posts.map(post => (
-                    <UserProfileImageCard key={post.id} post={post} user={pageData} />
-                    ))}
-            </div>
+            {pageData &&
+                <>
+                    <UserProfileDetails user={pageData} sessionUser={sessionUser} />
+                    <div className='user-profile-images'>
+                        {posts.map(post => (
+                            <UserProfileImageCard key={post.id} post={post} user={pageData} />
+                        ))}
+                    </div>
+                </>
+            }
         </div>
 
     )

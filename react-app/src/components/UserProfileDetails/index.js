@@ -22,7 +22,6 @@ const UserProfileDetails = ({ user, sessionUser }) => {
     const [showFollowersModal, setShowFollowersModal] = useState(false)
     const [showFollowingModal, setShowFollowingModal] = useState(false)
     const [followingUser, setFollowingUser] = useState(isUserFollowing)
-    console.log("followingUser:", typeof followingUser)
 
     const displayFollowIcon = () => {
         return !isUsersPage && !followingUser
@@ -75,10 +74,10 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                         <div className='profile-user-stats-container'>
                             <span className='profile-user-stat'>{posts.length}</span> posts
                         </div>
-                        <div className='profile-user-stats-container'>
+                        <div onClick={() => setShowFollowersModal(true)} className='profile-user-stats-container can-click'>
                             <span className='profile-user-stat'>{followers.length}</span> followers
                         </div>
-                        <div onClick={() => setShowFollowingModal(true)} className='profile-user-stats-container'>
+                        <div onClick={() => setShowFollowingModal(true)} className='profile-user-stats-container can-click'>
                             <span className='profile-user-stat'>{following.length}</span> following
                         </div>
                     </div>
@@ -115,10 +114,21 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                 <Modal onClose={() => setShowFollowingModal(false)}>
                     <FollowingModal 
                     following={following} 
-                    sessionUser={sessionUser} 
-                    user={user}
+                    sessionUser={sessionUser}
                     setShowFollowModal={setShowFollowModal}
                     setShowFollowingModal={setShowFollowingModal}
+                    modalHeader={"Following"}
+                    />
+                </Modal>
+            }
+            {showFollowersModal &&
+                <Modal onClose={() => setShowFollowersModal(false)}>
+                    <FollowingModal
+                        following={followers}
+                        sessionUser={sessionUser}
+                        setShowFollowModal={setShowFollowModal}
+                        setShowFollowingModal={setShowFollowersModal}
+                        modalHeader={"Followers"}
                     />
                 </Modal>
             }

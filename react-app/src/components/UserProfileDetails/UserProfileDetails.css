@@ -80,6 +80,10 @@
     font-size: 10px;
 }
 
+.profile-user-stats-container.can-click {
+    cursor: pointer;
+}
+
 .profile-details-user-stats {
     display: flex;
     gap: 60px;
