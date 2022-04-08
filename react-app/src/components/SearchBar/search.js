@@ -1,13 +1,12 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import './search.css'
-import UserProfile from '../UserProfile/index'
-
 
 
 export const SearchBar = ({}) => {
     const [users, setUsers] = useState([])
     const [query, setQuery] = useState("")
+    const [showDropdown, setShowDropdown] = useState(false)
 
     useEffect(() => {
       async function fetchData() {
@@ -18,6 +17,17 @@ export const SearchBar = ({}) => {
       fetchData();
     }, []);
 
+    useEffect(() => {
+        if (!showDropdown) return;
+
+        const closeMenu = () => {
+            setShowDropdown(false);
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showDropdown]);
 
     const getFilteredUsers = (query, users) => {
 
@@ -37,17 +47,20 @@ export const SearchBar = ({}) => {
             id="search"
             placeholder="Search"
             autoComplete='off'
+            onClick={() => setShowDropdown(true)}
             />
-            <div id="search-list" >
-                {filteredUsers.map(value => (
-                    <div key={value.id} className="user-link-search">
-                        <Link to={`/users/${value.id}`}>
+            {showDropdown && (
+                <div id="search-list" >
+                    {filteredUsers.map(value => (
+                        <Link onClick={() => setShowDropdown(false)} to={`/users/${value.id}`}>
+                            <div key={value.id} className="user-link-search">
                             <img alt="profile_image" src={value.profile_image}/>
                             {value.username}
+                            </div>
                         </Link>
-                    </div>
-                ))}
-            </div>            
+                    ))}
+                </div>            
+            )}
         </div>    
     )
 }
