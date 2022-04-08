@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import logo from '../../assets/logo.png'
+import './Login-SignUp.css'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -60,87 +62,144 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
-      </div>
-      <div>
-        <label>Username</label>
-        <input
-          type='text'
-          name = 'username'
-          value = {username}
-          onChange={updateUsername}>
-        </input>
-      </div>
-      <div>
-        <label>First Name</label>
-        <input
-          type='text'
-          name = 'first_name'
-          value = {firstName}
-          onChange={updateFirstName}>
-        </input>
-      </div>
-      <div>
-        <label>Last Name</label>
-        <input
-          type='text'
-          name = 'last_name'
-          value = {lastName}
-          onChange={updateLastName}>
-        </input>
-      </div>
-      <div>
-        <label>Profile Picture</label>
-        <input
-          type='text'
-          name = 'profile_pic'
-          value = {profileImage}
-          onChange={updateProfileImage}>
-        </input>
-      </div>
-      <div>
-        <label>Biography</label>
-        <input
-          type='text'
-          name='biography'
-          onChange={updateBio}
-          value={bio}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+    <>
+      <div className="loginform-background">
+          <div className="signupform-container">
+              <div id="login-logo">
+                <img src={logo} className="navbar-logo" alt='logo' />
+              </div>
+        <div id="sign-up-text">Sign up to see photos from your friends.</div>
+        <form className="signup-form" onSubmit={onSignUp}>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <input
+              type='text'
+              name = 'username'
+              value = {username}
+              placeholder="Username"
+              onChange={updateUsername}>
+            </input>
+          </div>
+          <div>
+            <input
+              type='text'
+              name = 'first_name'
+              placeholder="First Name"
+              value = {firstName}
+              onChange={updateFirstName}>
+            </input>
+          </div>
+          <div>
+            <input
+              type='text'
+              name = 'last_name'
+              placeholder="Last Name"
+              value = {lastName}
+              onChange={updateLastName}>
+            </input>
+          </div>
+          <div>
+            <input
+              type='text'
+              name = 'profile_pic'
+              placeholder="Profile Image"
+              value = {profileImage}
+              onChange={updateProfileImage}>
+            </input>
+          </div>
+          <div>
+            <input
+              type='text'
+              name='biography'
+              placeholder="Bio"
+              onChange={updateBio}
+              value={bio}
+            ></input>
+          </div>
+          <div>
+            <input
+              type='text'
+              name='email'
+              placeholder="Email Address"
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <div>
+            <input
+              type='password'
+              name='password'
+              placeholder="Password"
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <div>
+            <input
+              type='password'
+              name='repeat_password'
+              placeholder="Confirm Password"
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <button type='submit'>Sign Up</button>
+        </form>
+        </div>
+          <div className="sign-up-link">Have an an account? 
+              <Link to="/login">
+                Log in
+              </Link>
+          </div>
+        </div>
+        <footer>
+        <div className="tech">
+            <div id="tech" >Reactjs</div>
+            <div id="tech" >Redux</div>
+            <div id="tech" >Javascript</div>
+            <div id="tech" >Python</div>
+            <div id="tech" >Flask</div>
+            <div id="tech" >SQLAlchemy</div>
+            <div id="tech" >PostgreSQL</div>
+            <div id="tech" >HTML</div>
+            <div id="tech" >CSS</div>
+        </div>
+        <div id="github-menu">
+            <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+            <label class="menu-open-button" for="menu-open">
+              <div id="github" >
+                  <i class="fa-brands fa-github"></i>
+              </div>
+            </label>
+            {/* <label class="menu-open-button" for="menu-open">
+              <div id="linked-in" >
+                  <i class="fa-brands fa-linkedin"></i>
+              </div>
+            </label> */}
+            <a class="menu-item woo" target="_blank" href="https://github.com/wooyoungkim24">Wooyoung Kim</a>
+            <a class="menu-item wan" target="_blank" href="https://github.com/wanyi886">Wan-Yi Lee</a>
+            <a class="menu-item yake" target="_blank" href="https://github.com/CodeWhatThouWilt">Jacob North</a>
+            <a class="menu-item ana" target="_blank" href="https://github.com/annvilla1998">Anabel Villalobos</a>
+        </div>
+        <div id="linked-in-menu">
+            <input type="checkbox" href="#" class="menu-openli" name="menu-openli" id="menu-openli" />
+            <label class="menu-open-buttonli" for="menu-openli">
+              <div id="linked-in" >
+                  <i class="fa-brands fa-linkedin"></i>
+              </div>
+            </label>
+            <a class="menu-itemli wooli" target="_blank" href="https://www.linkedin.com/in/wooyoung-kim-718618143/">Wooyoung Kim</a>
+            <a class="menu-itemli wanli" target="_blank" href="https://www.linkedin.com/in/wan-yi-lee/">Wan-Yi Lee</a>
+            <a class="menu-itemli yakeli" target="_blank" href="https://www.linkedin.com/in/jacob-north-9b1266226/">Jacob North</a>
+            <a class="menu-itemli anali" target="_blank" href="https://www.linkedin.com/in/anabel-villalobos-5772ab196/">Anabel Villalobos</a>
+        </div>
+      </footer>
+    </>
   );
 };
 
