@@ -94,13 +94,13 @@ export const removePost = (payload) => async (dispatch) => {
 
 // ======================= COMMENTS ===================
 
-const CREATE_COMMENT = 'session/CREATE_LIKE';
-const UPDATE_COMMENT = 'session/UPDATE_COMMENT';
-const DELETE_COMMENT = 'session/DELETE_COMMENT';
+const ADD_COMMENT = 'userPages/ADD_COMMENT';
+const UPDATE_COMMENT = 'userPages/UPDATE_COMMENT';
+const REMOVE_COMMENT = 'userPages/DELETE_COMMENT';
 
 
 const createComment = (comment) => ({
-    type: CREATE_COMMENT,
+    type: ADD_COMMENT,
     payload: comment
 });
 
@@ -110,12 +110,26 @@ const updateComment = (comment) => ({
 });
 
 const deleteComment = (comment) => ({
-    type: DELETE_COMMENT,
+    type: REMOVE_COMMENT,
     payload: comment
 });
 
+// original
+// export const postComment = (comment) => async (dispatch) => {
+//     const res = await fetch(`/api/posts/${comment.postId}/comments`, {
+//         method: "POST",
+//         headers: {"Content-Type": "Application/JSON"},
+//         body: JSON.stringify(comment)
+//     });
+
+//     if (res.ok) {
+//         const comment = await res.json()
+//         await dispatch(createComment(comment));
+//     };
+// };
+
 export const postComment = (comment) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${comment.postId}/comments`, {
+    const res = await fetch(`/api/posts/comments`, {
         method: "POST",
         headers: {"Content-Type": "Application/JSON"},
         body: JSON.stringify(comment)
@@ -126,6 +140,8 @@ export const postComment = (comment) => async (dispatch) => {
         await dispatch(createComment(comment));
     };
 };
+
+
 
 export const editComment = (comment) => async (dispatch) => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
@@ -293,9 +309,9 @@ export default function userPageReducer(state = initialState, action) {
             delete newState[action.userId].posts[action.postId].likes[action.likeId];
             return newState
 
-        // case CREATE_COMMENT:
-        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-        //     return newState;
+        case ADD_COMMENT:
+            // newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+            return newState;
 
         default:
             return state;

@@ -19,6 +19,7 @@ const UserProfile = () => {
     let posts;
     if (pageData) posts = Object.values(pageData.posts)
 
+
     useEffect(() => {
         dispatch(loadUserPage(userId))
         .then(() => setIsLoaded(true))

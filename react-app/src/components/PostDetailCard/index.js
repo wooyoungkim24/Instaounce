@@ -1,33 +1,32 @@
 import './PostDetailCard.css';
-import { useState } from 'react'
-import { useSelector} from 'react-redux'
+import { useState, useRef } from 'react'
+import { useSelector, useDispatch} from 'react-redux'
 import LikeIconInUserPage from '../LikeIconInUserPage';
 import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 import { Modal } from '../../context/modal';
+import { postComment } from '../../store/userPages'
+
 import UpdatePostForm from '../UpdatePostForm'
 import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 
 const PostDetailCard = ({ post, user, hidePost }) => {
-    // const user = post.users;
-    // console.log(post, "post!!!!")
-    // console.log(user, "user!!!!")
+    const dispatch = useDispatch()
     const likes = Object.values(post.likes);
     const [currentImage, setCurrentImage] = useState(0);
-
+    const [newComment, setNewComment] = useState('');
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
 
 
     const sessionUser = useSelector(state => state.session.user);
-    console.log("sessionUser id", sessionUser.id)
-    console.log("post", post)
 
     const comments = Object.values(post.comments)
     const images = post.image
 
+    const comment = useRef()
 
     const rightClickHandler = () => {
         if (currentImage !== images.length - 1) {
@@ -57,6 +56,23 @@ const PostDetailCard = ({ post, user, hidePost }) => {
         };
     };
 
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault()
+
+        const comment = {
+            user_id: sessionUser.id,
+            post_id: post.id,
+            content: newComment
+        }
+        dispatch(postComment(comment))
+        setNewComment('')
+    }
+
+    const handleCommentClick = () => {
+
+        comment.current.focus()
+    }
+
     return (
         <>
             <div className='post-detail-card'>
@@ -83,7 +99,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                         <div className='comment-card-icon-tray' >
                             <div className='home-card-icon-tray-top-left'>
                                 <LikeIconInUserPage likes={likes} postId={post.id} user={user} />
-                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon" onClick={handleCommentClick}></i>
                             </div>
                             {images.length > 1 &&
                                 <div className='home-card-icon-tray-dots'>
@@ -124,6 +140,18 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                             </ul>
 
                         </div>
+
+                        <form className="make-comment" onSubmit={handleCommentSubmit}>
+                                        <textarea
+                                        ref={comment}
+                                        id='new-comment-input'
+                                        placeholder="Add a comment..."
+                                        value={newComment}
+                                        required
+                                        onChange={e => setNewComment(e.target.value)}
+                                        />
+                                    <button type='submit'>Post</button>
+                        </form>
                     </div>
 
                 </div>
