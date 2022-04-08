@@ -82,13 +82,20 @@ class User(db.Model, UserMixin):
     #                 Post.updated_at.desc()).all()
     
     def followed_posts(self):
-
         user_posts = Post.query.filter(Post.user_id == self.id)
-
         following_posts = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
-            
+        posts = user_posts.union(following_posts)
+        print("RAW SQL HERE: #########", posts.order_by(desc(Post.updated_at)).all())
+        ordered_posts = posts.order_by(desc(Post.updated_at)).all()
+        return ordered_posts
+    
+    def not_followed_posts(self):
+        user_posts = Post.query.filter(Post.user_id != self.id)
+        not_following_posts = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id)
         posts = user_posts.union(following_posts)
         print("RAW SQL HERE: #########", posts.order_by(desc(Post.updated_at)).all())
         ordered_posts = posts.order_by(desc(Post.updated_at)).all()

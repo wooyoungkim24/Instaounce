@@ -186,6 +186,11 @@ def delete_post(id):
     db.session.commit()
     return post.to_dict()
 
+@post_routes.route('/explore')
+@login_required
+def explore_posts():
+    
+
 
 # @posts_routes.route('/', methods=['GET','POST'])
 # def create_post():
