@@ -1,5 +1,5 @@
 import './FollowingModal.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { follow, unfollow } from '../../store/userPages';
 import { getFollowedPosts, removePosts } from '../../store/posts';
 
@@ -9,15 +9,17 @@ const FollowingModal = ({
     sessionUser, user, setShowFollowModal, setShowFollowingModal }) => {
 
     const dispatch = useDispatch();
+    const currentUserFollowing = useSelector(state => state.pageState[sessionUser.id].following)
+    
     const isUserFollowing = user.followers[sessionUser.id];
 
 
     const displayFollowIcon = (sessionUser, user) => {
-        return user !== sessionUser && !isUserFollowing
+        return user !== sessionUser && !(typeof currentUserFollowing[user])
     };
 
     const displayUnfollowIcon = (sessionUser, user) => {
-        return user !== sessionUser && isUserFollowing;
+        return user !== sessionUser && typeof currentUserFollowing[user]
     };
 
     const followHandler = (userId) => {

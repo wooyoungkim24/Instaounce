@@ -268,11 +268,12 @@ export default function userPageReducer(state = initialState, action) {
             if (newState[action.payload.currentUser.id]) {
                 newState[action.payload.currentUser.id].following[action.payload.user.id] = action.payload.user
             };
-            newState[action.payload.user.id].followers[action.payload.currentUser.id] = action.payload.currentUser
+            if (newState[action.payload.userId]) {
+                newState[action.payload.user.id].followers[action.payload.currentUser.id] = action.payload.currentUser
+            };
             return newState;
 
         case DELETE_FOLLOW:
-            console.log(action.payload)
             if (newState[action.payload.currentUserId]) {
                 delete newState[action.payload.currentUserId].following[action.payload.userId]
             };

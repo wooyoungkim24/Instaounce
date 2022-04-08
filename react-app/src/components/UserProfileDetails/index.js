@@ -12,33 +12,37 @@ const UserProfileDetails = ({ user, sessionUser }) => {
 
     const dispatch = useDispatch();
 
+
     const posts = Object.values(user.posts);
     const followers = Object.values(user.followers);
     const following = Object.values(user.following);
     const isUsersPage = user.id === sessionUser.id;
-    const isUserFollowing = user.followers[sessionUser.id];
+    const isUserFollowing = typeof user.followers[sessionUser.id]
     const [showFollowModal, setShowFollowModal] = useState(false);
     const [showFollowersModal, setShowFollowersModal] = useState(false)
     const [showFollowingModal, setShowFollowingModal] = useState(false)
-
+    const [followingUser, setFollowingUser] = useState(isUserFollowing)
+    console.log("followingUser:", typeof followingUser)
 
     const displayFollowIcon = () => {
-        return !isUsersPage && !isUserFollowing
+        return !isUsersPage && !followingUser
     };
 
     const displayUnfollowIcon = () => {
-        return !isUsersPage && isUserFollowing;
+        return !isUsersPage && followingUser
     };
 
     const followHandler = () => {
         dispatch(follow(user.id))
         .then(() => dispatch(getFollowedPosts()))
+        setFollowingUser(true)
     };
 
     const unfollowHandler = () => {
         dispatch(unfollow(user.id))
-        .then(() => dispatch(removePosts(user.id)));
-        setShowFollowModal(false);
+        .then(() => dispatch(removePosts(user.id)))
+        .then(()=> setFollowingUser(false))
+        .then(() => setShowFollowModal(false))
     };
 
 
