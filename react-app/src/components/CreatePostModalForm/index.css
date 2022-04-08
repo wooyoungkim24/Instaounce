@@ -16,7 +16,8 @@
     flex-direction: row;
     margin-right: 20px;
     animation-duration: .75s;
-    animation-name: fadeUp
+    animation-name: fadeUp;
+
 }
 
 @keyframes fadeUp {
@@ -98,6 +99,7 @@
     height: 700px;
     border-radius: 30px;
     border-collapse: separate;
+    background-color: white;
 }
 
 @keyframes appear {
@@ -358,6 +360,7 @@
     height: 700px;
     border-radius: 30px;
     border-collapse: separate;
+    background-color: white;
 }
 
 #second-back-button {
@@ -486,6 +489,7 @@
 .photo-posted-container {
     width: 700px;
     height: 650px;
+    background-color: white;
 }
 
 .photo-posted-title {
