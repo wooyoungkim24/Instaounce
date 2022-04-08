@@ -75,12 +75,12 @@ const CommentCard = ({ post }) => {
 
             <div className="post-details-container">
                 <div className='comment-card-images'>
-                        <img src={images[currentImage]} alt='post pic' />
+                    <img src={images[currentImage]} alt='post pic' />
                         {currentImage !== 0 && images.length > 1 &&
                             <i className="fa-solid fa-circle-chevron-left left-arrow" onClick={leftClickHandler}></i>
                         }
                         {currentImage !== images.length - 1 && images.length > 1 &&
-                            <i className="fa-solid fa-circle-chevron-right right-arrow" onClick={rightClickHandler}></i>
+                            <i id="comments-right-arrow" className="fa-solid fa-circle-chevron-right right-arrow" onClick={rightClickHandler}></i>
                         }
                 </div>
                 <div className='comment-card-nonimage-content'>

@@ -249,7 +249,6 @@ export const unfollow = (userId) => async (dispatch) => {
 };
 
 
-
 // ======================= REDUCER ===================
 
 const initialState = {};
@@ -261,7 +260,7 @@ export default function userPageReducer(state = initialState, action) {
 
         case GET_USER_PAGE:
             newState[action.payload.id] = action.payload;
-            console.log("######## NEW USER STATE", newState[action.payload.id])
+            // console.log("######## NEW USER STATE", newState[action.payload.id])
             return newState;
 
         case CREATE_FOLLOW:
@@ -281,6 +280,7 @@ export default function userPageReducer(state = initialState, action) {
                 delete newState[action.payload.userId].followers[action.payload.currentUserId]
             };
             return newState;
+
 
         // case CREATE_POST:
         //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
