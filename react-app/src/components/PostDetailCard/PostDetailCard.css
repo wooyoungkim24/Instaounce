@@ -1,0 +1,25 @@
+i .edit-icon .delete-icon {
+  font-size: 20px;
+}
+
+.post-detail-card {
+  /* border: red solid 2px; */
+  width: 900px;
+}
+
+.post-detail-card-container {
+  display: flex;
+  border-radius: 0%;
+  /* border: blue solid 2px; */
+
+}
+
+.image-container img{
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+}
+
+.image-container {
+  width: 600px;
+}
