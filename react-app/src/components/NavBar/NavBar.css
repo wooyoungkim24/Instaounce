@@ -126,3 +126,9 @@ nav {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
 }
+
+.search-bar-nav {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}

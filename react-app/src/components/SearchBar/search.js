@@ -1,14 +1,16 @@
-import './search'
 import { useSelector, useDispatch } from 'react-redux'
 import {useState, useEffect} from 'react'
 import { getAllUsers } from '../../store/userPages'
 import { Link } from 'react-router-dom'
+import './search.css'
+
 
 
 export const SearchBar = ({}) => {
     const [wordEntered, setWordEntered] = useState("")
     const [filteredData, setFilteredData] = useState([])
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([])
+    const [query, setQuery] = useState("")
 
     useEffect(() => {
       async function fetchData() {
@@ -18,52 +20,36 @@ export const SearchBar = ({}) => {
       }
       fetchData();
     }, []);
-    
-    const handleFilter = (e) => {
-        const searchWord = e.target.value
-        setWordEntered(searchWord)
-        const newFilter = users.filter((value) => {
-            return value.username.toLowerCase().includes(searchWord.toLowerCase())
-        })
-        if(searchWord === ''){
-            setFilteredData([])
-        }
-        setFilteredData(newFilter)
-    }
 
-    const clearInput = () => {
-        setFilteredData([])
-        setWordEntered("")
+
+    const getFilteredUsers = (query, users) => {
+        if(!query) {
+            return users;
+        }
+        
+        return users.filter(user => user.username.includes(query))
     }
-  
+   const filteredUsers = getFilteredUsers(query, users)
+    
 
     return (
         <div className="search">
-               <div className="searchInputs">
-                   <input 
-                   type="text"
-                   placeholder="Search"
-                   onChange={handleFilter}
-                   value={wordEntered}
-                   />
-                   <div className="searchIcon">
-                   {filteredData.length === 0 ? 
-                   <i class="fa-solid fa-magnifying-glass"></i>
-                   : <i id="clearBtn" onClick={clearInput} class="fa-solid fa-xmark"></i>}
-                   </div>
-               </div>
-               {filteredData.length != 0 && (
-                    <div className="dataResult">
-                        {users.slice(0,15).map(user => (
-                            <Link className="data-item" to={`/users/${user.id}`} key={user.id}>
-                                <p>{user.username}</p>
-                                </Link>
-                        ))}
+            <input type="text"
+            onChange={e => setQuery(e.target.value)}
+            id="search"
+            placeholder="Search"
+            />
+            <ul id="search-list">
+                {filteredUsers.map(value => (
+                    <div key={value.id} className="user-link-search">
+                        <img src={value.profile_image}></img>
+                        <Link className="data-item" to={`/users/${value.id}`}>
+                            {value.username}
+                        </Link>
                     </div>
-               )}
-
-        </div>
-        
+                ))}
+            </ul>            
+        </div>    
     )
 }
 

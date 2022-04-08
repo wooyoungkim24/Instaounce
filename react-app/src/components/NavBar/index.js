@@ -50,7 +50,7 @@ const NavBar = ({ user }) => {
                 <Link to="/">
                     <img src={logo} className="navbar-logo" alt='logo' />
                 </Link>
-                <div className="search">
+                <div className="search-bar-nav">
                     <SearchBar />
                 </div>
                 <div className='navbar-right-container'>
