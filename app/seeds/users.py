@@ -1,5 +1,7 @@
 from app.models import db, User
 from faker import Faker
+from random import random
+import math
 fake = Faker()
 
 # Adds a demo user, you can add other users here if you want
@@ -23,6 +25,17 @@ def seed_users():
         )
         db.session.add(user)
         db.session.commit()
+        
+    all_users = User.query.all()
+    
+    for user in all_users:
+        for i in range(math.floor(random() * len(all_users))):
+            num = math.floor(random() * len(all_users))
+            if num == 0:
+                num = 1
+            user.follow(User.query.get(num))
+            db.session.commit()
+
 
 
 

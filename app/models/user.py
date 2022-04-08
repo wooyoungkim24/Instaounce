@@ -3,6 +3,7 @@ from app.models.post import Post
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy import desc, asc
 
 followers = db.Table(
     'followers',
@@ -39,7 +40,7 @@ class User(db.Model, UserMixin):
     
 
     def to_dict(self):
-        print('testing if it hits')
+        
         return {
             'id': self.id,
             'username': self.username,
@@ -87,8 +88,11 @@ class User(db.Model, UserMixin):
         following_posts = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
-        posts = user_posts.union(following_posts).all()
-        return posts
+            
+        posts = user_posts.union(following_posts)
+        print("RAW SQL HERE: #########", posts.order_by(desc(Post.updated_at)).all())
+        ordered_posts = posts.order_by(desc(Post.updated_at)).all()
+        return ordered_posts
 
     # def following_list(self, user):
     #     return self.followed.filter(

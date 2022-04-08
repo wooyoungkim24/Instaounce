@@ -18,7 +18,6 @@ class Post(db.Model):
         "Like", back_populates="posts", cascade="all, delete")
 
     def to_dict(self):
-        print('this is users', self.likes)
 
         return {
             'id': self.id,
