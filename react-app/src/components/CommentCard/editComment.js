@@ -1,27 +1,27 @@
 import { useState } from 'react'
 import './CommentCard.css';
-import {deleteComment} from '../../store/posts'
+import { deleteComment } from '../../store/posts'
 import { useDispatch, useSelector } from 'react-redux';
 import { editComment } from '../../store/posts'
 
-export const EditDeleteComment = ({comment, setShowModal, post}) => {
+export const EditDeleteComment = ({ comment, setShowModal, post }) => {
     const dispatch = useDispatch()
     const [editedComment, setEditedComment] = useState(comment.content)
     const sessionUser = useSelector(state => state.session.user);
     // const [errors, setErrors] = useState([])
 
-    const handleDeleteComment = async(e) => {
+    const handleDeleteComment = async (e) => {
         e.preventDefault()
 
         let deletedComment;
         deletedComment = dispatch(deleteComment(comment.id))
-     
-        if(deletedComment){
+
+        if (deletedComment) {
             setShowModal(false)
         }
     }
 
-    const handleEditComment = async(e) => {
+    const handleEditComment = async (e) => {
         e.preventDefault()
 
         const newComment = {
@@ -39,24 +39,28 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
         // if(editedComment){
         //     setErrors([])
         // }
+        setShowModal(false)
     }
 
-    
+
 
     return (
         <div className='edit-comment-modal'>
-            <label>Edit Comment
-                <form onSubmit={handleEditComment}>
-                    <textarea
+
+
+                <textarea
                     id='new-comment-input'
                     value={editedComment}
                     required
                     onChange={e => setEditedComment(e.target.value)}
-                    />
-                    <button type='submit'>Edit</button>
-                </form>
-            </label>
-            <button onClick={handleDeleteComment}>Delete</button>
+                    maxLength={2000}
+                />
+            <div className='edit-comment-character-count'>
+                {editedComment.length}/2000
+            </div>
+
+            <button id='edit-comment-button' onClick={handleEditComment} type='button'>Edit</button>
+            <button id='delete-comment-button' onClick={handleDeleteComment}>Delete</button>
         </div>
     )
 }

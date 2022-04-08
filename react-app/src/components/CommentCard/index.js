@@ -180,7 +180,7 @@ const CommentCard = ({ post }) => {
                         </div>
                         <div className="comments-container">
                             {comments.map(comment => (
-                                <Comments key={comment.id} post={post} comment={comment} />
+                                <Comments key={comment.id} userId = {comment.user_id} post={post} comment={comment} comments = {comments}/>
                             ))}
                         </div>
                     </div>

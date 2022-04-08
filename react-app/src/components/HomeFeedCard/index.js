@@ -6,7 +6,7 @@ import { Modal } from '../../context/modal';
 import CommentCard from '../CommentCard';
 // import { useSelector } from 'react-redux';
 import moment from 'moment'
-import { useSelector , useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { createComment } from '../../store/posts';
 
 const HomeFeedCard = ({ post }) => {
@@ -63,56 +63,67 @@ const HomeFeedCard = ({ post }) => {
         setNewComment('')
     }
 
-    useEffect(() => {
-        const handleMouseEnter=(e) =>{
-            console.log('are you working')
-            const specificButton = e.target.querySelector(".edit-comment-button-div")
-            specificButton.style.display = "block"
-        }
-        const handleMouseLeave=(e) =>{
-            const specificButton = e.target.querySelector(".edit-comment-button-div")
-            specificButton.style.display = "none"
-        }
-        if(showModal){
-            let comments = document.querySelectorAll(".comments")
-            console.log(comments[0], typeof comments)
+    // useEffect(() => {
+    //     const handleMouseEnter = (e) => {
+    //         console.log('are you working')
+    //         const specificButton = e.target.querySelector(".edit-comment-button-div")
+    //         specificButton.style.display = "block"
+    //     }
+    //     const handleMouseLeave = (e) => {
+    //         const specificButton = e.target.querySelector(".edit-comment-button-div")
+    //         specificButton.style.display = "none"
+    //     }
+    //     if (showModal) {
+    //         const container = document.querySelector('.comments-container')
+    //         let commentsDivs = container.querySelectorAll(".comments")
 
-            for(let i = 0; i < comments.length; i ++){
-                let curr = comments[i]
-                console.log('what is curr', curr)
+    //         console.log('mydivs',commentsDivs, commentsDivs.length, comments.length)
+    //         for (let i = 0; i < commentsDivs.length; i++) {
+    //             let curr = commentsDivs[i]
+    //             console.log('what is i', i)
+    //             // console.log('wtf',sessionUser.id, comments[i].user_id)
 
-                curr.addEventListener('mouseenter', handleMouseEnter)
-                curr.addEventListener('mouseleave', handleMouseLeave)
-            }
-            // return (function () {
-            //     for(let i = 0; i < comments.length; i ++){
-            //         let curr = comments[0]
-            //         curr.removeEventListener('mouseenter', handleMouseEnter)
-            //         curr.removeEventListener('mouseleave', handleMouseLeave)
-            //     }
-            // })
-        }
+    //             console.log('what is curr', curr)
+    //             // if(sessionUser.id === comments[i].user_id){
+    //             //     curr.addEventListener('mouseenter', handleMouseEnter)
+    //             //     curr.addEventListener('mouseleave', handleMouseLeave)
+    //             // }
+
+    //             curr.addEventListener('click', () => console.log('i am working'))
+    //             curr.addEventListener('mouseleave', handleMouseLeave)
+
+    //         }
+    //         // return (function () {
+    //         //     let commentsDivs = document.querySelectorAll(".comments")
+    //         //     console.log('wtf now', commentsDivs)
+    //         //     for(let i = 0; i < comments.length; i ++){
+    //         //         let curr = commentsDivs[i]
+    //         //         curr.removeEventListener('mouseenter', handleMouseEnter)
+    //         //         curr.removeEventListener('mouseleave', handleMouseLeave)
+    //         //     }
+    //         // })
+    //     }
 
 
-    }, [showModal, comments])
+    // }, [showModal, comments])
     function lastUpdated() {
         let now = new Date();
         let updatedAt = new Date(post.updated_at)
-        let difference = (now-updatedAt)/1000/60/60
+        let difference = (now - updatedAt) / 1000 / 60 / 60
         console.log('what is the difference', difference)
-        if(difference > 24){
+        if (difference > 24) {
             return moment(updatedAt).format("MMMM D YYYY")
-        }else if (difference < 1){
-            if(Math.floor(difference * 60) === 1 ){
+        } else if (difference < 1) {
+            if (Math.floor(difference * 60) === 1) {
                 return `${Math.floor(difference * 60)} minute ago`
-            }else if(difference*60 < 1){
+            } else if (difference * 60 < 1) {
                 return "Less than a minute ago"
             }
             return `${Math.floor(difference * 60)} minutes ago`
         }
-        else if(Math.floor(difference) === 1){
+        else if (Math.floor(difference) === 1) {
             return `${Math.floor(difference)} hour ago`
-        }else{
+        } else {
             return `${Math.floor(difference)} hours ago`
         }
     }
@@ -177,12 +188,12 @@ const HomeFeedCard = ({ post }) => {
                 <div className='card-comment-input'>
                     <textarea
 
-                    value = {newComment}
-                    placeholder="Add a comment..."
-                    onChange = {e => setNewComment(e.target.value)}
+                        value={newComment}
+                        placeholder="Add a comment..."
+                        onChange={e => setNewComment(e.target.value)}
                     >
                     </textarea>
-                    <button disabled ={!newComment} id='post-comment-card-button' onClick={handleCommentSubmit}>
+                    <button disabled={!newComment} id='post-comment-card-button' onClick={handleCommentSubmit}>
                         Post
                     </button>
                 </div>
