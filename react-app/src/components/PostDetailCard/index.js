@@ -26,6 +26,8 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     const comments = Object.values(post.comments)
     const images = post.image
 
+    const postOwnerId = post.userId
+
     const comment = useRef()
 
     const rightClickHandler = () => {
@@ -64,7 +66,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
             post_id: post.id,
             content: newComment
         }
-        dispatch(postComment(comment))
+        dispatch(postComment(comment, postOwnerId))
         setNewComment('')
     }
 

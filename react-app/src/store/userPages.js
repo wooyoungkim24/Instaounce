@@ -99,9 +99,10 @@ const UPDATE_COMMENT = 'userPages/UPDATE_COMMENT';
 const REMOVE_COMMENT = 'userPages/DELETE_COMMENT';
 
 
-const createComment = (comment) => ({
+const createComment = (comment, postOwnerId) => ({
     type: ADD_COMMENT,
-    payload: comment
+    payload: comment,
+    postOwnerId
 });
 
 const updateComment = (comment) => ({
@@ -128,7 +129,7 @@ const deleteComment = (comment) => ({
 //     };
 // };
 
-export const postComment = (comment) => async (dispatch) => {
+export const postComment = (comment, postOwnerId) => async (dispatch) => {
     const res = await fetch(`/api/posts/comments`, {
         method: "POST",
         headers: {"Content-Type": "Application/JSON"},
@@ -137,7 +138,7 @@ export const postComment = (comment) => async (dispatch) => {
 
     if (res.ok) {
         const comment = await res.json()
-        await dispatch(createComment(comment));
+        await dispatch(createComment(comment, postOwnerId));
     };
 };
 
@@ -310,7 +311,7 @@ export default function userPageReducer(state = initialState, action) {
             return newState
 
         case ADD_COMMENT:
-            newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            newState[action.postOwnerId].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
             return newState;
 
         default:
