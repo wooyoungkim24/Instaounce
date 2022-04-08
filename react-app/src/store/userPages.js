@@ -310,7 +310,7 @@ export default function userPageReducer(state = initialState, action) {
             return newState
 
         case ADD_COMMENT:
-            // newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+            newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
             return newState;
 
         default:
