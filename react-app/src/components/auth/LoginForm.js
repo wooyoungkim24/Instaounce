@@ -69,7 +69,7 @@ const LoginForm = () => {
               </form>
             {/* </div> */}
         </div>
-        <div className="sign-up-link">Don't have an account? 
+        <div className="sign-up-link">Don't have an account?
             <Link to="/sign-up">
               Sign up
             </Link>
