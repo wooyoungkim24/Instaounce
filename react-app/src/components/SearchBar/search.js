@@ -38,7 +38,7 @@ export const SearchBar = ({}) => {
             <ul id="search-list">
                 {filteredUsers.map(value => (
                     <div key={value.id} className="user-link-search">
-                        <img src={value.profile_image}></img>
+                        <img alt="profile_image" src={value.profile_image}></img>
                         <Link className="data-item" to={`/users/${value.id}`}>
                             {value.username}
                         </Link>
