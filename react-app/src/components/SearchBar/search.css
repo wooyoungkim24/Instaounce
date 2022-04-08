@@ -13,7 +13,6 @@
 #search-list {
 	position: absolute;
 	transform: translateY(-40px);
-	padding-top: 30px;
 	width: 270px;
     padding-left:0px;
 	border: solid 1px rgba(0,0,0, 0.2);
@@ -29,14 +28,13 @@
 	border: solid 1px rgba(0,0,0, 0.2); 
 }
 
-/* #search:focus + #search-list {
-	width: 278px;
+#search + #search-list {
+    margin-top: 30px;
+    width: 275px;
 	height: 400px;
 	display:flex;
     flex-direction: column;
-    padding-left:10px;
-    gap: 10px;
-} */
+}
 
 #search-list a {
     font-size: 15px;
@@ -63,4 +61,5 @@ object-fit: cover;
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
+    padding: 10px 10px;
 }
