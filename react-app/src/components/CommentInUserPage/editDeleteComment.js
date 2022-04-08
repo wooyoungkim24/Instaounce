@@ -2,7 +2,7 @@ import { useState } from 'react'
 import '../CommentCard/CommentCard.css';
 import {deleteComment} from '../../store/posts'
 import { useDispatch, useSelector } from 'react-redux';
-import { putComment } from '../../store/userPages'
+import { putComment, removeComment } from '../../store/userPages'
 
 export const EditDeleteComment = ({comment, setShowModal, post}) => {
     const dispatch = useDispatch()
@@ -17,7 +17,7 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
         e.preventDefault()
 
         let deletedComment;
-        deletedComment = dispatch(deleteComment(comment.id))
+        deletedComment = dispatch(removeComment(comment.id, postOwnerId))
 
         if(deletedComment){
             setShowModal(false)
