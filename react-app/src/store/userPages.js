@@ -94,14 +94,15 @@ export const removePost = (payload) => async (dispatch) => {
 
 // ======================= COMMENTS ===================
 
-const CREATE_COMMENT = 'session/CREATE_LIKE';
-const UPDATE_COMMENT = 'session/UPDATE_COMMENT';
-const DELETE_COMMENT = 'session/DELETE_COMMENT';
+const ADD_COMMENT = 'userPages/ADD_COMMENT';
+const UPDATE_COMMENT = 'userPages/UPDATE_COMMENT';
+const REMOVE_COMMENT = 'userPages/DELETE_COMMENT';
 
 
-const createComment = (comment) => ({
-    type: CREATE_COMMENT,
-    payload: comment
+const createComment = (comment, postOwnerId) => ({
+    type: ADD_COMMENT,
+    payload: comment,
+    postOwnerId
 });
 
 const updateComment = (comment) => ({
@@ -110,12 +111,26 @@ const updateComment = (comment) => ({
 });
 
 const deleteComment = (comment) => ({
-    type: DELETE_COMMENT,
+    type: REMOVE_COMMENT,
     payload: comment
 });
 
-export const postComment = (comment) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${comment.postId}/comments`, {
+// original
+// export const postComment = (comment) => async (dispatch) => {
+//     const res = await fetch(`/api/posts/${comment.postId}/comments`, {
+//         method: "POST",
+//         headers: {"Content-Type": "Application/JSON"},
+//         body: JSON.stringify(comment)
+//     });
+
+//     if (res.ok) {
+//         const comment = await res.json()
+//         await dispatch(createComment(comment));
+//     };
+// };
+
+export const postComment = (comment, postOwnerId) => async (dispatch) => {
+    const res = await fetch(`/api/posts/comments`, {
         method: "POST",
         headers: {"Content-Type": "Application/JSON"},
         body: JSON.stringify(comment)
@@ -123,9 +138,11 @@ export const postComment = (comment) => async (dispatch) => {
 
     if (res.ok) {
         const comment = await res.json()
-        await dispatch(createComment(comment));
+        await dispatch(createComment(comment, postOwnerId));
     };
 };
+
+
 
 export const editComment = (comment) => async (dispatch) => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
@@ -158,9 +175,9 @@ export const removeComment = (comment) => async (dispatch) => {
 const CREATE_NEW_LIKE = 'session/CREATE_NEW_LIKE';
 const CANCEL_LIKE = 'session/CANCEL_LIKE';
 
-const likeAction = (like) => ({
+const likeAction = (like, postOwnerId) => ({
     type: CREATE_NEW_LIKE,
-    payload: like
+    payload: like, postOwnerId
 });
 
 const unlikeAction = (likeId, postId, userId) => ({
@@ -170,7 +187,7 @@ const unlikeAction = (likeId, postId, userId) => ({
     userId
 });
 
-export const newlike = (postId) => async (dispatch) => {
+export const newlike = (postId, postOwnerId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${postId}/likes`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -179,20 +196,11 @@ export const newlike = (postId) => async (dispatch) => {
 
     if (res.ok) {
         const newLike = await res.json();
-        await dispatch(likeAction(newLike));
+        await dispatch(likeAction(newLike, postOwnerId));
     };
 };
 
-// export const unlike = (postId) => async (dispatch) => {
-//     const res = await fetch(`/api/posts/${postId}/likes`, {
-//         method: "DELETE"
-//     });
 
-//     if (res.ok) {
-//         const deletedLike = await res.json();
-//         await dispatch(deleteLike(deletedLike));
-//     };
-// };
 
 export const unlike = (postId, likeId, userId) => async (dispatch) => {
     console.log("inside of unlike")
@@ -297,7 +305,7 @@ export default function userPageReducer(state = initialState, action) {
 
         case CREATE_NEW_LIKE:
 
-            newState[action.payload.user_id].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
+            newState[action.postOwnerId].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
             return newState
 
         case CANCEL_LIKE:
@@ -305,9 +313,9 @@ export default function userPageReducer(state = initialState, action) {
             delete newState[action.userId].posts[action.postId].likes[action.likeId];
             return newState
 
-        // case CREATE_COMMENT:
-        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-        //     return newState;
+        case ADD_COMMENT:
+            newState[action.postOwnerId].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            return newState;
 
         default:
             return state;
