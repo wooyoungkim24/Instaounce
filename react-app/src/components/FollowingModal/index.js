@@ -1,17 +1,15 @@
 import './FollowingModal.css';
+import { useDispatch } from 'react-redux';
+import { follow, unfollow } from '../../store/userPages';
+import { getFollowedPosts, removePosts } from '../../store/posts';
 
 
-const FollowingModal = ({ props }) => {
-    const { 
-        followers, 
-        following, 
-        isUserFollowing, 
-        user,
-        sessionUser,
-        unfollowHandler,
-        followHandler,
-        setShowFollowModal
-    } = props
+const FollowingModal = ({ 
+    following, 
+    sessionUser, user, setShowFollowModal, setShowFollowingModal }) => {
+
+    const dispatch = useDispatch();
+    const isUserFollowing = user.followers[sessionUser.id];
 
 
     const displayFollowIcon = (sessionUser, user) => {
@@ -22,19 +20,27 @@ const FollowingModal = ({ props }) => {
         return user !== sessionUser && isUserFollowing;
     };
 
-    // const followHandler = () => {
-    //     dispatch(follow(user.id))
-    //         .then(() => dispatch(getFollowedPosts()))
-    // };
+    const followHandler = () => {
+        dispatch(follow(user.id))
+            .then(() => dispatch(getFollowedPosts()))
+    };
 
-    // const unfollowHandler = () => {
-    //     dispatch(unfollow(user.id))
-    //         .then(() => dispatch(removePosts(user.id)));
-    //     setShowFollowModal(false);
-    // };
+    const unfollowHandler = () => {
+        dispatch(unfollow(user.id))
+            .then(() => dispatch(removePosts(user.id)));
+        setShowFollowModal(false);
+    };
 
     return (
         <div className='following-modal-container'>
+            <div className='following-modal-following-tag-wrapper'>
+                <div className='following-modal-following-tag'>
+                    Following
+                </div>
+                <div className='following-modal-close' onClick={() => setShowFollowingModal(false)}>
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
             {following.map(follow => (
                 <div className='following-modal-card'>
                     <div className='following-modal-image-container'>
@@ -49,13 +55,13 @@ const FollowingModal = ({ props }) => {
                         </div>
                     </div>
                     <div>
-                        {displayFollowIcon(sessionUser.id, follow.id) && 
+                        {displayFollowIcon(sessionUser.id, follow.id) &&
                             <div onClick={followHandler} className='profile-details-follow-button'>
                                 <span>Follow</span>
                             </div>
                         }
-                        {displayUnfollowIcon() &&
-                            <div onClick={() => setShowFollowModal(true)} className='profile-details-unfollow-button'>
+                        {displayUnfollowIcon(sessionUser.id, follow.id) &&
+                            <div onClick={unfollowHandler} className='profile-details-unfollow-button'>
                                 <i className="fa-solid fa-user user-icon"></i>
                                 <i className="fa-solid fa-check check-icon"></i>
                             </div>

@@ -9,7 +9,7 @@ import UserProfileImageCard from '../UserProfileImageCard';
 const UserProfile = () => {
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const { userId } = useParams();
+    const { userId, commentId } = useParams();
     const dispatch = useDispatch();
 
     const sessionUser = useSelector(state => state.session.user)

@@ -110,18 +110,11 @@ const UserProfileDetails = ({ user, sessionUser }) => {
             {showFollowingModal &&
                 <Modal onClose={() => setShowFollowingModal(false)}>
                     <FollowingModal 
-                    props={{
-                        followers,
-                        following,
-                        isUserFollowing,
-                        user,
-                        sessionUser,
-                        displayFollowIcon,
-                        displayUnfollowIcon,
-                        followHandler,
-                        unfollowHandler,
-                        setShowFollowModal
-                    }}
+                    following={following} 
+                    sessionUser={sessionUser} 
+                    user={user}
+                    setShowFollowModal={setShowFollowModal}
+                    setShowFollowingModal={setShowFollowingModal}
                     />
                 </Modal>
             }

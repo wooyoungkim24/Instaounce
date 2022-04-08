@@ -49,7 +49,7 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <HomeFeed />
         </ProtectedRoute>
-        <ProtectedRoute path='/posts/:postId/comments' exact={true}>
+        <ProtectedRoute path='/posts/:postId/comments/' exact={true}>
           <CommentCard />
         </ProtectedRoute>
       </Switch>

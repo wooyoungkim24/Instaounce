@@ -32,3 +32,30 @@
     height: 30px;
     width: 254.6px;
 }
+
+.following-modal-following-tag-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.following-modal-following-tag {
+    height: 42px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.following-modal-close {
+    height: 42px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 26px;
+}
