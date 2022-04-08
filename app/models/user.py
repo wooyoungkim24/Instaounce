@@ -64,7 +64,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def follow(self, user):
-        if not self.is_following(user):
+        if not self.is_following(user) and self.id != user.id :
             self.followed.append(user)
 
     def unfollow(self, user):

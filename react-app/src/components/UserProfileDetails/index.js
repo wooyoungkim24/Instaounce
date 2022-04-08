@@ -12,33 +12,36 @@ const UserProfileDetails = ({ user, sessionUser }) => {
 
     const dispatch = useDispatch();
 
+
     const posts = Object.values(user.posts);
     const followers = Object.values(user.followers);
     const following = Object.values(user.following);
     const isUsersPage = user.id === sessionUser.id;
-    const isUserFollowing = user.followers[sessionUser.id];
+    const isUserFollowing = typeof user.followers[sessionUser.id]
     const [showFollowModal, setShowFollowModal] = useState(false);
     const [showFollowersModal, setShowFollowersModal] = useState(false)
     const [showFollowingModal, setShowFollowingModal] = useState(false)
-
+    const [followingUser, setFollowingUser] = useState(isUserFollowing)
 
     const displayFollowIcon = () => {
-        return !isUsersPage && !isUserFollowing
+        return !isUsersPage && !followingUser
     };
 
     const displayUnfollowIcon = () => {
-        return !isUsersPage && isUserFollowing;
+        return !isUsersPage && followingUser
     };
 
     const followHandler = () => {
         dispatch(follow(user.id))
         .then(() => dispatch(getFollowedPosts()))
+        setFollowingUser(true)
     };
 
     const unfollowHandler = () => {
         dispatch(unfollow(user.id))
-        .then(() => dispatch(removePosts(user.id)));
-        setShowFollowModal(false);
+        .then(() => dispatch(removePosts(user.id)))
+        .then(()=> setFollowingUser(false))
+        .then(() => setShowFollowModal(false))
     };
 
 
@@ -71,10 +74,10 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                         <div className='profile-user-stats-container'>
                             <span className='profile-user-stat'>{posts.length}</span> posts
                         </div>
-                        <div className='profile-user-stats-container'>
+                        <div onClick={() => setShowFollowersModal(true)} className='profile-user-stats-container can-click'>
                             <span className='profile-user-stat'>{followers.length}</span> followers
                         </div>
-                        <div onClick={() => setShowFollowingModal(true)} className='profile-user-stats-container'>
+                        <div onClick={() => setShowFollowingModal(true)} className='profile-user-stats-container can-click'>
                             <span className='profile-user-stat'>{following.length}</span> following
                         </div>
                     </div>
@@ -111,10 +114,21 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                 <Modal onClose={() => setShowFollowingModal(false)}>
                     <FollowingModal 
                     following={following} 
-                    sessionUser={sessionUser} 
-                    user={user}
+                    sessionUser={sessionUser}
                     setShowFollowModal={setShowFollowModal}
                     setShowFollowingModal={setShowFollowingModal}
+                    modalHeader={"Following"}
+                    />
+                </Modal>
+            }
+            {showFollowersModal &&
+                <Modal onClose={() => setShowFollowersModal(false)}>
+                    <FollowingModal
+                        following={followers}
+                        sessionUser={sessionUser}
+                        setShowFollowModal={setShowFollowModal}
+                        setShowFollowingModal={setShowFollowersModal}
+                        modalHeader={"Followers"}
                     />
                 </Modal>
             }

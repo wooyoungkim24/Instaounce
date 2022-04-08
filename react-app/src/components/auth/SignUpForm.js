@@ -181,10 +181,10 @@ const SignUpForm = () => {
                   <i class="fa-brands fa-linkedin"></i>
               </div>
             </label> */}
-            <a class="menu-item woo" target="_blank" href="https://github.com/wooyoungkim24">Wooyoung Kim</a>
-            <a class="menu-item wan" target="_blank" href="https://github.com/wanyi886">Wan-Yi Lee</a>
-            <a class="menu-item yake" target="_blank" href="https://github.com/CodeWhatThouWilt">Jacob North</a>
-            <a class="menu-item ana" target="_blank" href="https://github.com/annvilla1998">Anabel Villalobos</a>
+            <a class="menu-item woo" target="blank" href="https://github.com/wooyoungkim24">Wooyoung Kim</a>
+            <a class="menu-item wan" target="blank" href="https://github.com/wanyi886">Wan-Yi Lee</a>
+            <a class="menu-item yake" target="blank" href="https://github.com/CodeWhatThouWilt">Jacob North</a>
+            <a class="menu-item ana" target="blank" href="https://github.com/annvilla1998">Anabel Villalobos</a>
         </div>
         <div id="linked-in-menu">
             <input type="checkbox" href="#" class="menu-openli" name="menu-openli" id="menu-openli" />
@@ -193,10 +193,10 @@ const SignUpForm = () => {
                   <i class="fa-brands fa-linkedin"></i>
               </div>
             </label>
-            <a class="menu-itemli wooli" target="_blank" href="https://www.linkedin.com/in/wooyoung-kim-718618143/">Wooyoung Kim</a>
-            <a class="menu-itemli wanli" target="_blank" href="https://www.linkedin.com/in/wan-yi-lee/">Wan-Yi Lee</a>
-            <a class="menu-itemli yakeli" target="_blank" href="https://www.linkedin.com/in/jacob-north-9b1266226/">Jacob North</a>
-            <a class="menu-itemli anali" target="_blank" href="https://www.linkedin.com/in/anabel-villalobos-5772ab196/">Anabel Villalobos</a>
+            <a class="menu-itemli wooli" target="blank" href="https://www.linkedin.com/in/wooyoung-kim-718618143/">Wooyoung Kim</a>
+            <a class="menu-itemli wanli" target="blank" href="https://www.linkedin.com/in/wan-yi-lee/">Wan-Yi Lee</a>
+            <a class="menu-itemli yakeli" target="blank" href="https://www.linkedin.com/in/jacob-north-9b1266226/">Jacob North</a>
+            <a class="menu-itemli anali" target="blank" href="https://www.linkedin.com/in/anabel-villalobos-5772ab196/">Anabel Villalobos</a>
         </div>
       </footer>
     </>

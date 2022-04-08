@@ -13,14 +13,14 @@ def seed_users():
     
     db.session.add(demo)
     db.session.add(marnie)
-    for _ in range(15):
+    for i in range(15):
         user = User(
             username= fake.user_name(),
             email= fake.email(),
             password= fake.password(),
             first_name= fake.first_name(),
             last_name= fake.last_name(),
-            profile_image= fake.image_url(),
+            profile_image= f"https://picsum.photos/seed/{i}/500",
             bio= fake.sentence(),
         )
         db.session.add(user)

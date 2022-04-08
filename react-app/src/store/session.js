@@ -1,3 +1,4 @@
+import { loadUserPage } from "./userPages";
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
@@ -26,6 +27,7 @@ export const authenticate = () => async (dispatch) => {
     }
 
     dispatch(setUser(data));
+    dispatch(loadUserPage(data.id))
   }
 }
 

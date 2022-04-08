@@ -14,6 +14,8 @@ export const removePosts = (userId) => ({
   payload: userId
 })
 
+
+
 const setFollowedPosts = (posts) => ({
   type: SET_FOLLOWED_POSTS,
   payload: posts
