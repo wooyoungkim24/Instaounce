@@ -19,7 +19,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
-    
+
 
     const sessionUser = useSelector(state => state.session.user);
     console.log("sessionUser id", sessionUser.id)
@@ -82,7 +82,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
 
                         <div className='comment-card-icon-tray' >
                             <div className='home-card-icon-tray-top-left'>
-                                <LikeIconInUserPage likes={likes} postId={post.id} />
+                                <LikeIconInUserPage likes={likes} postId={post.id} user={user} />
                                 <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
                             </div>
                             {images.length > 1 &&

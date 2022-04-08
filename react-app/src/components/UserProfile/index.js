@@ -15,6 +15,7 @@ const UserProfile = () => {
     const sessionUser = useSelector(state => state.session.user)
     const pageStateData = useSelector(state => state.pageState);
     const pageData = pageStateData[userId]
+
     let posts;
     if (pageData) posts = Object.values(pageData.posts)
 
