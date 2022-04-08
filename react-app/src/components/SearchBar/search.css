@@ -19,7 +19,7 @@
 	border: solid 1px rgba(0,0,0, 0.2);
 	background-color: white;
 	z-index: -10;
-	display: none;
+	display: block;
 	transition: all 0.2s ease;
 	overflow-y: scroll;
 }
