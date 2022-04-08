@@ -20,7 +20,7 @@ const LikeIconInUserPage = ({ likes, postId, user }) => {
     const currentUserLike = likes.find(like => like?.user_id === userId && like?.post_id === postId)
 
     const createLikeHandler = () => {
-        dispatch(newlike(postId)).then(() => setUserLikes(true))
+        dispatch(newlike(postId, postOwnerId)).then(() => setUserLikes(true))
     };
 
     const deleteLikeHandler = () => {

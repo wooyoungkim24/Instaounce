@@ -158,9 +158,9 @@ export const removeComment = (comment) => async (dispatch) => {
 const CREATE_NEW_LIKE = 'session/CREATE_NEW_LIKE';
 const CANCEL_LIKE = 'session/CANCEL_LIKE';
 
-const likeAction = (like) => ({
+const likeAction = (like, postOwnerId) => ({
     type: CREATE_NEW_LIKE,
-    payload: like
+    payload: like, postOwnerId
 });
 
 const unlikeAction = (likeId, postId, userId) => ({
@@ -170,7 +170,7 @@ const unlikeAction = (likeId, postId, userId) => ({
     userId
 });
 
-export const newlike = (postId) => async (dispatch) => {
+export const newlike = (postId, postOwnerId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${postId}/likes`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -179,20 +179,11 @@ export const newlike = (postId) => async (dispatch) => {
 
     if (res.ok) {
         const newLike = await res.json();
-        await dispatch(likeAction(newLike));
+        await dispatch(likeAction(newLike, postOwnerId));
     };
 };
 
-// export const unlike = (postId) => async (dispatch) => {
-//     const res = await fetch(`/api/posts/${postId}/likes`, {
-//         method: "DELETE"
-//     });
 
-//     if (res.ok) {
-//         const deletedLike = await res.json();
-//         await dispatch(deleteLike(deletedLike));
-//     };
-// };
 
 export const unlike = (postId, likeId, userId) => async (dispatch) => {
     console.log("inside of unlike")
@@ -294,7 +285,7 @@ export default function userPageReducer(state = initialState, action) {
 
         case CREATE_NEW_LIKE:
 
-            newState[action.payload.user_id].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
+            newState[action.postOwnerId].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
             return newState
 
         case CANCEL_LIKE:
