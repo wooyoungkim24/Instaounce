@@ -74,12 +74,21 @@ class User(db.Model, UserMixin):
         return self.followed.filter(
             followers.c.followed_id == user.id and followers.c.followed_id != self.id).count() > 0
 
+    # def followed_posts(self):
+    #     return Post.query.join(
+    #         followers, (followers.c.followed_id == Post.user_id)).filter(
+    #             followers.c.follower_id == self.id).order_by(
+    #                 Post.updated_at.desc()).all()
+    
     def followed_posts(self):
-        return Post.query.join(
+
+        user_posts = Post.query.filter(Post.user_id == self.id)
+
+        following_posts = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id).order_by(
-                    Post.updated_at.desc()).all()
-                
+                followers.c.follower_id == self.id)
+        posts = user_posts.union(following_posts).all()
+        return posts
 
     # def following_list(self, user):
     #     return self.followed.filter(

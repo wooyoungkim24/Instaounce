@@ -114,7 +114,13 @@ const UserProfileDetails = ({ user, sessionUser }) => {
                         followers,
                         following,
                         isUserFollowing,
-                        user
+                        user,
+                        sessionUser,
+                        displayFollowIcon,
+                        displayUnfollowIcon,
+                        followHandler,
+                        unfollowHandler,
+                        setShowFollowModal
                     }}
                     />
                 </Modal>
