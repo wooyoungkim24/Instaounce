@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import './search.css'
+import UserProfile from '../UserProfile/index'
 
 
 
@@ -19,6 +20,7 @@ export const SearchBar = ({}) => {
 
 
     const getFilteredUsers = (query, users) => {
+
         if(!query) {
             return users;
         }
@@ -34,17 +36,18 @@ export const SearchBar = ({}) => {
             onChange={e => setQuery(e.target.value)}
             id="search"
             placeholder="Search"
+            autoComplete='off'
             />
-            <ul id="search-list">
+            <div id="search-list" >
                 {filteredUsers.map(value => (
                     <div key={value.id} className="user-link-search">
-                        <img alt="profile_image" src={value.profile_image}></img>
-                        <Link className="data-item" to={`/users/${value.id}`}>
+                        <Link to={`/users/${value.id}`}>
+                            <img alt="profile_image" src={value.profile_image}/>
                             {value.username}
                         </Link>
                     </div>
                 ))}
-            </ul>            
+            </div>            
         </div>    
     )
 }
