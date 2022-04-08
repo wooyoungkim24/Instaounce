@@ -1,14 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux'
-import {useState, useEffect} from 'react'
-import { getAllUsers } from '../../store/userPages'
+import {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import './search.css'
 
 
 
 export const SearchBar = ({}) => {
-    const [wordEntered, setWordEntered] = useState("")
-    const [filteredData, setFilteredData] = useState([])
     const [users, setUsers] = useState([])
     const [query, setQuery] = useState("")
 
