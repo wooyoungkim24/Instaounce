@@ -2,24 +2,28 @@ import './FollowingModal.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { follow, unfollow } from '../../store/userPages';
 import { getFollowedPosts, removePosts } from '../../store/posts';
+import { useState } from 'react';
+import { Modal } from '../../context/modal';
 
 
-const FollowingModal = ({ 
-    following, 
-    sessionUser, user, setShowFollowModal, setShowFollowingModal }) => {
-
-    const dispatch = useDispatch();
-    const currentUserFollowing = useSelector(state => state.pageState[sessionUser.id].following)
+const FollowingModal = ({ following, sessionUser, user, setShowFollowingModal }) => {
     
+    const [showFollowModal, setShowFollowModal] = useState(false)
+    const dispatch = useDispatch();
+
+    const currentUserFollowing = useSelector(state => state.pageState[sessionUser.id].following)
+    console.log(currentUserFollowing)
     const isUserFollowing = user.followers[sessionUser.id];
 
 
     const displayFollowIcon = (sessionUser, user) => {
-        return user !== sessionUser && !(typeof currentUserFollowing[user])
+        console.log("CHECK", currentUserFollowing[user])
+        return user !== sessionUser && !currentUserFollowing[user]
     };
 
     const displayUnfollowIcon = (sessionUser, user) => {
-        return user !== sessionUser && typeof currentUserFollowing[user]
+        console.log("CHECK CHECK", currentUserFollowing[user])
+        return user !== sessionUser && currentUserFollowing[user]
     };
 
     const followHandler = (userId) => {
@@ -63,12 +67,35 @@ const FollowingModal = ({
                             </div>
                         }
                         {displayUnfollowIcon(sessionUser.id, follow.id) &&
-                            <div onClick={() => unfollowHandler(follow.id)} className='profile-details-unfollow-button'>
+                            <div onClick={() => setShowFollowModal(true)} className='profile-details-unfollow-button'>
                                 <i className="fa-solid fa-user user-icon"></i>
                                 <i className="fa-solid fa-check check-icon"></i>
                             </div>
                         }
                     </div>
+                    {showFollowModal &&
+
+                        <Modal onClose={() => setShowFollowModal(false)}>
+                            <div className="profile-user-unfollow-modal">
+                                <div className="close-confirm-top">
+                                    <div className='profile-details-modal-image-container'>
+                                        <img src={follow.profile_image} alt='profile pic' className='profile-details-image-modal' />
+                                    </div>
+                                    <div className='profile-details-modal-username-container'>
+                                        Unfollow @{follow.username}?
+                                    </div>
+                                </div>
+                                <div className="close-confirm-buttons">
+                                    <button id='discardButton' type='button' onClick={() => unfollowHandler(follow.id)}>
+                                        Unfollow
+                                    </button>
+                                    <button id='cancelDiscardButton' type='button' onClick={() => setShowFollowModal(false)}>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </Modal>
+                    }
                 </div>
             ))}
         </div>
