@@ -6,6 +6,7 @@ import logo from '../../assets/logo.png'
 import NavBarDropDown from '../NavBarDropDown';
 import { Modal } from "../../context/modal"
 import CreatePostModalForm from '../CreatePostModalForm';
+import {SearchBar} from '../SearchBar/search'
 
 
 const NavBar = ({ user }) => {
@@ -49,6 +50,9 @@ const NavBar = ({ user }) => {
                 <Link to="/">
                     <img src={logo} className="navbar-logo" alt='logo' />
                 </Link>
+                <div className="search">
+                    <SearchBar />
+                </div>
                 <div className='navbar-right-container'>
                     <div className='navbar-icon-tray'>
                         <Link to='/'>

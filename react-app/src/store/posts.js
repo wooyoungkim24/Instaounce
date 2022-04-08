@@ -6,8 +6,9 @@ const DELETE_LIKE = 'session/DELETE_LIKE';
 const CREATE_COMMENT = 'session/CREATE_COMMENT'
 const DELETE_COMMENT = 'session/DELETE_COMMENT'
 const EDIT_COMMENT = 'session/EDIT_COMMENT'
-
 const UPDATE_A_POST = 'session/UPDATE_A_POST'
+
+
 
 
 
