@@ -1,6 +1,7 @@
 import './PostDetailCard.css';
 import { useState } from 'react'
-import LikeIcon from '../LikeIcon';
+import { useSelector} from 'react-redux'
+import LikeIconInUserPage from '../LikeIconInUserPage';
 import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 import { Modal } from '../../context/modal';
@@ -19,6 +20,10 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     const [showEditForm, setShowEditForm] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     
+
+    const sessionUser = useSelector(state => state.session.user);
+    console.log("sessionUser id", sessionUser.id)
+    console.log("post", post)
 
     const comments = Object.values(post.comments)
     const images = post.image
@@ -54,11 +59,13 @@ const PostDetailCard = ({ post, user, hidePost }) => {
 
     return (
         <>
-            <div className='post-dialog'>
+            <div className='post-detail-card'>
 
-                <div className="post-details-container">
-                    <div className='comment-card-images'>
-                        <img src={images[currentImage]} alt='post pic' />
+                <div className="post-detail-card-container">
+                    <div className='post-detail-card-images'>
+                        <div className='image-container'>
+                            <img src={images[currentImage]} alt='post pic' />
+                        </div>
                         {currentImage !== 0 && images.length > 1 &&
                             <i className="fa-solid fa-circle-chevron-left left-arrow" onClick={leftClickHandler}></i>
                         }
@@ -66,19 +73,16 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                             <i className="fa-solid fa-circle-chevron-right right-arrow" onClick={rightClickHandler}></i>
                         }
                     </div>
-                    <div className='comment-card-nonimage-content'>
+                    <div className='post-detail-content'>
                         <div className="user">
                             <img src={user.profileImage}></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                            <button onClick={editClickHandler}>Edit</button>
-                            <button onClick={deleteClickHandler}>Delete</button>
-
                         </div>
 
 
                         <div className='comment-card-icon-tray' >
                             <div className='home-card-icon-tray-top-left'>
-                                <LikeIcon likes={likes} postId={post.id} />
+                                <LikeIconInUserPage likes={likes} postId={post.id} />
                                 <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
                             </div>
                             {images.length > 1 &&
@@ -93,12 +97,21 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                             {likes.length} likes
                         </div>
                         <div className='comment-card-caption-area'>
-                            <img src={user.profile_image} alt="profile pic"></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                            {/* <img src={user.profile_image} alt="profile pic"></img>
+                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link> */}
                             <div id="caption-container">
                                 {post.caption}
                                 <div id='date-time'>{post.updated_at}</div>
                             </div>
+                            {sessionUser.id === post.userId && (
+                                <div>
+                                    {/* <button onClick={editClickHandler}>Edit</button> */}
+                                    <i class="fa-regular fa-pen-to-square edit-icon" onClick={editClickHandler}></i>
+                                    {/* <button onClick={deleteClickHandler}>Delete</button> */}
+                                    <i class="fa-regular fa-trash-can delete-icon" onClick={deleteClickHandler}></i>
+
+                                </div>
+                            )}
                         </div>
                         <div className='view-comments'>
                             <ul className='comments-container'>

@@ -155,20 +155,22 @@ export const removeComment = (comment) => async (dispatch) => {
 
 // ======================= LIKES ===================
 
-const CREATE_LIKE = 'session/CREATE_LIKE';
-const DELETE_LIKE = 'session/DELETE_LIKE';
+const CREATE_NEW_LIKE = 'session/CREATE_NEW_LIKE';
+const CANCEL_LIKE = 'session/CANCEL_LIKE';
 
-const createLike = (like) => ({
-    type: CREATE_LIKE,
+const likeAction = (like) => ({
+    type: CREATE_NEW_LIKE,
     payload: like
 });
 
-const deleteLike = (like) => ({
-    type: DELETE_LIKE,
-    payload: like
+const unlikeAction = (likeId, postId, userId) => ({
+    type: CANCEL_LIKE,
+    likeId,
+    postId,
+    userId
 });
 
-export const like = (postId) => async (dispatch) => {
+export const newlike = (postId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${postId}/likes`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -177,21 +179,36 @@ export const like = (postId) => async (dispatch) => {
 
     if (res.ok) {
         const newLike = await res.json();
-        await dispatch(createLike(newLike));
+        await dispatch(likeAction(newLike));
     };
 };
 
-export const unlike = (postId) => async (dispatch) => {
-    const res = await fetch(`/api/posts/${postId}/likes`, {
-        method: "DELETE"
-    });
+// export const unlike = (postId) => async (dispatch) => {
+//     const res = await fetch(`/api/posts/${postId}/likes`, {
+//         method: "DELETE"
+//     });
 
-    if (res.ok) {
-        const deletedLike = await res.json();
-        await dispatch(deleteLike(deletedLike));
-    };
-};
+//     if (res.ok) {
+//         const deletedLike = await res.json();
+//         await dispatch(deleteLike(deletedLike));
+//     };
+// };
 
+export const unlike = (postId, likeId, userId) => async (dispatch) => {
+    console.log("inside of unlike")
+    console.log("likeId", likeId)
+    const response = await fetch(`/api/posts/${postId}/likes/`, {
+      method: "DELETE"
+    })
+
+    if (response.ok) {
+      console.log("in the unlike fetch response")
+    //   const like = await response.json()
+    //   console.log("like in unlike thunk", like)
+      console.log("want to deleted like id", likeId)
+      await dispatch(unlikeAction(likeId, postId, userId))
+    }
+  }
 
 
 // ======================= FOLLOWS ===================
@@ -272,9 +289,17 @@ export default function userPageReducer(state = initialState, action) {
             return newState
 
         case DELETE_POST:
-            console.log("newstate from delete post case", newState)
-            console.log("posts in state", newState[action.payload.user_id])
             delete newState[action.payload.user_id].posts[action.payload.id];
+            return newState
+
+        case CREATE_NEW_LIKE:
+
+            newState[action.payload.user_id].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
+            return newState
+
+        case CANCEL_LIKE:
+
+            delete newState[action.userId].posts[action.postId].likes[action.likeId];
             return newState
 
         // case CREATE_COMMENT:

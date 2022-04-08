@@ -20,14 +20,14 @@ const FollowingModal = ({
         return user !== sessionUser && isUserFollowing;
     };
 
-    const followHandler = () => {
-        dispatch(follow(user.id))
+    const followHandler = (userId) => {
+        dispatch(follow(userId))
             .then(() => dispatch(getFollowedPosts()))
     };
 
-    const unfollowHandler = () => {
-        dispatch(unfollow(user.id))
-            .then(() => dispatch(removePosts(user.id)));
+    const unfollowHandler = (userId) => {
+        dispatch(unfollow(userId))
+            .then(() => dispatch(removePosts(userId)));
         setShowFollowModal(false);
     };
 
@@ -56,12 +56,12 @@ const FollowingModal = ({
                     </div>
                     <div>
                         {displayFollowIcon(sessionUser.id, follow.id) &&
-                            <div onClick={followHandler} className='profile-details-follow-button'>
+                            <div onClick={() => followHandler(follow.id)} className='profile-details-follow-button'>
                                 <span>Follow</span>
                             </div>
                         }
                         {displayUnfollowIcon(sessionUser.id, follow.id) &&
-                            <div onClick={unfollowHandler} className='profile-details-unfollow-button'>
+                            <div onClick={() => unfollowHandler(follow.id)} className='profile-details-unfollow-button'>
                                 <i className="fa-solid fa-user user-icon"></i>
                                 <i className="fa-solid fa-check check-icon"></i>
                             </div>
