@@ -191,7 +191,7 @@ footer {
     margin: auto;
     position: absolute;
     float:right;
-    right:500px;
+    right:300px;
     bottom: 150px;
     /* top: 0;
     bottom: 0;
@@ -377,7 +377,7 @@ a {
     margin: auto;
     position: absolute;
     float:left;
-    left:550px;
+    left:300px;
     bottom: 150px;
     width: 80px;
     height: 80px;
