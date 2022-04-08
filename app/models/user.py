@@ -1,9 +1,12 @@
 from .db import db
 from app.models.post import Post
+from app.models.like import Like
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, func
+import math
+from random import random
 
 followers = db.Table(
     'followers',
@@ -87,19 +90,25 @@ class User(db.Model, UserMixin):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
         posts = user_posts.union(following_posts)
-        print("RAW SQL HERE: #########", posts.order_by(desc(Post.updated_at)).all())
         ordered_posts = posts.order_by(desc(Post.updated_at)).all()
         return ordered_posts
     
-    def not_followed_posts(self):
-        user_posts = Post.query.filter(Post.user_id != self.id)
-        not_following_posts = Post.query.join(
-            followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id)
-        posts = user_posts.union(following_posts)
-        print("RAW SQL HERE: #########", posts.order_by(desc(Post.updated_at)).all())
-        ordered_posts = posts.order_by(desc(Post.updated_at)).all()
-        return ordered_posts
+    def explore_posts(self):
+        # followed_by_followed = [word for sentence in text.followed.all() for word in self.followed.all()]
+        user_list = []
+        for user in self.followed: 
+            for second_user in user.followed:
+                if second_user != self:
+                    user_list.append(second_user.id)
+                for third_user in second_user.followed:
+                    if third_user != self:
+                        user_list.append(third_user.id)
+        # posts = Post.query.filter(Post.user_id in user_list).order_by(Post.likes.all().length).all()
+        posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).all()
+        if len(posts) // 9 != 0:
+            remove_at = len(posts) // 9
+            posts= posts[:len(posts) - remove_at - 1]
+        return posts
 
     # def following_list(self, user):
     #     return self.followed.filter(
