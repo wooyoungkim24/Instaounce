@@ -157,7 +157,7 @@ export const deleteLike = (postId, likeId) => async (dispatch) => {
   }
 }
 
-const initialState = { followedPosts: {}, posts: {} }
+const initialState = { followedPosts: {}, explorePosts: {} }
 
 export default function postsReducer(state = initialState, action) {
   const newState = { ...state }

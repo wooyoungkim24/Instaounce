@@ -9,6 +9,7 @@ import HomeFeed from './components/HomeFeed';
 import UsersList from './components/UsersList';
 import UserProfile from './components/UserProfile';
 import CommentCard from './components/CommentCard';
+import ExplorePage from './components/ExplorePage';
 import { authenticate } from './store/session';
 
 function App() {
@@ -51,6 +52,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/posts/:postId/comments/' exact={true}>
           <CommentCard />
+        </ProtectedRoute>
+        <ProtectedRoute path='/explore' exact={true}>
+          <ExplorePage />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
