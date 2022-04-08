@@ -97,22 +97,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                         </div>
 
 
-                        <div className='comment-card-icon-tray' >
-                            <div className='home-card-icon-tray-top-left'>
-                                <LikeIconInUserPage likes={likes} postId={post.id} user={user} />
-                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon" onClick={handleCommentClick}></i>
-                            </div>
-                            {images.length > 1 &&
-                                <div className='home-card-icon-tray-dots'>
-                                    {images.map((image, index) => (
-                                        <i key={index} className={activeDotClass(index)}></i>
-                                    ))}
-                                </div>
-                            }
-                        </div>
-                        <div className='comment-card-likes-tray'>
-                            {likes.length} likes
-                        </div>
+
                         <div className='comment-card-caption-area'>
                             {/* <img src={user.profile_image} alt="profile pic"></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link> */}
@@ -141,6 +126,22 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                                         ))}
                                     </ul>
                             </div>
+                            <div className='comment-card-icon-tray' >
+                            <div className='home-card-icon-tray-top-left'>
+                                <LikeIconInUserPage likes={likes} postId={post.id} user={user} />
+                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon" onClick={handleCommentClick}></i>
+                            </div>
+                            {images.length > 1 &&
+                                <div className='home-card-icon-tray-dots'>
+                                    {images.map((image, index) => (
+                                        <i key={index} className={activeDotClass(index)}></i>
+                                    ))}
+                                </div>
+                            }
+                        </div>
+                        <div className='comment-card-likes-tray'>
+                            {likes.length} likes
+                        </div>
 
                         <form className="make-comment" onSubmit={handleCommentSubmit}>
                                         <textarea
