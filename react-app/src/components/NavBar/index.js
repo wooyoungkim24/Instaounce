@@ -34,7 +34,7 @@ const NavBar = ({ user }) => {
             setShowModal(false)
         }
     }
-    console.log('where is my modal', showModal)
+    
     return (
         <nav>
             <div className='navbar-container'>
