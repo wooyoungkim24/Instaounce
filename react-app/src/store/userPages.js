@@ -105,12 +105,12 @@ const createComment = (comment, postOwnerId) => ({
     postOwnerId
 });
 
-const updateComment = (comment) => ({
+export const updateComment = (comment) => ({
     type: UPDATE_COMMENT,
     payload: comment
 });
 
-const deleteComment = (comment) => ({
+export const deleteCommentAction = (comment) => ({
     type: REMOVE_COMMENT,
     payload: comment
 });
@@ -153,7 +153,9 @@ export const editComment = (comment) => async (dispatch) => {
 
     if (res.ok) {
         const comment = await res.json()
+        console.log('what is the comment', comment)
         await dispatch(updateComment(comment));
+        return comment
     };
 };
 
@@ -164,7 +166,7 @@ export const removeComment = (comment) => async (dispatch) => {
 
     if (res.ok) {
         const comment = await res.json()
-        await dispatch(deleteComment(comment));
+        await dispatch(deleteCommentAction(comment));
     };
 };
 
@@ -315,6 +317,16 @@ export default function userPageReducer(state = initialState, action) {
 
         case ADD_COMMENT:
             newState[action.postOwnerId].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            return newState;
+
+        case UPDATE_COMMENT:
+            console.log('logginaction',action.payload)
+            newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            return newState;
+
+        case REMOVE_COMMENT:
+            console.log('logginaction',action.payload)
+            delete newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id];
             return newState;
 
         default:
