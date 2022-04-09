@@ -91,7 +91,7 @@ class User(db.Model, UserMixin):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
         posts = user_posts.union(following_posts)
-        ordered_posts = posts.order_by(desc(Post.updated_at)).all()
+        ordered_posts = posts.order_by(desc(Post.updated_at)).limit(30)
         return ordered_posts
     
     def explore_posts(self):
@@ -104,14 +104,11 @@ class User(db.Model, UserMixin):
                     if third_user != self:
                         user_list.append(third_user.id)
         posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).limit(54)
-        # posts2 = Post.query.join(Like).group_by(Post.id).filter(Post not in posts)
-        # if len(posts) // 104 != 0:
-        #     if len(posts)
-        #     amount_of_posts_to_add = len(posts) // 54
-        #     print("####################", amount_of_posts_to_add)
-        #     added_posts = Post.query.join(Like).filter(Post not in posts).limit()
-        #     remove_at = len(posts) // 9
-        #     posts= posts[:len(posts) - remove_at - 1]
+        posts2 = Post.query.join(Like).group_by(Post.id).filter(
+            Post not in posts).order_by(func.count().desc()).limit(54)
+        if len(posts) // 9 != 0:
+            remove_at = len(posts) // 9
+            posts= posts[:len(posts) - remove_at - 1]
         return posts
 
     # def following_list(self, user):

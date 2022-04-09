@@ -13,7 +13,7 @@ def seed_users():
     
     db.session.add(demo)
     db.session.add(marnie)
-    for i in range(15): #make 30
+    for i in range(30): #make 30
         user = User(
             username= fake.user_name(),
             email= fake.email(),
