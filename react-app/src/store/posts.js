@@ -9,6 +9,7 @@ const EDIT_COMMENT = 'session/EDIT_COMMENT'
 const REMOVE_FOLLOWED = 'session/REMOVE_FOLLOWED'
 const UPDATE_A_POST = 'session/UPDATE_A_POST'
 
+
 export const removePosts = (userId) => ({
   type: REMOVE_FOLLOWED,
   payload: userId
@@ -68,7 +69,6 @@ export const createComment = (comment) => async (dispatch) => {
 }
 
 export const deleteComment = (commentId) => async (dispatch) => {
-  // console.log('what is the comment', `api/posts/comments/${commentId}`)
   const response = await fetch(`/api/posts/comments/${commentId}`, {
     method: "DELETE"
   })
@@ -109,7 +109,7 @@ export const createPost = (payload) => async (dispatch) => {
   })
 
   if (response.ok) {
-
+    const image = await response.json();
   }
 }
 

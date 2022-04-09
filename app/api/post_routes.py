@@ -139,13 +139,10 @@ def create_post():
     new_images = []
 
     for file in files:
-        # print("########## PHOTO:", photo)
         file.filename = f"Post{post_id}/{file.filename}"
 
-        # print('#############', file.filename)
         upload = upload_file_to_s3(file)
         if "url" not in upload:
-            # print('######error####', upload)
             return upload, 400
 
         url = upload["url"]
@@ -188,8 +185,8 @@ def delete_post(id):
 @login_required
 def explore_posts():
     user = User.query.get(current_user.get_id())
-    explore_posts = user.explore_posts()
-    return [post.to_dict() for post in not_followed]
+    posts = user.explore_posts()
+    return { "posts" : [post.to_dict() for post in posts]}
 
 
 # @posts_routes.route('/', methods=['GET','POST'])

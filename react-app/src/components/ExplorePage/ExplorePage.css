@@ -1,3 +1,8 @@
 .explore-page-body {
     margin-top: 70px;
 }
+
+.explore-page-spinner {
+    -webkit-animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+    animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
+}

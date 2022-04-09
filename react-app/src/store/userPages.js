@@ -7,7 +7,7 @@ const getUserPage = (page) => ({
     payload: page
 });
 
-export const loadUserPage = (userId) => async(dispatch) => {
+export const loadUserPage = (userId) => async (dispatch) => {
     const res = await fetch(`/api/users/${userId}`);
 
     if (res.ok) {
@@ -20,12 +20,12 @@ export const loadUserPage = (userId) => async(dispatch) => {
 
 // ======================= POSTS ===================
 
-const CREATE_POST = 'session/CREATE_POST';
+const NEW_POST = 'session/CREATE_POST';
 const UPDATE_POST = 'session/UPDATE_POST';
 const DELETE_POST = 'session/DELETE_POST';
 
 const createPost = (post) => ({
-    type: CREATE_POST,
+    type: NEW_POST,
     payload: post
 });
 
@@ -66,17 +66,17 @@ export const newPost = (payload) => async (dispatch) => {
 
 export const editPost = (payload) => async dispatch => {
     const response = await fetch(`/api/posts/${payload.id}`, {
-      method: "PUT",
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
     });
 
     if (response.ok) {
-      const post = await response.json();
-      await dispatch(updatePost(post));
+        const post = await response.json();
+        await dispatch(updatePost(post));
 
     }
-  }
+}
 
 export const removePost = (payload) => async (dispatch) => {
     const res = await fetch(`/api/posts/${payload.id}`, {
@@ -132,7 +132,7 @@ export const deleteCommentAction = (comment) => ({
 export const postComment = (comment, postOwnerId) => async (dispatch) => {
     const res = await fetch(`/api/posts/comments`, {
         method: "POST",
-        headers: {"Content-Type": "Application/JSON"},
+        headers: { "Content-Type": "Application/JSON" },
         body: JSON.stringify(comment)
     });
 
@@ -208,17 +208,17 @@ export const unlike = (postId, likeId, userId) => async (dispatch) => {
     console.log("inside of unlike")
     console.log("likeId", likeId)
     const response = await fetch(`/api/posts/${postId}/likes/`, {
-      method: "DELETE"
+        method: "DELETE"
     })
 
     if (response.ok) {
-      console.log("in the unlike fetch response")
-    //   const like = await response.json()
-    //   console.log("like in unlike thunk", like)
-      console.log("want to deleted like id", likeId)
-      await dispatch(unlikeAction(likeId, postId, userId))
+        console.log("in the unlike fetch response")
+        //   const like = await response.json()
+        //   console.log("like in unlike thunk", like)
+        console.log("want to deleted like id", likeId)
+        await dispatch(unlikeAction(likeId, postId, userId))
     }
-  }
+}
 
 
 // ======================= FOLLOWS ===================
@@ -292,9 +292,9 @@ export default function userPageReducer(state = initialState, action) {
             return newState;
 
 
-        // case CREATE_POST:
-        //     newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
-        //     return newState;
+        case NEW_POST:
+            newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+            return newState;
 
         case UPDATE_POST:
 
@@ -307,7 +307,7 @@ export default function userPageReducer(state = initialState, action) {
 
         case CREATE_NEW_LIKE:
 
-            newState[action.postOwnerId].posts[action.payload.post_id].likes[action.payload.id] =  action.payload
+            newState[action.postOwnerId].posts[action.payload.post_id].likes[action.payload.id] = action.payload
             return newState
 
         case CANCEL_LIKE:
@@ -320,12 +320,12 @@ export default function userPageReducer(state = initialState, action) {
             return newState;
 
         case UPDATE_COMMENT:
-            console.log('logginaction',action.payload)
+            console.log('logginaction', action.payload)
             newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
             return newState;
 
         case REMOVE_COMMENT:
-            console.log('logginaction',action.payload)
+            console.log('logginaction', action.payload)
             delete newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id];
             return newState;
 

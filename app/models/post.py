@@ -1,6 +1,5 @@
 from .db import db
 from datetime import datetime
-from flask import jsonify
 
 
 class Post(db.Model):

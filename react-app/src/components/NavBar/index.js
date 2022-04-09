@@ -12,12 +12,15 @@ import {SearchBar} from '../SearchBar/search'
 const NavBar = ({ user }) => {
     const [showDropDown, setShowDropDown] = useState(false);
     const [showModal, setShowModal] = useState(false)
-    const clickHandler = () => {
-        showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
-    }
     const [showConfirm, setShowConfirm] = useState(false)
     const [finalPage, setFinalPage] = useState(false)
     const [firstPage, setFirstPage] = useState(true)
+
+
+    const clickHandler = () => {
+        showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
+    }
+
     const closeModals = () =>{
         setShowModal(false)
         setShowConfirm(false)

@@ -1,3 +1,4 @@
+from ntpath import join
 from .db import db
 from app.models.post import Post
 from app.models.like import Like
@@ -6,7 +7,7 @@ from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import desc, func
 import math
-from random import random, shuffle
+import random
 from flask_validator import ValidateURL
 
 followers = db.Table(
@@ -96,6 +97,7 @@ class User(db.Model, UserMixin):
     
     def explore_posts(self):
         user_list = []
+        # second_followed = first_followed.query.filter()
         for user in self.followed: 
             for second_user in user.followed:
                 if second_user != self:
@@ -103,13 +105,15 @@ class User(db.Model, UserMixin):
                 for third_user in second_user.followed:
                     if third_user != self:
                         user_list.append(third_user.id)
-        posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).limit(54)
+        # posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).limit(54)
+        posts = Post.query.join(Like).group_by(Post.id).limit(54)
         posts2 = Post.query.join(Like).group_by(Post.id).filter(
-            Post not in posts).order_by(func.count().desc()).limit(54)
-        if len(posts) // 9 != 0:
-            remove_at = len(posts) // 9
-            posts= posts[:len(posts) - remove_at - 1]
-        return posts
+            Post not in posts).order_by(func.count().desc()).limit(108 - len(posts.all()))
+        joined_posts = posts.union(posts2).all()
+        if len(joined_posts) // 9 != 0:
+            remove_at = len(joined_posts) // 9
+            joined_posts = joined_posts[:len(joined_posts) - remove_at - 1]
+        return joined_posts
 
     # def following_list(self, user):
     #     return self.followed.filter(
