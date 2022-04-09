@@ -2,6 +2,7 @@ from crypt import methods
 from flask import Blueprint, jsonify, session, request
 from app.models import Post, db, User, Like, Comment
 from flask_login import current_user, login_required
+
 import boto3
 import botocore
 import os
@@ -13,6 +14,13 @@ s3 = boto3.client(
     aws_access_key_id=os.environ.get("S3_KEY"),
     aws_secret_access_key=os.environ.get("S3_SECRET")
 )
+
+def validation_errors_to_error_messages(validation_errors):
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{error}')
+    return errorMessages
 
 post_routes = Blueprint('posts', __name__)
 
