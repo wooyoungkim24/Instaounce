@@ -123,7 +123,10 @@
     object-fit: cover;
 
 }
-
+#character-counter{
+    margin-right: 10px;
+    margin-left: 10px;
+}
 .caption-container {
     display:flex;
     flex-direction: row;
@@ -335,6 +338,10 @@
     flex-direction: row;
     height: 58px;
     padding-left: 15px;
+    align-items: center;
+
+    width: 480px;
+    max-width: 480px;
 }
 .interact-comment-section{
     height: 166px;
@@ -343,12 +350,14 @@
 .make-comment-modal textarea{
     resize:none;
     padding-top: 20px;
-    width: 380px;
+    width: 360px;
+    max-width: 370px;
     max-height: 52px;
     outline:none;
     border:none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
+
 }
 .make-comment-modal button{
     color: rgb(0,149,246);

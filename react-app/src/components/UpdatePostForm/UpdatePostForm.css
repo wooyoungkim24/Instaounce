@@ -1,5 +1,5 @@
 
-.edit-caption-container textarea {
+#edit-caption-container textarea{
   height: 100px;
   resize:none;
   width: 450px;

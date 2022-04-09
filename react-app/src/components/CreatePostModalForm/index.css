@@ -182,6 +182,7 @@
 
 }
 
+
 .photo-icon {
     font-size: 200px;
     color: black;
@@ -214,7 +215,7 @@
 .photo-preview-container {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: auto;
     margin-right: 15px;
 }
 

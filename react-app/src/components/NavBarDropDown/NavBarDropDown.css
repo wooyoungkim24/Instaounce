@@ -6,10 +6,16 @@
     padding: 5px;
     box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
     border-radius: 6px;
-    width: 225px;
+    width: 100px;
     z-index: 4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
 }
 
+.navbar-dropdown-menu a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
 .navbar-dropdown-triangle-wrap {
         background: #fff;
         background: rgba(var(--d87, 255, 255, 255), 1);
@@ -47,7 +53,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    padding: 10px 20px;
+
 }
 
 .navbar-dropdown-list div a {
@@ -55,8 +61,10 @@
     color: black;
 }
 
-.navbar-dropdown-list div {
-
+.navbar-dropdown-list > div {
+    padding-left: 10px;
+    padding-bottom:5px;
+    padding-top: 5px;
 }
 
 .logout-button {
