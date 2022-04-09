@@ -1,5 +1,5 @@
 import './NavBar.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // import LogoutButton from '../auth/LogoutButton'
 import logo from '../../assets/logo.png'
@@ -20,6 +20,20 @@ const NavBar = ({ user }) => {
     const clickHandler = () => {
         showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
     }
+
+    useEffect(() => {
+        if (!showDropDown) return;
+
+        const closeMenu = () => {
+            setShowDropDown(false);
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showDropDown]);
+
+
 
     const closeModals = () =>{
         setShowModal(false)
