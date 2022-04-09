@@ -39,6 +39,8 @@
 .home-card-images {
     display: flex;
     position: relative;
+    
+
 }
 
 .left-arrow {

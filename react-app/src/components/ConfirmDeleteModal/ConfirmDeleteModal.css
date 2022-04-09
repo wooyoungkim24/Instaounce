@@ -1,0 +1,50 @@
+.delete-post-modal{
+    background-color: white;
+    width: 350px;
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius:20px;
+
+
+}
+.delete-post-modal-buttons{
+    display: flex;
+    flex-direction: column;
+    /* border:black solid 2px; */
+    width:350px;
+    height: 100px;
+    border-top:1px solid rgba(128,128,128,.5);
+}
+.delete-post-modal-buttons button{
+    height: 47px;
+
+    border: none;
+    outline:none;
+    background-color: transparent;
+    font-size: 16px;
+    font-family:Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+#delete-modal-delete{
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom: 1px solid rgba(128,128,128,.5);
+    color:red;
+  }
+  #delete-modal-cancel{
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    font-size: 14px;
+  }
+.delete-post-title{
+    font-size: 18px;
+    margin-top: 15px;
+}
+.delete-post-confirm{
+    margin-top: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}

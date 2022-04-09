@@ -26,6 +26,7 @@
     flex-direction: column;
     width: 700px;
     height: 875px;
+    border-right: 1px solid rgb(239,239,239);
 
 }
 
