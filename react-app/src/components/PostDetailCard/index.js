@@ -1,27 +1,37 @@
 import './PostDetailCard.css';
-import { useState } from 'react'
-import LikeIcon from '../LikeIcon';
+import { useState, useRef } from 'react'
+import { useSelector, useDispatch} from 'react-redux'
+import LikeIconInUserPage from '../LikeIconInUserPage';
 import { Link } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 import { Modal } from '../../context/modal';
+import { postComment } from '../../store/userPages'
+import { Comments } from '../CommentCard/comments'
+
 import UpdatePostForm from '../UpdatePostForm'
+import ConfirmDeleteModal from '../ConfirmDeleteModal';
 
 
-const PostDetailCard = ({ post, user }) => {
-    // const user = post.users;
-    // console.log(post, "post!!!!")
-    // console.log(user, "user!!!!")
+const PostDetailCard = ({ post, user, hidePost }) => {
+    const dispatch = useDispatch()
     const likes = Object.values(post.likes);
     const [currentImage, setCurrentImage] = useState(0);
+    const [newComment, setNewComment] = useState('');
+    const [count, setCount] = useState(0)
 
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
-    // grab sessionUser to compare to the post.user
-    // const sessionUser = useSelector(state => state.session.user)
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
+
+
+    const sessionUser = useSelector(state => state.session.user);
 
     const comments = Object.values(post.comments)
     const images = post.image
 
+    const postOwnerId = post.userId
+
+    const comment = useRef()
 
     const rightClickHandler = () => {
         if (currentImage !== images.length - 1) {
@@ -39,6 +49,10 @@ const PostDetailCard = ({ post, user }) => {
         setShowEditForm(true)
     }
 
+    const deleteClickHandler = () => {
+        setShowConfirmModal(true)
+    }
+
     const activeDotClass = (index) => {
         if (index === currentImage) {
             return "fa-solid fa-circle active-dot";
@@ -46,6 +60,23 @@ const PostDetailCard = ({ post, user }) => {
             return "fa-solid fa-circle inactive-dot";
         };
     };
+
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault()
+
+        const comment = {
+            user_id: sessionUser.id,
+            post_id: post.id,
+            content: newComment
+        }
+        dispatch(postComment(comment, postOwnerId))
+        setNewComment('')
+    }
+
+    const handleCommentClick = () => {
+
+        comment.current.focus()
+    }
 
     return (
         <>
@@ -63,17 +94,15 @@ const PostDetailCard = ({ post, user }) => {
                     </div>
                     <div className='comment-card-nonimage-content'>
                         <div className="user">
-                            <img src={user.profileImage} alt="profile pic"></img>
+                            <img src={user.profileImage}></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
-                            <button onClick={editClickHandler}>Edit</button>
-
                         </div>
 
 
                         <div className='comment-card-icon-tray' >
                             <div className='home-card-icon-tray-top-left'>
-                                <LikeIcon likes={likes} postId={post.id} />
-                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"></i>
+                                <LikeIconInUserPage likes={likes} postId={post.id} user={user} />
+                                <i className="fa-regular fa-comment fa-flip-horizontal  comment-icon" onClick={handleCommentClick}></i>
                             </div>
                             {images.length > 1 &&
                                 <div className='home-card-icon-tray-dots'>
@@ -87,24 +116,47 @@ const PostDetailCard = ({ post, user }) => {
                             {likes.length} likes
                         </div>
                         <div className='comment-card-caption-area'>
-                            <img src={user.profile_image} alt="profile pic"></img>
-                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
+                            {/* <img src={user.profile_image} alt="profile pic"></img>
+                            <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link> */}
                             <div id="caption-container">
                                 {post.caption}
                                 <div id='date-time'>{post.updated_at}</div>
                             </div>
-                        </div>
-                        <div className='view-comments'>
-                            <ul className='comments-container'>
-                                {comments.map(comment => (
-                                    <>
-                                        <li key={comment.id}>{comment.content}</li>
-                                        <li>{comment.updated_at}</li>
-                                    </>
-                                ))}
-                            </ul>
+                            {sessionUser.id === post.userId && (
+                            <div>
+                                {/* <button onClick={editClickHandler}>Edit</button> */}
+                                <i class="fa-regular fa-pen-to-square edit-icon" onClick={editClickHandler}></i>
+                                {/* <button onClick={deleteClickHandler}>Delete</button> */}
+                                <i class="fa-regular fa-trash-can delete-icon" onClick={deleteClickHandler}></i>
 
+                            </div>
+                            )}
                         </div>
+                        <div className='view-all-comments'>
+                                <div className='comment-card-caption-area'>
+
+
+                                </div>
+                                    <ul className="comments-container">
+                                        {comments.map(comment => (
+                                            <Comments key={comment.id} post={post} comment={comment} />
+                                        ))}
+                                    </ul>
+                            </div>
+
+                        <form className="make-comment" onSubmit={handleCommentSubmit}>
+                                        <textarea
+                                        ref={comment}
+                                        id='new-comment-input'
+                                        placeholder="Add a comment..."
+                                        maxlength="2000"
+                                        value={newComment}
+                                        required
+                                        onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
+                                        />
+                                    <p id="character-counter">{count}/2000</p>
+                                    <button type='submit'>Post</button>
+                        </form>
                     </div>
 
                 </div>
@@ -112,6 +164,12 @@ const PostDetailCard = ({ post, user }) => {
             {showEditForm && (
                 <Modal onClose={() => setShowEditForm(false)}>
                     <UpdatePostForm post={post} user={user} hideForm={() => setShowEditForm(false)} />
+                </Modal>
+            )}
+
+            {showConfirmModal && (
+                <Modal onClose={() => setShowConfirmModal(false)}>
+                    <ConfirmDeleteModal post={post} hidePost={hidePost} hideForm={() => setShowConfirmModal(false)} />
                 </Modal>
             )}
         </>

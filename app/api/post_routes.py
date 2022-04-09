@@ -2,6 +2,7 @@ from crypt import methods
 from flask import Blueprint, jsonify, session, request
 from app.models import Post, db, User, Like, Comment
 from flask_login import current_user, login_required
+
 import boto3
 import botocore
 import os
@@ -13,6 +14,13 @@ s3 = boto3.client(
     aws_access_key_id=os.environ.get("S3_KEY"),
     aws_secret_access_key=os.environ.get("S3_SECRET")
 )
+
+def validation_errors_to_error_messages(validation_errors):
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{error}')
+    return errorMessages
 
 post_routes = Blueprint('posts', __name__)
 
@@ -151,7 +159,7 @@ def create_post():
             return upload, 400
 
         url = upload["url"]
-        print("urlstring", type(url))
+        
         new_images.append(url)
     new_post_edit = Post.query.get(post_id)
     new_post_edit.image = new_images
@@ -175,6 +183,16 @@ def update_post(id):
 
         return target_post.to_dict()
     return "Bad"
+
+@post_routes.route('/<id>', methods=["DELETE"])
+@login_required
+def delete_post(id):
+    
+    post = Post.query.filter(Post.id == id).first()
+    
+    db.session.delete(post)
+    db.session.commit()
+    return post.to_dict()
 
 
 # @posts_routes.route('/', methods=['GET','POST'])

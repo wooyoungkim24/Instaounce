@@ -40,9 +40,8 @@ const LoginForm = () => {
             <div id="login-logo">
               <img src={logo} className="navbar-logo" alt='logo' />
             </div>
-            {/* <div className="login-form"> */}
               <form className="login-form" onSubmit={onLogin}>
-                <div>
+                <div id="errors">
                   {errors.map((error, ind) => (
                     <div key={ind}>{error}</div>
                   ))}
@@ -67,7 +66,6 @@ const LoginForm = () => {
                 </div>
                   <button type='submit'>Log In</button>
               </form>
-            {/* </div> */}
         </div>
         <div className="sign-up-link">Don't have an account? 
             <Link to="/sign-up">
@@ -94,15 +92,10 @@ const LoginForm = () => {
                   <i class="fa-brands fa-github"></i>
               </div>
             </label>
-            {/* <label class="menu-open-button" for="menu-open">
-              <div id="linked-in" >
-                  <i class="fa-brands fa-linkedin"></i>
-              </div>
-            </label> */}
-            <a class="menu-item woo" target="_blank" href="https://github.com/wooyoungkim24">Wooyoung Kim</a>
-            <a class="menu-item wan" target="_blank" href="https://github.com/wanyi886">Wan-Yi Lee</a>
-            <a class="menu-item yake" target="_blank" href="https://github.com/CodeWhatThouWilt">Jacob North</a>
-            <a class="menu-item ana" target="_blank" href="https://github.com/annvilla1998">Anabel Villalobos</a>
+            <a class="menu-item woo" target="blank" href="https://github.com/wooyoungkim24">Wooyoung Kim</a>
+            <a class="menu-item wan" target="blank" href="https://github.com/wanyi886">Wan-Yi Lee</a>
+            <a class="menu-item yake" target="blank" href="https://github.com/CodeWhatThouWilt">Jacob North</a>
+            <a class="menu-item ana" target="blank" href="https://github.com/annvilla1998">Anabel Villalobos</a>
         </div>
         <div id="linked-in-menu">
             <input type="checkbox" href="#" class="menu-openli" name="menu-openli" id="menu-openli" />
@@ -111,30 +104,15 @@ const LoginForm = () => {
                   <i class="fa-brands fa-linkedin"></i>
               </div>
             </label>
-            <a class="menu-itemli wooli" target="_blank" href="https://www.linkedin.com/in/wooyoung-kim-718618143/">Wooyoung Kim</a>
-            <a class="menu-itemli wanli" target="_blank" href="https://www.linkedin.com/in/wan-yi-lee/">Wan-Yi Lee</a>
-            <a class="menu-itemli yakeli" target="_blank" href="https://www.linkedin.com/in/jacob-north-9b1266226/">Jacob North</a>
-            <a class="menu-itemli anali" target="_blank" href="https://www.linkedin.com/in/anabel-villalobos-5772ab196/">Anabel Villalobos</a>
+            <a class="menu-itemli wooli" target="blank" href="https://www.linkedin.com/in/wooyoung-kim-718618143/">Wooyoung Kim</a>
+            <a class="menu-itemli wanli" target="blank" href="https://www.linkedin.com/in/wan-yi-lee/">Wan-Yi Lee</a>
+            <a class="menu-itemli yakeli" target="blank" href="https://www.linkedin.com/in/jacob-north-9b1266226/">Jacob North</a>
+            <a class="menu-itemli anali" target="blank" href="https://www.linkedin.com/in/anabel-villalobos-5772ab196/">Anabel Villalobos</a>
         </div>
       </footer>
     </>
   );
 };
 
-{/* <nav class="menu">
-   <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-   <label class="menu-open-button" for="menu-open">
-    <span class="lines line-1"></span>
-    <span class="lines line-2"></span>
-    <span class="lines line-3"></span>
-  </label>
-
-   <a href="#" class="menu-item blue"> <i class="fa fa-anchor"></i> </a>
-   <a href="#" class="menu-item green"> <i class="fa fa-coffee"></i> </a>
-   <a href="#" class="menu-item red"> <i class="fa fa-heart"></i> </a>
-   <a href="#" class="menu-item purple"> <i class="fa fa-microphone"></i> </a>
-   <a href="#" class="menu-item orange"> <i class="fa fa-star"></i> </a>
-   <a href="#" class="menu-item lightblue"> <i class="fa fa-diamond"></i> </a>
-</nav> */}
 
 export default LoginForm;

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 640px;
-    height: 720px;
+    height: 775px;
     border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     border-radius: 3px;
     margin-bottom: 24px;
@@ -16,6 +16,7 @@
     height: 50px;
     padding: 14px 4px 14px 16px;
     background-color: white;
+    border-bottom: 1px solid rgb(239,239,239);
 }
 
 .home-card-profile-pic {
@@ -31,6 +32,7 @@
     font-size: 14px;
     font-weight: 600;
     padding: 5px 9px;
+    margin-bottom:6px;
 }
 
 
@@ -129,6 +131,11 @@
 
 .home-card-view-comments {
     margin-top: 5px;
+    margin-left: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    cursor: pointer;
 }
 
 .home-card-view-comments a {
@@ -136,4 +143,56 @@
     color: #a4a4a4;
     font-size: 14px;
     padding: 0px 25px;
+
+}
+.lastUpdated{
+    margin-left: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.card-comment-input{
+    border-top: rgb(239,239,239) solid 1px;
+    display: flex;
+    align-items: center;
+    height: 53px;
+    margin-top: 10px;
+}
+.card-comment-input textarea{
+    margin-left: 23px;
+    height: 20px;
+    outline: none;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    width: 510px;
+    resize: none;
+    margin-top: 10px;
+
+}
+#post-comment-card-button{
+    color: rgb(0,149,246);
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    outline:none;
+    font-size: 14px;
+    cursor: pointer;
+}
+#post-comment-card-button:disabled{
+    cursor: default;
+    color: rgba(0,149,246, .5);
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    outline:none;
+    font-size: 14px;
+}
+
+#character-counter {
+    font-size: 13px;
+    opacity: .6;
+    padding: 5px;
 }

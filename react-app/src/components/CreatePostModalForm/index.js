@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 // import postsReducer from '../../store/posts';
 import "./index.css";
 import { createPost } from '../../store/posts';
-import { useDispatch } from 'react-redux';
-// import Carousel from 'react-multi-carousel';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-multi-carousel/lib/styles.css';
 import { Modal } from "../../context/modal"
 
-function CreatePostModalForm() {
+function CreatePostModalForm({ setFinalPage, setFirstPage }) {
     const [photos, setPhotos] = useState([])
     const [photoIndex, setPhotoIndex] = useState(0)
     const [photoExist, setPhotoExist] = useState(false)
@@ -16,12 +15,18 @@ function CreatePostModalForm() {
     const [caption, setCaption] = useState('')
     const [showConfirmBack, setShowConfirmBack] = useState(false)
     const dispatch = useDispatch();
+    const [photoPosted, setPhotoPosted] = useState(false)
 
+
+    const user = useSelector(state => {
+        return state.session.user
+    })
 
     const updateImageFirst = (e) => {
         const file = e.target.files[0]
         setPhotos([...photos, file])
         setPhotoExist(true)
+        setFirstPage(false)
     }
     const updateImage = (e) => {
         const file = e.target.files[0]
@@ -44,6 +49,8 @@ function CreatePostModalForm() {
 
 
         dispatch(createPost(data))
+        setPhotoPosted(true)
+        setFinalPage(true)
 
 
     }
@@ -54,10 +61,65 @@ function CreatePostModalForm() {
         else {
             setShowMorePhotos(true);
         }
-
     }
-    // console.log('why',showMorePhotos)
 
+
+    // console.log('why',showMorePhotos)
+    useEffect(() => {
+        if (!photoExist) {
+            let dropArea = document.querySelector('.dropzone')
+            console.log('what is the drop zone', dropArea)
+            function preventDefaults(e) {
+                e.preventDefault()
+                e.stopPropagation()
+            }
+
+
+
+
+            dropArea.addEventListener('dragenter', highlight, false)
+            dropArea.addEventListener('dragover', handleDragOverUpload, false)
+            dropArea.addEventListener('dragleave', unhighlight, false)
+            dropArea.addEventListener('drop', handleUploadDrop, false)
+
+
+            function highlight(e) {
+                e.preventDefault()
+                e.stopPropagation()
+                dropArea.classList.add('highlight')
+            }
+            function unhighlight(e) {
+                e.preventDefault()
+                e.stopPropagation()
+                dropArea.classList.remove('highlight')
+            }
+            function handleUploadDrop(e) {
+                e.preventDefault()
+                e.stopPropagation()
+                dropArea.classList.remove('highlight')
+                let dt = e.dataTransfer
+                let files = dt.files
+                setPhotos([...photos, files[0]])
+                setPhotoExist(true)
+                setFirstPage(false)
+            }
+            function handleDragOverUpload(e) {
+                e.preventDefault()
+                e.stopPropagation()
+                dropArea.classList.add('highlight')
+                e.dataTransfer.dropEffect = 'copy';
+            }
+            return (function () {
+
+                dropArea.removeEventListener("dragenter", highlight);
+                dropArea.removeEventListener('dragover', highlight);
+                dropArea.removeEventListener('dragleave', unhighlight);
+                dropArea.removeEventListener('drop', handleUploadDrop);
+
+            })
+        }
+
+    }, [photoExist])
 
     useEffect(() => {
         if (!showMorePhotos) return;
@@ -71,10 +133,10 @@ function CreatePostModalForm() {
             let target = event.target
             if (target === ignore1 || ignore1.contains(target) || target === ignore2 || ignore2.contains(target)) {
                 return;
-            }else if(ignore3 && (target === ignore3 || ignore3.contains(target))){
+            } else if (ignore3 && (target === ignore3 || ignore3.contains(target))) {
                 return;
-            }else if (ignore4 && (target === ignore4 || ignore4.contains(target))){
-                return
+            } else if (ignore4 && (target === ignore4 || ignore4.contains(target))) {
+                return;
             }
             setShowMorePhotos(false)
         }
@@ -84,7 +146,7 @@ function CreatePostModalForm() {
 
         return () => modal.removeEventListener("click", closeShowMore);
 
-    }, [showMorePhotos, photos])
+    }, [showMorePhotos, photos, photoIndex])
     useEffect(() => {
         // console.log('these are my photos', photos)
         let imageCollect = document.querySelectorAll(".photo-preview-container > img")
@@ -193,10 +255,12 @@ function CreatePostModalForm() {
         setPhotoExist(false)
         setShowConfirmBack(false)
         setPhotos([])
+        setFirstPage(true)
     }
 
     function firstBackButton() {
         setShowConfirmBack(true)
+
     }
 
     function deletePhoto(index) {
@@ -206,9 +270,9 @@ function CreatePostModalForm() {
         console.log('what is photocopy', photoCopy[1], photoCopy)
         photoCopy.splice(index, 1)
         let oldIndex = photoIndex
-        if(oldIndex >0){
-           oldIndex = photoIndex-1;
-        }else{
+        if (oldIndex > 0) {
+            oldIndex = photoIndex - 1;
+        } else {
             oldIndex = 0;
         }
 
@@ -216,55 +280,97 @@ function CreatePostModalForm() {
         setPhotos([...photoCopy])
     }
 
-    function goForward(){
+    function goForward() {
         let oldI = photoIndex
-        oldI +=1
+        oldI += 1
         setPhotoIndex(oldI)
     }
     function goBack() {
         let oldI = photoIndex
-        oldI -=1
+        oldI -= 1
         setPhotoIndex(oldI)
     }
+    function secondBackButton() {
+        setPhotoFinished(false)
+    }
+    function settingFocus(index){
+        let focusedImage = document.querySelector(`.draggable-image-${index}`)
+        for (let i = 0; i < photos.length; i ++){
+            document.querySelector(`.draggable-image-${i}`).classList.remove('focus')
+        }
+        setPhotoIndex(index)
+        focusedImage.classList.add('focus')
+    }
+
+
     return (
         <div className='create-post-form-container'>
 
+            {photoPosted &&
+                <div className='photo-posted-container'>
+                    <div className='photo-posted-title'>
+                        Post shared
+                    </div>
+                    <div className='photo-posted-check'>
+                        <div className='gif'>
+                            <img src={'https://www.instagram.com/static/images/creation/30fpsCheckLoopsOnce.gif/10a8cbeb94ba.gif'}></img>
+                        </div>
+                        <div className='gif-text'>
+                            Your post has been shared.
+                        </div>
+                    </div>
 
-            {photoFinished &&
+                </div>}
+            {photoFinished && !photoPosted &&
                 <div className='adding-caption-container'>
                     <div className='top-adding-caption-nav'>
                         <div className='adding-caption-back-button'>
-
+                            <button type='button' id='second-back-button' onClick={secondBackButton}>
+                                <i className="fa-solid fa-arrow-left"></i>
+                            </button>
                         </div>
                         <div >
+
                             Create New Post
                         </div>
                         <div>
-                            <button type='button' onClick={handlePostSubmit}>
+                            <button type='button' id='share-button' onClick={handlePostSubmit}>
                                 Share
                             </button>
                         </div>
                     </div>
                     <div className='finished-photos-bottom-container'>
-                        <div>
-                            <img src={URL.createObjectURL(photos[0])} alt='first pic'></img>
-                        </div>
+
+                        <img src={URL.createObjectURL(photos[0])}></img>
+
                         <div className='captions-adding-form'>
-                            <form>
-                                <input
-                                    type='textarea'
+                            <div className='create-post-user'>
+                                <div className='create-post-user-picture'>
+                                    <img src={user.profile_image}></img>
+                                </div>
+                                <div className='create-post-username'>
+                                    {user.username}
+                                </div>
+                            </div>
+                            <div className='create-post-comment-input'>
+                                <textarea
+                                    placeholder='Write a caption...'
+                                    maxLength={2000}
                                     id='add-a-caption-input'
                                     rows='20'
                                     columns='30'
                                     value={caption}
                                     onChange={updateCaption}>
-                                </input>
-                            </form>
+                                </textarea>
+                                <div className='character-count'>
+                                    {caption.length}/2000
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             }
-            {photoExist && !photoFinished &&
+            {photoExist && !photoFinished && !photoPosted &&
                 <div className='photo-exists-modal'>
                     <div className='top-photos-nav'>
                         <div className='photos-back-button'>
@@ -287,7 +393,7 @@ function CreatePostModalForm() {
                                             <button id='discardButton' type='button' onClick={closeModals}>
                                                 Discard
                                             </button>
-                                            <button id = 'cancelDiscardButton' type='button' onClick={() => setShowConfirmBack(false)}>
+                                            <button id='cancelDiscardButton' type='button' onClick={() => setShowConfirmBack(false)}>
                                                 Cancel
                                             </button>
                                         </div>
@@ -328,14 +434,18 @@ function CreatePostModalForm() {
                                 <div className='photo-preview-container'>
 
                                     {photos.map((ele, i) => {
-                                        console.log('delete bug' ,ele, i)
+                                        console.log('delete bug', ele, i)
                                         return (
                                             <>
                                                 {photos.length > 1 &&
                                                     <button key={ele.name} type="button" id='delete-photo-button' onClick={() => deletePhoto(i)}>
                                                         <i className="fa-solid fa-circle-xmark"></i>
                                                     </button>}
-                                                <img onClick ={() => setPhotoIndex(i) } draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)} alt='draggable pic'></img>
+                                                {photoIndex === i
+                                                ?<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i} focus`} src={URL.createObjectURL(ele)}></img>
+                                                :<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                                }
+
                                             </>
 
                                         )
@@ -360,21 +470,27 @@ function CreatePostModalForm() {
                     <div className='no-photos-title'>
                         Create New Post
                     </div>
-                    <div className='photo-icon'>
-                        <i className="fa-solid fa-photo-film"></i>
+                    <div className='dropzone'>
+                        <div className='photo-icon'>
+                            <i className="fa-solid fa-photo-film"></i>
+                        </div>
+                        <div className='drag-instruct'>
+                            Drag first photo here
+                        </div>
+                        <div className='add-first-photo-div'>
+
+                                <label id='add-photo-1-label' htmlFor='add-photo-1'>Select from computer</label>
+                                <input
+                                    type='file'
+                                    required
+                                    accept='image/*'
+                                    id='add-photo-1'
+                                    onChange={updateImageFirst}>
+                                </input>
+
+                        </div>
                     </div>
-                    <div className='add-first-photo-div'>
-                        <form>
-                            <label id='add-photo-1-label' htmlFor='add-photo-1'>Select from computer</label>
-                            <input
-                                type='file'
-                                required
-                                accept='image/*'
-                                id='add-photo-1'
-                                onChange={updateImageFirst}>
-                            </input>
-                        </form>
-                    </div>
+
                 </div>}
         </div>
 

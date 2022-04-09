@@ -1,0 +1,61 @@
+.following-modal-container {
+    height: 400px;
+    width: 400px;
+    background-color: white;
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+.following-modal-card {
+    display: flex;
+    padding: 8px 16px 8px 16px;
+    height: 46px;
+    width: 400px;
+}
+
+.following-modal-image-container {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.following-modal-profile-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.following-modal-name-container {
+    height: 30px;
+    width: 254.6px;
+}
+
+.following-modal-following-tag-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.following-modal-following-tag {
+    height: 42px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.following-modal-close {
+    height: 42px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 26px;
+}

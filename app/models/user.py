@@ -3,6 +3,8 @@ from app.models.post import Post
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy import desc, asc
+from flask_validator import ValidateURL
 
 followers = db.Table(
     'followers',
@@ -39,7 +41,7 @@ class User(db.Model, UserMixin):
     
 
     def to_dict(self):
-        print('testing if it hits')
+        
         return {
             'id': self.id,
             'username': self.username,
@@ -63,7 +65,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def follow(self, user):
-        if not self.is_following(user):
+        if not self.is_following(user) and self.id != user.id :
             self.followed.append(user)
 
     def unfollow(self, user):
@@ -74,12 +76,24 @@ class User(db.Model, UserMixin):
         return self.followed.filter(
             followers.c.followed_id == user.id and followers.c.followed_id != self.id).count() > 0
 
+    # def followed_posts(self):
+    #     return Post.query.join(
+    #         followers, (followers.c.followed_id == Post.user_id)).filter(
+    #             followers.c.follower_id == self.id).order_by(
+    #                 Post.updated_at.desc()).all()
+    
     def followed_posts(self):
-        return Post.query.join(
+
+        user_posts = Post.query.filter(Post.user_id == self.id)
+
+        following_posts = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id).order_by(
-                    Post.updated_at.desc()).all()
-                
+                followers.c.follower_id == self.id)
+            
+        posts = user_posts.union(following_posts)
+        print("RAW SQL HERE: #########", posts.order_by(desc(Post.updated_at)).all())
+        ordered_posts = posts.order_by(desc(Post.updated_at)).all()
+        return ordered_posts
 
     # def following_list(self, user):
     #     return self.followed.filter(
@@ -103,3 +117,7 @@ class User(db.Model, UserMixin):
             "following": {user.id: user.to_dict() for user in self.followed},
             "followers": {user.id: user.to_dict() for user in self.get_followers()}
         }
+
+    @classmethod
+    def __declare_last__(cls):
+        ValidateURL(User.profile_image, False, False, True, "Please enter a valid URL")

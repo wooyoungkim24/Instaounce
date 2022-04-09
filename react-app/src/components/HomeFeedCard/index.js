@@ -1,10 +1,13 @@
 import './HomeFeedCard.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
 import { Modal } from '../../context/modal';
 import CommentCard from '../CommentCard';
 // import { useSelector } from 'react-redux';
+import moment from 'moment'
+import { useSelector , useDispatch} from 'react-redux';
+import { createComment } from '../../store/posts';
 
 const HomeFeedCard = ({ post }) => {
     const user = post.users;
@@ -13,8 +16,13 @@ const HomeFeedCard = ({ post }) => {
     const comments = Object.values(post.comments)
     const [currentImage, setCurrentImage] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    // console.log(post);
-
+    const [newComment, setNewComment] = useState("");
+    const dispatch = useDispatch();
+    const [count, setCount] = useState(0)
+   
+    const sessionUser = useSelector(state => {
+        return state.session.user
+    })
     const rightClickHandler = () => {
         if (currentImage !== images.length - 1) {
             setCurrentImage(currentImage + 1);
@@ -44,7 +52,73 @@ const HomeFeedCard = ({ post }) => {
             return `View all ${comments.length} comments`
         }
     }
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault()
 
+        const comment = {
+            user_id: sessionUser.id,
+            post_id: post.id,
+            content: newComment
+        }
+        dispatch(createComment(comment))
+        setNewComment('')
+    }
+
+
+
+    useEffect(() => {
+        const handleMouseEnter=(e) =>{
+            // console.log('are you working')
+            const specificButton = e.target.querySelector(".edit-comment-button-div")
+            specificButton.style.display = "block"
+        }
+        const handleMouseLeave=(e) =>{
+            const specificButton = e.target.querySelector(".edit-comment-button-div")
+            specificButton.style.display = "none"
+        }
+        if(showModal){
+            let comments = document.querySelectorAll(".comments")
+            // console.log(comments[0], typeof comments)
+
+            for(let i = 0; i < comments.length; i ++){
+                let curr = comments[i]
+                // console.log('what is curr', curr)
+
+                curr.addEventListener('mouseenter', handleMouseEnter)
+                curr.addEventListener('mouseleave', handleMouseLeave)
+            }
+            // return (function () {
+            //     for(let i = 0; i < comments.length; i ++){
+            //         let curr = comments[0]
+            //         curr.removeEventListener('mouseenter', handleMouseEnter)
+            //         curr.removeEventListener('mouseleave', handleMouseLeave)
+            //     }
+            // })
+        }
+
+
+    }, [showModal, comments])
+    function lastUpdated() {
+        let now = new Date();
+        let updatedAt = new Date(post.updated_at)
+        let difference = (now-updatedAt)/1000/60/60
+        // console.log('what is the difference', difference)
+        if(difference > 24){
+            return moment(updatedAt).format("MMMM D YYYY")
+        }else if (difference < 1){
+            if(Math.floor(difference * 60) === 1 ){
+                return `${Math.floor(difference * 60)} minute ago`
+            }else if(difference*60 < 1){
+                return "Less than a minute ago"
+            }
+            return `${Math.floor(difference * 60)} minutes ago`
+        }
+        else if(Math.floor(difference) === 1){
+            return `${Math.floor(difference)} hour ago`
+        }else{
+            return `${Math.floor(difference)} hours ago`
+        }
+    }
     return (
         <div className='home-card'>
             <div className='home-card-header'>
@@ -68,7 +142,7 @@ const HomeFeedCard = ({ post }) => {
                 <div className='home-card-icon-tray' >
                     <div className='home-card-icon-tray-top-left'>
                         <LikeIcon likes={likes} postId={post.id} />
-                        <div onClick={() => setShowModal(true)}><i className="fa-regular fa-comment fa-flip-horizontal  comment-icon"/></div>
+                        <i onClick={() => setShowModal(true)} className="fa-regular fa-comment fa-flip-horizontal  comment-icon" />
                         {showModal && (
                             <Modal onClose={() => setShowModal(false)}>
                                 <CommentCard post={post} />
@@ -92,13 +166,29 @@ const HomeFeedCard = ({ post }) => {
                 </div>
                 <div className='home-card-view-comments'>
                     {/* <Link to={`/${post.id}/comments`}> */}
-                        <div onClick={() => setShowModal(true)}>{viewComments()}</div>
-                        {showModal && (
-                            <Modal onClose={() => setShowModal(false)}>
-                                <CommentCard post={post} />
-                            </Modal>
-                        )}
+                    <div onClick={() => setShowModal(true)}>{viewComments()}</div>
+                    {showModal && (
+                        <Modal onClose={() => setShowModal(false)}>
+                            <CommentCard post={post} />
+                        </Modal>
+                    )}
                     {/* </Link> */}
+                </div>
+                <div className='lastUpdated'>
+                    {lastUpdated()}
+                </div>
+                <div className='card-comment-input'>
+                    <textarea
+                    maxlength="2000"
+                    value = {newComment}
+                    placeholder="Add a comment..."
+                    onChange = {e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
+                    >
+                    </textarea>
+                    <p id="character-counter">{count}/2000</p>
+                    <button disabled ={!newComment} id='post-comment-card-button' onClick={handleCommentSubmit}>
+                        Post
+                    </button>
                 </div>
             </div>
         </div>
