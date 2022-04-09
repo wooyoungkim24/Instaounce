@@ -18,7 +18,8 @@ const HomeFeedCard = ({ post }) => {
     const [showModal, setShowModal] = useState(false);
     const [newComment, setNewComment] = useState("");
     const dispatch = useDispatch();
-    // console.log(post);
+    const [count, setCount] = useState(0)
+   
     const sessionUser = useSelector(state => {
         return state.session.user
     })
@@ -63,9 +64,11 @@ const HomeFeedCard = ({ post }) => {
         setNewComment('')
     }
 
+
+
     useEffect(() => {
         const handleMouseEnter=(e) =>{
-            console.log('are you working')
+            // console.log('are you working')
             const specificButton = e.target.querySelector(".edit-comment-button-div")
             specificButton.style.display = "block"
         }
@@ -75,11 +78,11 @@ const HomeFeedCard = ({ post }) => {
         }
         if(showModal){
             let comments = document.querySelectorAll(".comments")
-            console.log(comments[0], typeof comments)
+            // console.log(comments[0], typeof comments)
 
             for(let i = 0; i < comments.length; i ++){
                 let curr = comments[i]
-                console.log('what is curr', curr)
+                // console.log('what is curr', curr)
 
                 curr.addEventListener('mouseenter', handleMouseEnter)
                 curr.addEventListener('mouseleave', handleMouseLeave)
@@ -99,7 +102,7 @@ const HomeFeedCard = ({ post }) => {
         let now = new Date();
         let updatedAt = new Date(post.updated_at)
         let difference = (now-updatedAt)/1000/60/60
-        console.log('what is the difference', difference)
+        // console.log('what is the difference', difference)
         if(difference > 24){
             return moment(updatedAt).format("MMMM D YYYY")
         }else if (difference < 1){
@@ -176,12 +179,13 @@ const HomeFeedCard = ({ post }) => {
                 </div>
                 <div className='card-comment-input'>
                     <textarea
-
+                    maxlength="2000"
                     value = {newComment}
                     placeholder="Add a comment..."
-                    onChange = {e => setNewComment(e.target.value)}
+                    onChange = {e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
                     >
                     </textarea>
+                    <p id="character-counter">{count}/2000</p>
                     <button disabled ={!newComment} id='post-comment-card-button' onClick={handleCommentSubmit}>
                         Post
                     </button>

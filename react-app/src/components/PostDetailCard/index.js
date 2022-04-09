@@ -17,6 +17,8 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     const likes = Object.values(post.likes);
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
+    const [count, setCount] = useState(0)
+
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -147,10 +149,12 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                                         ref={comment}
                                         id='new-comment-input'
                                         placeholder="Add a comment..."
+                                        maxlength="2000"
                                         value={newComment}
                                         required
-                                        onChange={e => setNewComment(e.target.value)}
+                                        onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
                                         />
+                                    <p id="character-counter">{count}/2000</p>
                                     <button type='submit'>Post</button>
                         </form>
                     </div>

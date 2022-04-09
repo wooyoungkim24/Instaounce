@@ -7,7 +7,7 @@
     align-items: center;
     min-height: 100%;
     justify-content:center;
-    margin-bottom: 180px;
+    margin-bottom: 50px;
 }
 
 .loginform-container {
@@ -16,7 +16,7 @@
     flex-direction:column;
     height: 380px;
     background-color: #FFFFFF;
-    margin: 100px 0px 10px;
+    margin: 90px 0px 10px;
     padding:10px 0px;
     border: 0.5px solid rgba(114, 108, 108, 0.3);
 }
@@ -26,9 +26,9 @@
     display:flex;
     width: 350px;
     flex-direction:column;
-    height: 500px;
+    height: 700px;
     background-color: #FFFFFF;
-    margin: 100px 0px 10px;
+    margin: 50px 0px 10px;
     padding:10px 0px;
     border: 0.5px solid rgba(114, 108, 108, 0.3);
 }
@@ -131,7 +131,7 @@ footer {
     display:flex;
     justify-content:center;
     flex-direction: column;
-    margin: 0px 0px 60px;
+    margin: 0px 0px 30px;
     height:82px;
     gap: 20px;
 }
@@ -191,7 +191,7 @@ footer {
     margin: auto;
     position: absolute;
     float:right;
-    right:300px;
+    right:230px;
     bottom: 150px;
     /* top: 0;
     bottom: 0;

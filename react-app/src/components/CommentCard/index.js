@@ -15,6 +15,8 @@ const CommentCard = ({ post }) => {
     const likes = post.likes;
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
+    const [count, setCount] = useState(0)
+
     const comments = Object.values(post.comments)
     const sortCommentsFn = (a,b) =>{
         console.log(b)
@@ -215,10 +217,12 @@ const CommentCard = ({ post }) => {
                                 ref={comment}
                                 id='new-comment-input'
                                 placeholder="Add a comment..."
+                                maxlength="2000"
                                 value={newComment}
                                 required
-                                onChange={e => setNewComment(e.target.value)}
+                                onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
                             />
+                            <p id="character-counter">{count}/2000</p>
                             <button disabled ={!newComment} onClick={handleCommentSubmit} type='button'>Post</button>
 
                         </div>

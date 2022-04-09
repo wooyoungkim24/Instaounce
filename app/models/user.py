@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import desc, asc
+from flask_validator import ValidateURL
 
 followers = db.Table(
     'followers',
@@ -116,3 +117,7 @@ class User(db.Model, UserMixin):
             "following": {user.id: user.to_dict() for user in self.followed},
             "followers": {user.id: user.to_dict() for user in self.get_followers()}
         }
+
+    @classmethod
+    def __declare_last__(cls):
+        ValidateURL(User.profile_image, False, False, True, "Please enter a valid URL")
