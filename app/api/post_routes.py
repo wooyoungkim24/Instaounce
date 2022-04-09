@@ -151,7 +151,7 @@ def create_post():
     new_post_edit = Post.query.get(post_id)
     new_post_edit.image = new_images
     db.session.commit()
-    return new_post.to_dict()
+    return {"feedState": new_post.to_dict(), "pageState": new_post.to_dict_user_page()}
 
 @post_routes.route("/<id>", methods=["PUT"])
 @login_required

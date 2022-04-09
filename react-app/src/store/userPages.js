@@ -293,7 +293,7 @@ export default function userPageReducer(state = initialState, action) {
 
 
         case NEW_POST:
-            newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+            newState[action.payload.pageState.userId][action.payload.posts][action.payload.id] = action.payload;
             return newState;
 
         case UPDATE_POST:
