@@ -7,6 +7,7 @@ from datetime import datetime
 from sqlalchemy import desc, func
 import math
 from random import random, shuffle
+from flask_validator import ValidateURL
 
 followers = db.Table(
     'followers',
@@ -135,3 +136,7 @@ class User(db.Model, UserMixin):
             "following": {user.id: user.to_dict() for user in self.followed},
             "followers": {user.id: user.to_dict() for user in self.get_followers()}
         }
+
+    @classmethod
+    def __declare_last__(cls):
+        ValidateURL(User.profile_image, False, False, True, "Please enter a valid URL")

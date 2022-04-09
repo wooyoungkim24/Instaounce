@@ -19,8 +19,13 @@ export const SearchBar = ({}) => {
 
     useEffect(() => {
         if (!showDropdown) return;
+        let ignoreSearch = document.getElementById("search")
 
-        const closeMenu = () => {
+        const closeMenu = (e) => {
+            let target = e.target
+            if(target === ignoreSearch || ignoreSearch.contains(target)){
+                return;
+            }
             setShowDropdown(false);
         };
 
@@ -35,7 +40,7 @@ export const SearchBar = ({}) => {
             return users;
         }
         
-        return users.filter(user => user.username.includes(query))
+        return users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()))
     }
    const filteredUsers = getFilteredUsers(query, users)
     
@@ -52,8 +57,8 @@ export const SearchBar = ({}) => {
             {showDropdown && (
                 <div id="search-list" >
                     {filteredUsers.map(value => (
-                        <Link onClick={() => setShowDropdown(false)} to={`/users/${value.id}`}>
-                            <div key={value.id} className="user-link-search">
+                        <Link  key={value.id} onClick={() => setShowDropdown(false)} to={`/users/${value.id}`}>
+                            <div className="user-link-search">
                             <img alt="profile_image" src={value.profile_image}/>
                             {value.username}
                             </div>

@@ -22,10 +22,12 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(firstName, lastName, bio, profileImage, username, email, password));
+      const data = await dispatch(signUp(username, email, password, firstName, lastName, profileImage, bio));
       if (data) {
         setErrors(data)
       }
+    }else{
+      errors.push('Passwords do not match')
     }
   };
 
@@ -69,18 +71,19 @@ const SignUpForm = () => {
                 <img src={logo} className="navbar-logo" alt='logo' />
               </div>
         <div id="sign-up-text">Sign up to see photos from your friends.</div>
-        <form className="signup-form" onSubmit={onSignUp}>
-          <div>
+          <div id="errors">
             {errors.map((error, ind) => (
               <div key={ind}>{error}</div>
             ))}
           </div>
+        <form className="signup-form" onSubmit={onSignUp}>
           <div>
             <input
               type='text'
               name = 'username'
               value = {username}
               placeholder="Username"
+              required
               onChange={updateUsername}>
             </input>
           </div>
@@ -90,6 +93,7 @@ const SignUpForm = () => {
               name = 'first_name'
               placeholder="First Name"
               value = {firstName}
+              required
               onChange={updateFirstName}>
             </input>
           </div>
@@ -99,6 +103,7 @@ const SignUpForm = () => {
               name = 'last_name'
               placeholder="Last Name"
               value = {lastName}
+              required
               onChange={updateLastName}>
             </input>
           </div>
@@ -108,6 +113,7 @@ const SignUpForm = () => {
               name = 'profile_pic'
               placeholder="Profile Image"
               value = {profileImage}
+              required
               onChange={updateProfileImage}>
             </input>
           </div>
@@ -116,6 +122,7 @@ const SignUpForm = () => {
               type='text'
               name='biography'
               placeholder="Bio"
+              required
               onChange={updateBio}
               value={bio}
             ></input>
@@ -125,6 +132,7 @@ const SignUpForm = () => {
               type='text'
               name='email'
               placeholder="Email Address"
+              required
               onChange={updateEmail}
               value={email}
             ></input>
@@ -134,6 +142,7 @@ const SignUpForm = () => {
               type='password'
               name='password'
               placeholder="Password"
+              required
               onChange={updatePassword}
               value={password}
             ></input>
