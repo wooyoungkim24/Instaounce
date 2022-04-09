@@ -8,8 +8,18 @@
     border-collapse: separate;
     flex-shrink: 1;
     background-color: white;
+    animation-duration: .5s;
+    animation-name: commentCardAppear;
 }
 
+@keyframes commentCardAppear {
+    from{
+        opacity:0
+    }
+    to{
+        opacity: 1;
+    }
+}
 
 .comment-card-images {
     display:inline-flex;

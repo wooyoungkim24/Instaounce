@@ -66,6 +66,7 @@ def create_comment():
 @post_routes.route('/comments/<id>', methods=["DELETE", "PUT"])
 def deleteComment(id):
     if request.method == "DELETE":
+
         comment = Comment.query.filter(Comment.id == id).first()
         post_id = comment.post_id
         db.session.delete(comment)
@@ -151,7 +152,7 @@ def create_post():
             return upload, 400
 
         url = upload["url"]
-        
+
         new_images.append(url)
     new_post_edit = Post.query.get(post_id)
     new_post_edit.image = new_images
@@ -179,9 +180,9 @@ def update_post(id):
 @post_routes.route('/<id>', methods=["DELETE"])
 @login_required
 def delete_post(id):
-    
+
     post = Post.query.filter(Post.id == id).first()
-    
+
     db.session.delete(post)
     db.session.commit()
     return post.to_dict()

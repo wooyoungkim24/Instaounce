@@ -68,12 +68,18 @@ export const createComment = (comment) => async (dispatch) => {
 }
 
 export const deleteComment = (commentId) => async (dispatch) => {
-  const response = await fetch(`api/posts/comments/${commentId}`, {
+  // console.log('what is the comment', `api/posts/comments/${commentId}`)
+  const response = await fetch(`/api/posts/comments/${commentId}`, {
     method: "DELETE"
   })
+
   if (response.ok) {
+    console.log('ttestsetsetsts')
     const comment = await response.json()
+    console.log('comment obj', comment)
     dispatch(commentDelete(comment))
+
+    return comment
   }
 }
 
@@ -90,6 +96,7 @@ export const editComment = (comment) => async (dispatch) => {
   if (response.ok) {
     const comment = await response.json()
     await dispatch(commentEdit(comment))
+    return comment
   }
 }
 
@@ -195,11 +202,17 @@ export default function postsReducer(state = initialState, action) {
       return newState
 
     case DELETE_COMMENT:
-      delete newState.followedPosts[action.payload.postId].comments[action.payload.commentId]
+      if(Object.values(newState.followedPosts).length){
+        delete newState.followedPosts[action.payload.postId].comments[action.payload.commentId]
+      }
       return newState
 
     case EDIT_COMMENT:
-      newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload
+      // console.log('testing', newState.followedPosts)
+      if(Object.values(newState.followedPosts).length){
+        newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload
+      }
+
       return newState
 
     case DELETE_LIKE:

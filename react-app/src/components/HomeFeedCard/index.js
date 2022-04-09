@@ -174,7 +174,7 @@ const HomeFeedCard = ({ post }) => {
                 </div>
                 <div className='home-card-view-comments'>
                     {/* <Link to={`/${post.id}/comments`}> */}
-                    <div onClick={() => setShowModal(true)}>{viewComments()}</div>
+                    <div className ='view-comments' onClick={() => setShowModal(true)}>{viewComments()}</div>
                     {showModal && (
                         <Modal onClose={() => setShowModal(false)}>
                             <CommentCard post={post} />
