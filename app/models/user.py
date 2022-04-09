@@ -5,7 +5,7 @@ from app.models.like import Like
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from sqlalchemy import desc, func
+from sqlalchemy import func
 import math
 import random
 from flask_validator import ValidateURL
@@ -92,23 +92,23 @@ class User(db.Model, UserMixin):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
         posts = user_posts.union(following_posts)
-        ordered_posts = posts.order_by(desc(Post.updated_at)).limit(30)
+        ordered_posts = posts.order_by(Post.updated_at.desc()).limit(30)
         return ordered_posts
     
     def explore_posts(self):
         user_list = []
-        # second_followed = first_followed.query.filter()
         for user in self.followed: 
             for second_user in user.followed:
-                if second_user != self:
+                if second_user.id != self.id and second_user.id not in user_list:
                     user_list.append(second_user.id)
                 for third_user in second_user.followed:
-                    if third_user != self:
+                    if third_user.id != self.id and third_user.id not in user_list:
                         user_list.append(third_user.id)
         # posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).limit(54)
-        posts = Post.query.join(Like).group_by(Post.id).limit(54)
+        posts = Post.query.join(Like).group_by(Post.id).filter(
+            Post.user_id in user_list).order_by(func.count().desc()).limit(54)
         posts2 = Post.query.join(Like).group_by(Post.id).filter(
-            Post not in posts).order_by(func.count().desc()).limit(108 - len(posts.all()))
+            Post not in posts and Post.user_id != self.id).order_by(func.count().desc()).limit(108 - len(posts.all()))
         joined_posts = posts.union(posts2).all()
         if len(joined_posts) // 9 != 0:
             remove_at = len(joined_posts) // 9

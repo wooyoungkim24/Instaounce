@@ -11,6 +11,10 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     users = db.relationship("User", back_populates="posts")
+    # comments = db.relationship(
+    #     "Comment", back_populates="posts", ondelete='CASCADE')
+    # likes = db.relationship(
+    #     "Like", back_populates="posts", ondelete='CASCADE')
     comments = db.relationship(
         "Comment", back_populates="posts", cascade="all, delete")
     likes = db.relationship(
