@@ -4,7 +4,7 @@ faker = Faker()
 
 
 def seed_comments():
-    for _ in range(100):
+    for _ in range(100): #make 250
         comment = Comment(
             post_id= faker.random_int(min=1, max=80),
             user_id= faker.random_int(min=1, max=15),

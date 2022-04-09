@@ -6,7 +6,7 @@ from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import desc, func
 import math
-from random import random
+from random import random, shuffle
 
 followers = db.Table(
     'followers',
@@ -94,7 +94,6 @@ class User(db.Model, UserMixin):
         return ordered_posts
     
     def explore_posts(self):
-        # followed_by_followed = [word for sentence in text.followed.all() for word in self.followed.all()]
         user_list = []
         for user in self.followed: 
             for second_user in user.followed:
@@ -103,11 +102,15 @@ class User(db.Model, UserMixin):
                 for third_user in second_user.followed:
                     if third_user != self:
                         user_list.append(third_user.id)
-        # posts = Post.query.filter(Post.user_id in user_list).order_by(Post.likes.all().length).all()
-        posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).all()
-        if len(posts) // 9 != 0:
-            remove_at = len(posts) // 9
-            posts= posts[:len(posts) - remove_at - 1]
+        posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).limit(54)
+        # posts2 = Post.query.join(Like).group_by(Post.id).filter(Post not in posts)
+        # if len(posts) // 104 != 0:
+        #     if len(posts)
+        #     amount_of_posts_to_add = len(posts) // 54
+        #     print("####################", amount_of_posts_to_add)
+        #     added_posts = Post.query.join(Like).filter(Post not in posts).limit()
+        #     remove_at = len(posts) // 9
+        #     posts= posts[:len(posts) - remove_at - 1]
         return posts
 
     # def following_list(self, user):

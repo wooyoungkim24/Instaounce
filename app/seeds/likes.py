@@ -4,7 +4,7 @@ faker = Faker()
 
 
 def seed_likes():
-    for _ in range(100):
+    for _ in range(100): # make 250
         like = Like(
             user_id= faker.random_int(min=1, max=15),
             post_id= faker.random_int(min=1, max=80)

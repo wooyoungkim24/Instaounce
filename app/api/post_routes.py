@@ -45,7 +45,6 @@ def upload_file_to_s3(file, acl="public-read"):
 def read_posts():
     user = User.query.get(current_user.get_id())
     followings = user.followed_posts()
-    user.explore_posts()
     return {'posts':[following.to_dict() for following in followings]}
 
 
@@ -188,8 +187,8 @@ def delete_post(id):
 @login_required
 def explore_posts():
     user = User.query.get(current_user.get_id())
-    not_followed = user.not_followed_posts()
-    return {'posts': [post.to_dict() for post in not_followed]}
+    explore_posts = user.explore_posts()
+    return [post.to_dict() for post in not_followed]
 
 
 # @posts_routes.route('/', methods=['GET','POST'])
