@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, session, request
 from app.models import Post, db, User, Like, Comment
 from flask_login import current_user, login_required
 import boto3
+from app.forms.comment_form import CommentForm
 import botocore
 import os
 from app.forms.update_post_form import UpdatePostForm
@@ -19,7 +20,6 @@ post_routes = Blueprint('posts', __name__)
 BUCKET_NAME = os.environ.get('S3_BUCKET')
 print('bucketname', BUCKET_NAME)
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
-
 
 def upload_file_to_s3(file, acl="public-read"):
     print("####testing upload", file, file.filename)
@@ -40,6 +40,17 @@ def upload_file_to_s3(file, acl="public-read"):
     return {"url": f"{S3_LOCATION}{file.filename}"}
 
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f'{error}')
+    return errorMessages
+
+
 @post_routes.route("/")
 @login_required
 def read_posts():
@@ -51,14 +62,20 @@ def read_posts():
 @post_routes.route('/comments', methods=["POST"])
 def create_comment():
     data = request.get_json(force=True)
-    new_comment = Comment(
-        user_id=data["user_id"],
-        post_id=data["post_id"],
-        content=data["content"],
-    )
-    db.session.add(new_comment)
-    db.session.commit()
-    return new_comment.to_dict()
+
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_comment = Comment(
+            user_id=data["user_id"],
+            post_id=data["post_id"],
+            content=data["content"],
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        return new_comment.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+    
 
 @post_routes.route('/comments/<id>', methods=["DELETE", "PUT"])
 def deleteComment(id):

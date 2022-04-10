@@ -16,10 +16,11 @@ const CommentCard = ({ post }) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
     const [count, setCount] = useState(0)
+    const [errors, setErrors] = useState([]);
+    
 
     const comments = Object.values(post.comments)
     const sortCommentsFn = (a,b) =>{
-        console.log(b)
         return new Date(b.updated_at) - new Date(a.updated_at)
     }
     comments.sort(sortCommentsFn)
@@ -30,9 +31,7 @@ const CommentCard = ({ post }) => {
 
     const comment = useRef()
 
-    // const [errors, setErrors] = useState([])
     // const [showModal, setShowModal] = useState(false)
-
 
 
     const rightClickHandler = () => {
@@ -63,7 +62,10 @@ const CommentCard = ({ post }) => {
             post_id: post.id,
             content: newComment
         }
-        dispatch(createComment(comment))
+        const data = await dispatch(createComment(comment))
+        if (data) {
+            setErrors(data)
+          }
         setNewComment('')
     }
 
@@ -211,17 +213,21 @@ const CommentCard = ({ post }) => {
                             </div>
 
                         </div>
+                        <div id="errors">
+                            {errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
+                            ))}
+                        </div>
                         <div className="make-comment-modal" >
-
-                            <textarea
-                                ref={comment}
-                                id='new-comment-input'
-                                placeholder="Add a comment..."
-                                maxlength="2000"
-                                value={newComment}
-                                required
-                                onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
-                            />
+                                <textarea
+                                    ref={comment}
+                                    id='new-comment-input'
+                                    placeholder="Add a comment..."
+                                    maxlength="2000"
+                                    value={newComment}
+                                    required
+                                    onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
+                                />
                             <div id="character-counter">{newComment.length}/2000 </div>
                             <button disabled ={!newComment} onClick={handleCommentSubmit} type='button'>Post</button>
 

@@ -68,6 +68,14 @@ export const createComment = (comment) => async (dispatch) => {
   if (response.ok) {
     const comment = await response.json()
     await dispatch(makeComment(comment))
+    return null
+  }else if (response.status < 500) {
+    const data = await response.json();
+    if (data.errors) {
+      return data.errors;
+    }
+  } else {
+    return ['An error occurred. Please try again.']
   }
 }
 

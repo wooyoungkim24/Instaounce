@@ -21,6 +21,14 @@
     }
 }
 
+@media (max-height: 1000px)
+{
+  .post-details-container {
+      overflow:scroll;
+      height: 700px;
+  }
+}
+
 .comment-card-images {
     display:inline-flex;
     flex-direction: column;

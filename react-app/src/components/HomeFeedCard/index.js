@@ -19,6 +19,8 @@ const HomeFeedCard = ({ post }) => {
     const [newComment, setNewComment] = useState("");
     const dispatch = useDispatch();
     const [count, setCount] = useState(0)
+    const [errors, setErrors] = useState([]);
+
 
     const sessionUser = useSelector(state => {
         return state.session.user
@@ -60,7 +62,10 @@ const HomeFeedCard = ({ post }) => {
             post_id: post.id,
             content: newComment
         }
-        dispatch(createComment(comment))
+        const data = await dispatch(createComment(comment))
+        if (data) {
+            setErrors(data)
+          }
         setNewComment('')
     }
 
@@ -185,9 +190,14 @@ const HomeFeedCard = ({ post }) => {
                 <div className='lastUpdated'>
                     {lastUpdated()}
                 </div>
+                <div id="errors">
+                            {errors.map((error, ind) => (
+                            <div key={ind}>{error}</div>
+                            ))}
+                </div>
                 <div className='card-comment-input'>
                     <textarea
-
+                        required
                         value={newComment}
                         placeholder="Add a comment..."
                         onChange={e => setNewComment(e.target.value)}
