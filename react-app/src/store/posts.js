@@ -78,7 +78,6 @@ export const deleteComment = (commentId) => async (dispatch) => {
 
   if (response.ok) {
     const comment = await response.json()
-    console.log('wrong thunk buddy')
     dispatch(commentDelete(comment))
 
     return comment

@@ -12,7 +12,6 @@ const ExplorePage = () => {
                 .then(res => res.json())
                 .then(resPosts => setPosts(resPosts.posts))
                 .then(() => setIsLoaded(true))
-                .then(() => console.log(posts))
         }
     }, [posts, isLoaded]);
 

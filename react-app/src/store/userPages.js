@@ -317,7 +317,6 @@ export default function userPageReducer(state = initialState, action) {
             return newState;
 
         case UPDATE_COMMENT:
-            console.log('I am in update comment with payload >>>>', action)
             if (newState[action.postOwnerId]) {
                 newState[action.postOwnerId].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
             }

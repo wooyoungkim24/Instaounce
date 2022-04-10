@@ -14,7 +14,6 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
 
     const handleDeleteComment = async(e) => {
         e.preventDefault()
-        console.log("right spot")
         let deletedComment;
         deletedComment = await dispatch(removeComment(comment.id, postOwnerId))
 

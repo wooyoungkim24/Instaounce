@@ -17,7 +17,7 @@ s3 = boto3.client(
 post_routes = Blueprint('posts', __name__)
 
 BUCKET_NAME = os.environ.get('S3_BUCKET')
-print('bucketname', BUCKET_NAME)
+# print('bucketname', BUCKET_NAME)
 S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
 
 
@@ -171,7 +171,7 @@ def update_post(id):
         target_post.caption = caption
         # target_post.updated_at = data['updated_at']
         target_post.updated_at = datetime.now()
-        print('what is the new data ##', target_post.updated_at)
+        # print('what is the new data ##', target_post.updated_at)
         db.session.commit()
 
         return target_post.to_dict_user_page()
