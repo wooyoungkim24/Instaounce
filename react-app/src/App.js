@@ -10,6 +10,7 @@ import HomeFeed from './components/HomeFeed';
 import UserProfile from './components/UserProfile';
 import CommentCard from './components/CommentCard';
 import ExplorePage from './components/ExplorePage';
+import PageNotFound from './components/PageNotFound';
 import { authenticate } from './store/session';
 
 function App() {
@@ -53,6 +54,9 @@ function App() {
         <ProtectedRoute path='/explore' exact={true}>
           <ExplorePage />
         </ProtectedRoute>
+        <Route path='/'>
+          <PageNotFound />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
