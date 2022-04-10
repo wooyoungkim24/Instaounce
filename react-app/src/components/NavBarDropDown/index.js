@@ -6,12 +6,13 @@ const NavBarDropDown = ({ user }) => {
 
     return (
         <div className='navbar-dropdown-menu'>
-            <div className='navbar-dropdown-triangle-wrap'>
+            {/* <div className='navbar-dropdown-triangle-wrap'>
                 <div className='navbar-dropdown-triangle'></div>
-            </div>
+            </div> */}
             <div className='navbar-dropdown-list'>
-                <div>
+                <div className='navbar-dropdown-profile-container'>
                     <NavLink to={`/users/${user.id}`} >
+                        <i class="fa-regular fa-user user-profile-icon"></i>
                         Profile
                     </NavLink>
                 </div>

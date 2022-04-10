@@ -17,7 +17,7 @@ const UserProfileDetails = ({ user, sessionUser }) => {
     const followers = Object.values(user.followers);
     const following = Object.values(user.following);
     const isUsersPage = user.id === sessionUser.id;
-    const isUserFollowing = typeof user.followers[sessionUser.id]
+    const isUserFollowing = user.followers[sessionUser.id]
     const [showFollowModal, setShowFollowModal] = useState(false);
     const [showFollowersModal, setShowFollowersModal] = useState(false)
     const [showFollowingModal, setShowFollowingModal] = useState(false)

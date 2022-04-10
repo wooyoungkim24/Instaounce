@@ -3,7 +3,7 @@
     right: -15px;
     top: 42px;
     background-color: white;
-    padding-top: 5px;
+    /* padding-top: 5px; */
     box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
     border-radius: 6px;
     width: 194px;
@@ -64,7 +64,7 @@
 .navbar-dropdown-list > div {
     /* padding-left: 10px; */
     padding-bottom:5px;
-    padding-top: 5px;
+    /* padding-top: 5px; */
     padding-left: 12px;
     cursor: pointer;
 }
@@ -79,9 +79,19 @@
     height: 20px;
 }
 
+.navbar-dropdown-profile-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.user-profile-icon {
+    margin-right: 5px;
+}
+
 .navbar-dropdown-logout-container {
     border-top: 1px solid rgba(128, 128, 128, 0.43);
     width: 182px;
     display: flex;
     align-items: center;
+    padding-top: 10px;
 }

@@ -113,7 +113,7 @@ class User(db.Model, UserMixin):
         joined_posts = posts.union(posts2).all()
         if len(joined_posts) // 9 != 0:
             remove_at = len(joined_posts) // 9
-            joined_posts = joined_posts[:len(joined_posts) - remove_at - 1]
+            joined_posts = joined_posts[:len(joined_posts) - remove_at]
         return joined_posts
 
     # def following_list(self, user):
