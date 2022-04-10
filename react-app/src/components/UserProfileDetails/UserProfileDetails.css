@@ -4,7 +4,7 @@
     display: flex;
     border-bottom: 1px solid #a4a4a4ba;
     font-family: Arial, Helvetica, sans-serif;
-    margin-top: 30px;
+    margin-top: 80px;
 }
 
 .profile-details-image-container {
@@ -78,6 +78,10 @@
 .check-icon {
     font-style: italic;
     font-size: 10px;
+}
+
+.profile-user-stats-container.can-click {
+    cursor: pointer;
 }
 
 .profile-details-user-stats {

@@ -1,12 +1,13 @@
-import './LikeIcon.css';
+import './LikeIconInUserpage.css';
 import { useSelector, useDispatch } from 'react-redux'
-import { like, deleteLike } from '../../store/posts';
+import { newlike, unlike } from '../../store/userPages';
 import { useState } from 'react';
 
-const LikeIcon = ({ likes, postId }) => {
+const LikeIconInUserPage = ({ likes, postId, user }) => {
     const [userLikes, setUserLikes] = useState()
     const dispatch = useDispatch();
     const userId = useSelector(state => state.session.user['id']);
+    const postOwnerId = user.id
 
     const foundLikes = likes.find(like => like?.user_id === userId);
     // if (foundLikes) setUserLikes(true);
@@ -14,15 +15,17 @@ const LikeIcon = ({ likes, postId }) => {
     // find the like which has user_id == session user id && postId = postId
     // pass the id of the like into dispatch
     //
+
+
     const currentUserLike = likes.find(like => like?.user_id === userId && like?.post_id === postId)
 
     const createLikeHandler = () => {
-        dispatch(like(postId)).then(() => setUserLikes(true))
+        dispatch(newlike(postId, postOwnerId)).then(() => setUserLikes(true))
     };
 
     const deleteLikeHandler = () => {
-        // dispatch(deleteLike(postId)).then(() => setUserLikes(false))
-        dispatch(deleteLike(postId, currentUserLike?.id)).then(() => setUserLikes(false))
+
+        dispatch(unlike(postId, currentUserLike?.id, postOwnerId)).then(() => setUserLikes(false))
     }
 
     return (
@@ -35,4 +38,4 @@ const LikeIcon = ({ likes, postId }) => {
     )
 
 }
-export default LikeIcon;
+export default LikeIconInUserPage;

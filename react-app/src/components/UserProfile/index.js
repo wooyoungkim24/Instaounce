@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserProfileDetails from '../UserProfileDetails';
 import { loadUserPage } from '../../store/userPages';
 import UserProfileImageCard from '../UserProfileImageCard';
+// import { getFollowedPosts } from '../../store/posts';
 
 const UserProfile = () => {
 
@@ -12,26 +13,33 @@ const UserProfile = () => {
     const { userId } = useParams();
     const dispatch = useDispatch();
 
-    const sessionUser = useSelector(state => state.session.user)
+    const session = useSelector(state => state.session)
+    const sessionUser = session.user
     const pageStateData = useSelector(state => state.pageState);
     const pageData = pageStateData[userId]
+
     let posts;
     if (pageData) posts = Object.values(pageData.posts)
 
+
     useEffect(() => {
         dispatch(loadUserPage(userId))
-        .then(() => setIsLoaded(true))
-    },[dispatch, userId]);
+            .then(() => setIsLoaded(true))
+    }, [dispatch, userId]);
 
 
     return isLoaded && (
         <div className='user-profile-body'>
-                <UserProfileDetails user={pageData} sessionUser={sessionUser} />
-            <div className='user-profile-images'>
-                {posts.map(post => (
-                    <UserProfileImageCard key={post.id} post={post} user={pageData} />
-                    ))}
-            </div>
+            {pageData &&
+                <>
+                    <UserProfileDetails user={pageData} sessionUser={sessionUser} />
+                    <div className='user-profile-images'>
+                        {posts.map(post => (
+                            <UserProfileImageCard key={post.id} post={post} user={pageData} />
+                        ))}
+                    </div>
+                </>
+            }
         </div>
 
     )

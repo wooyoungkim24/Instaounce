@@ -22,7 +22,7 @@ const HomeFeed = () => {
         <div className='home-feed-body'>
             {isLoaded &&
                 <div className='home-feed-list'>
-                    {followedPostsArr.map(post => (
+                    {followedPostsArr.reverse().map(post => (
                             <HomeFeedCard key={post.id} post={post} />
                         ))}
                 </div>}

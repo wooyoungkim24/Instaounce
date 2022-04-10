@@ -1,26 +1,57 @@
 import './NavBar.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // import LogoutButton from '../auth/LogoutButton'
 import logo from '../../assets/logo.png'
 import NavBarDropDown from '../NavBarDropDown';
 import { Modal } from "../../context/modal"
 import CreatePostModalForm from '../CreatePostModalForm';
+import {SearchBar} from '../SearchBar/search'
 
 
 const NavBar = ({ user }) => {
     const [showDropDown, setShowDropDown] = useState(false);
     const [showModal, setShowModal] = useState(false)
+    const [showConfirm, setShowConfirm] = useState(false)
+    const [finalPage, setFinalPage] = useState(false)
+    const [firstPage, setFirstPage] = useState(true)
+
+
     const clickHandler = () => {
         showDropDown === false ? setShowDropDown(true) : setShowDropDown(false)
     }
-    const [showConfirm, setShowConfirm] = useState(false)
+
+    useEffect(() => {
+        if (!showDropDown) return;
+
+        const closeMenu = () => {
+            setShowDropDown(false);
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showDropDown]);
+
+
 
     const closeModals = () =>{
         setShowModal(false)
         setShowConfirm(false)
     }
-    console.log('where is my modal', showModal)
+
+    function conditionalSetShowConfirm() {
+        if(firstPage){
+            setShowModal(false)
+        }
+        else if(!finalPage){
+            setShowConfirm(true)
+        }
+        else{
+            setShowModal(false)
+        }
+    }
+    
     return (
         <nav>
             <div className='navbar-container'>
@@ -49,6 +80,9 @@ const NavBar = ({ user }) => {
                 <Link to="/">
                     <img src={logo} className="navbar-logo" alt='logo' />
                 </Link>
+                <div className="search-bar-nav">
+                    <SearchBar />
+                </div>
                 <div className='navbar-right-container'>
                     <div className='navbar-icon-tray'>
                         <Link to='/'>
@@ -61,8 +95,8 @@ const NavBar = ({ user }) => {
 
 
                         {showModal && (
-                            <Modal onClose={() => setShowConfirm(true)}>
-                                <CreatePostModalForm />
+                            <Modal onClose={conditionalSetShowConfirm}>
+                                <CreatePostModalForm setFinalPage = {setFinalPage} setFirstPage = {setFirstPage}/>
                             </Modal>
                         )}
 

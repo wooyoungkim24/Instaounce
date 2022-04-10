@@ -7,7 +7,7 @@
     align-items: center;
     min-height: 100%;
     justify-content:center;
-    margin-bottom: 180px;
+    margin-bottom: 50px;
 }
 
 .loginform-container {
@@ -16,7 +16,7 @@
     flex-direction:column;
     height: 380px;
     background-color: #FFFFFF;
-    margin: 100px 0px 10px;
+    margin: 90px 0px 10px;
     padding:10px 0px;
     border: 0.5px solid rgba(114, 108, 108, 0.3);
 }
@@ -26,9 +26,9 @@
     display:flex;
     width: 350px;
     flex-direction:column;
-    height: 500px;
+    height: 700px;
     background-color: #FFFFFF;
-    margin: 100px 0px 10px;
+    margin: 50px 0px 10px;
     padding:10px 0px;
     border: 0.5px solid rgba(114, 108, 108, 0.3);
 }
@@ -52,7 +52,7 @@
 }
 
 .login-form input {
-    width: 260px; 
+    width: 260px;
     height: 30px;
     padding:5px 0px 5px 8px;
     background-color: #FAFAFA;
@@ -61,15 +61,20 @@
 }
 
 .login-form button {
-    width: 275px; 
+    width: 275px;
     height: 30px;
     padding: 9px 0px 7px 8px;
     background-color: #FAFAFA;
     border-radius: 5px;
     color: white;
-    background-color: rgba(var(--d69,0,149,246),.3);
+    background-color: rgba(var(--d69,0,149,246),.8);
     opacity: 1;
     border: none;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+   cursor: pointer;
 }
 
 #sign-up-text{
@@ -88,7 +93,7 @@
 }
 
 .signup-form input {
-    width: 260px; 
+    width: 260px;
     height: 25px;
     padding:5px 0px 5px 8px;
     background-color: #FAFAFA;
@@ -97,14 +102,15 @@
 }
 
 .signup-form button {
-    width: 275px; 
+    width: 275px;
     height: 30px;
     padding: 9px 0px 7px 8px;
     background-color: #FAFAFA;
     border-radius: 5px;
     color: white;
-    background-color: rgba(var(--d69,0,149,246),.3);
+    background-color: rgba(var(--d69,0,149,246),.8);
     opacity: 1;
+    cursor: pointer;
     border: none;
 }
 
@@ -131,7 +137,7 @@ footer {
     display:flex;
     justify-content:center;
     flex-direction: column;
-    margin: 0px 0px 60px;
+    margin: 0px 0px 30px;
     height:82px;
     gap: 20px;
 }
@@ -148,7 +154,7 @@ footer {
 
 
 /* dropdown */
- 
+
  .menu-item,
  .menu-open-button {
     background: #EEEEEE;
@@ -167,17 +173,17 @@ footer {
     transition: transform ease-out 200ms;
     transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
  }
- 
+
  a {
     text-decoration:none;
     font-size:10px;
     color: inherit;
  }
- 
+
  .menu-open {
     display: none;
  }
- 
+
  .fa-github {
      z-index:10;
     font-size:80px;
@@ -191,7 +197,7 @@ footer {
     margin: auto;
     position: absolute;
     float:right;
-    right:500px;
+    right:230px;
     bottom: 150px;
     /* top: 0;
     bottom: 0;
@@ -205,7 +211,7 @@ footer {
  }
 
 
- 
+
  .menu-open-button {
     z-index: 2;
     -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -217,12 +223,12 @@ footer {
     cursor: pointer;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
  }
- 
+
  .menu-open-button:hover {
     -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
     transform: scale(1.2, 1.2) translate3d(0, 0, 0);
  }
- 
+
  .menu-open:checked + .menu-open-button {
     -webkit-transition-timing-function: linear;
     transition-timing-function: linear;
@@ -231,107 +237,107 @@ footer {
     -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
     transform: scale(0.8, 0.8) translate3d(0, 0, 0);
  }
- 
+
  .menu-open:checked ~ .menu-item {
     -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
     transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
  }
- 
+
  .menu-open:checked ~ .menu-item:nth-child(3) {
     transition-duration: 180ms;
     -webkit-transition-duration: 180ms;
     -webkit-transform: translate3d(0.08361px, -104.99997px, 0);
     transform: translate3d(0.08361px, -104.99997px, 0);
  }
- 
+
  .menu-open:checked ~ .menu-item:nth-child(4) {
     transition-duration: 280ms;
     -webkit-transition-duration: 280ms;
     -webkit-transform: translate3d(90.9466px, -52.47586px, 0);
     transform: translate3d(90.9466px, -52.47586px, 0);
  }
- 
+
  .menu-open:checked ~ .menu-item:nth-child(5) {
     transition-duration: 380ms;
     -webkit-transition-duration: 380ms;
     -webkit-transform: translate3d(90.9466px, 52.47586px, 0);
     transform: translate3d(90.9466px, 52.47586px, 0);
  }
- 
+
  .menu-open:checked ~ .menu-item:nth-child(6) {
     transition-duration: 480ms;
     -webkit-transition-duration: 480ms;
     -webkit-transform: translate3d(0.08361px, 104.99997px, 0);
     transform: translate3d(0.08361px, 104.99997px, 0);
- } 
- 
+ }
+
  .menu-open:checked ~ .menu-item:nth-child(7) {
     transition-duration: 580ms;
     -webkit-transition-duration: 580ms;
     -webkit-transform: translate3d(-90.86291px, 52.62064px, 0);
     transform: translate3d(-90.86291px, 52.62064px, 0);
  }
- 
+
  .menu-open:checked ~ .menu-item:nth-child(8) {
     transition-duration: 680ms;
     -webkit-transition-duration: 680ms;
     -webkit-transform: translate3d(-91.03006px, -52.33095px, 0);
     transform: translate3d(-91.03006px, -52.33095px, 0);
  }
- 
+
  .menu-open:checked ~ .menu-item:nth-child(9) {
     transition-duration: 780ms;
     -webkit-transition-duration: 780ms;
     -webkit-transform: translate3d(-0.25084px, -104.9997px, 0);
     transform: translate3d(-0.25084px, -104.9997px, 0);
- } 
- 
+ }
+
  .woo {
     background-color: #669AE1;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .woo:hover {
     color: #1666d6;
     text-shadow: none;
  }
- 
+
  .wan {
     background-color: #70CC72;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .wan:hover {
     color: #3f9940;
     text-shadow: none;
  }
- 
+
  .yake{
     background-color: #FE4365;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .yake:hover {
     color: #9d122b;
     text-shadow: none;
  }
- 
+
  .ana {
     background-color: #C49CDE;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .ana:hover {
     color: #a05bce;
  }
- 
+
 
  /* linkedin */
- 
+
  .menu-itemli,
  .menu-open-buttonli {
     background: #EEEEEE;
@@ -350,19 +356,19 @@ footer {
     transition: transform ease-out 200ms;
     transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
  }
- 
 
- 
+
+
 a {
     text-decoration:none;
     font-size:10px;
     color: inherit;
  }
- 
+
  .menu-openli {
     display: none;
  }
- 
+
 
  .fa-linkedin {
     top:10px;
@@ -377,14 +383,14 @@ a {
     margin: auto;
     position: absolute;
     float:left;
-    left:550px;
+    left:300px;
     bottom: 150px;
     width: 80px;
     height: 80px;
     box-sizing: border-box;
  }
 
- 
+
  .menu-open-buttonli {
     z-index: 2;
     -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -396,12 +402,12 @@ a {
     cursor: pointer;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
  }
- 
+
  .menu-open-buttonli:hover {
     -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
     transform: scale(1.2, 1.2) translate3d(0, 0, 0);
  }
- 
+
  .menu-openli:checked + .menu-open-buttonli {
     -webkit-transition-timing-function: linear;
     transition-timing-function: linear;
@@ -410,102 +416,100 @@ a {
     -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
     transform: scale(0.8, 0.8) translate3d(0, 0, 0);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli {
     -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
     transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli:nth-child(3) {
     transition-duration: 180ms;
     -webkit-transition-duration: 180ms;
     -webkit-transform: translate3d(0.08361px, -104.99997px, 0);
     transform: translate3d(0.08361px, -104.99997px, 0);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli:nth-child(4) {
     transition-duration: 280ms;
     -webkit-transition-duration: 280ms;
     -webkit-transform: translate3d(90.9466px, -52.47586px, 0);
     transform: translate3d(90.9466px, -52.47586px, 0);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli:nth-child(5) {
     transition-duration: 380ms;
     -webkit-transition-duration: 380ms;
     -webkit-transform: translate3d(90.9466px, 52.47586px, 0);
     transform: translate3d(90.9466px, 52.47586px, 0);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli:nth-child(6) {
     transition-duration: 480ms;
     -webkit-transition-duration: 480ms;
     -webkit-transform: translate3d(0.08361px, 104.99997px, 0);
     transform: translate3d(0.08361px, 104.99997px, 0);
- } 
- 
+ }
+
  .menu-openli:checked ~ .menu-itemli:nth-child(7) {
     transition-duration: 580ms;
     -webkit-transition-duration: 580ms;
     -webkit-transform: translate3d(-90.86291px, 52.62064px, 0);
     transform: translate3d(-90.86291px, 52.62064px, 0);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli:nth-child(8) {
     transition-duration: 680ms;
     -webkit-transition-duration: 680ms;
     -webkit-transform: translate3d(-91.03006px, -52.33095px, 0);
     transform: translate3d(-91.03006px, -52.33095px, 0);
  }
- 
+
  .menu-openli:checked ~ .menu-itemli:nth-child(9) {
     transition-duration: 780ms;
     -webkit-transition-duration: 780ms;
     -webkit-transform: translate3d(-0.25084px, -104.9997px, 0);
     transform: translate3d(-0.25084px, -104.9997px, 0);
- } 
- 
+ }
+
  .wooli {
     background-color: #669AE1;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .wooli:hover {
     color: #1666d6;
     text-shadow: none;
  }
- 
+
  .wanli {
     background-color: #70CC72;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .wanli:hover {
     color: #3f9940;
     text-shadow: none;
  }
- 
+
  .yakeli{
     background-color: #FE4365;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .yakeli:hover {
     color: #9d122b;
     text-shadow: none;
  }
- 
+
  .anali {
     background-color: #C49CDE;
     box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
  }
- 
+
  .anali:hover {
     color: #a05bce;
  }
-
- 
