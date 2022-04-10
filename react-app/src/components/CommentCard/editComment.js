@@ -45,6 +45,17 @@ export const EditDeleteComment = ({ comment, setShowModal, post }) => {
         setShowModal(false)
     }
 
+    const setTextColor = () => {
+        return editedComment.length && editedComment.length <= 2000 ? { 'color': 'black', 'marginRight': '5px' } : { 'color': 'red', 'marginRight': '5px' }
+    }
+
+    const disableSubmit = (attribute) => {
+        if (attribute ===  'disabled') {
+            return editedComment.length && editedComment.length <= 2000 ? false : true
+        } else if (attribute === 'id') {
+            return editedComment.length && editedComment.length <= 2000 ? 'edit-comment-button-enabled' : 'edit-comment-button-disabled'
+        }
+    }
 
 
     return (
@@ -59,10 +70,10 @@ export const EditDeleteComment = ({ comment, setShowModal, post }) => {
                 maxLength={2000}
             />
             <div className='edit-comment-character-count'>
-                {editedComment.length}/2000
+                <span style={setTextColor()}>{editedComment.length}</span>/ 2000
             </div>
 
-            <button id='edit-comment-button' onClick={handleEditComment} type='button'>Edit</button>
+            <button id={disableSubmit('id')} disabled={disableSubmit('disabled')} onClick={handleEditComment} type='button'>Edit</button>
             <button id='delete-comment-button' onClick={handleDeleteComment}>Delete</button>
         </div>
     )

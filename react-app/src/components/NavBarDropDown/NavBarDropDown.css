@@ -73,6 +73,18 @@
     background-color: rgba(128, 128, 128, 0.063);
 }
 
+.navbar-dropdown-list>a {
+    /* padding-left: 10px; */
+    padding-bottom: 5px;
+    /* padding-top: 5px; */
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.navbar-dropdown-list>a:hover {
+    background-color: rgba(128, 128, 128, 0.063);
+}
+
 .logout-button {
     cursor: pointer;
     width: 100%;

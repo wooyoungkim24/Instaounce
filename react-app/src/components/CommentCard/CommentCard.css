@@ -263,16 +263,26 @@
     border-bottom-left-radius: 20px;
     border-top: 1px solid rgb(219,219,219);
 }
-#edit-comment-button{
+
+#edit-comment-button-enabled {
     font-size: 16px;
     color: rgb(55,149,246);
     font-weight: 600
 }
+
+#edit-comment-button-disabled {
+    font-size: 16px;
+    color: rgba(55, 151, 246, 0.408);
+    font-weight: 600
+}
+
+
 #delete-comment-button{
     font-size: 16px;
     color:red;
     font-weight:600;
 }
+
 .make-comment {
     margin: 20px;
     display: flex;

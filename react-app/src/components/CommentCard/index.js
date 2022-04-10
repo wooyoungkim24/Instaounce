@@ -97,6 +97,8 @@ const CommentCard = ({ post }) => {
             return `${Math.floor(difference)} hours ago`
         }
     }
+
+    
     function lastLiked() {
         if (likes.length === 0) {
             return 'No recent likes'

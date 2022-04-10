@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired, ValidationError
 from app.models import Post
 
 class UpdatePostForm(FlaskForm):
-  caption = TextAreaField('caption', validators=[DataRequired()])
+  caption = TextAreaField('caption')
   updated_at = DateTimeField('updated_at')
