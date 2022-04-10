@@ -40,8 +40,8 @@ const ExplorePage = () => {
                                     </div>
                                     <div>
                                         {Object.values(post.comments).length}
-                                    </div> */}
-                                </div>
+                                    </div>
+                                </div> */}
                                 <img className='explore-page-small-image' src={post.image[0]} alt='explore pic'/>
                             </div>
                         </Link>
