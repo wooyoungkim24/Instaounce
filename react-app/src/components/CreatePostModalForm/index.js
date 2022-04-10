@@ -118,7 +118,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
             })
         }
 
-    }, [photoExist])
+    }, [photoExist, photos, setFirstPage])
 
     useEffect(() => {
         if (!showMorePhotos) return;
