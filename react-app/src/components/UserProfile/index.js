@@ -34,7 +34,7 @@ const UserProfile = () => {
                 <>
                     <UserProfileDetails user={pageData} sessionUser={sessionUser} />
                     <div className='user-profile-images'>
-                        {posts.map(post => (
+                        {posts.reverse().map(post => (
                             <UserProfileImageCard key={post.id} post={post} user={pageData} />
                         ))}
                     </div>

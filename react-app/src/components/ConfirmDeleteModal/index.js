@@ -1,6 +1,7 @@
 import "./ConfirmDeleteModal.css"
 import { removePost } from '../../store/userPages'
 import { useDispatch } from 'react-redux'
+import { destroyPost } from "../../store/posts"
 
 function ConfirmDeleteModal({ post, hideForm, hidePost }) {
   const dispatch = useDispatch()
@@ -8,6 +9,7 @@ function ConfirmDeleteModal({ post, hideForm, hidePost }) {
   const deleteHandler = () => {
     let deletedPost
     deletedPost = dispatch(removePost(post))
+    dispatch(destroyPost(post.id))
     if (deletedPost) {
       hidePost()
     }

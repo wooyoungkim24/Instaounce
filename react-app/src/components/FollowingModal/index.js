@@ -75,9 +75,8 @@ const FollowingModal = ({ following, sessionUser, setShowFollowingModal, modalHe
                                 setShowFollowModal(true);
                                 setFollowModalContent(follow);
                             }}
-                                className='profile-details-unfollow-button'>
-                                <i className="fa-solid fa-user user-icon"></i>
-                                <i className="fa-solid fa-check check-icon"></i>
+                                className='following-modal-unfollow-button'>
+                                Following
                             </div>
                         }
                     </div>
