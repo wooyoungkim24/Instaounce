@@ -28,7 +28,6 @@ const PostDetailCard = ({ post, user, hidePost }) => {
 
     const comments = Object.values(post.comments)
     const sortCommentsFn = (a,b) =>{
-        console.log(b)
         return new Date(b.updated_at) - new Date(a.updated_at)
     }
     comments.sort(sortCommentsFn)
@@ -86,12 +85,12 @@ const PostDetailCard = ({ post, user, hidePost }) => {
 
     function lastUpdated() {
         let now = new Date();
-        console.log('curr time', post.updatedAt)
+        // console.log('curr time', post.updatedAt)
         let splitDate = post.updatedAt.split(" ")
         splitDate.pop()
         let joinDate = splitDate.join(" ")
         let updatedAt = new Date(joinDate)
-        console.log('dateobj', updatedAt)
+        // console.log('dateobj', updatedAt)
 
         let difference = (now - updatedAt) / 1000 / 60 / 60
         

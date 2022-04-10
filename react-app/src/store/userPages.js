@@ -96,7 +96,7 @@ export const removePost = (payload) => async (dispatch) => {
 
 const ADD_COMMENT = 'userPages/ADD_COMMENT';
 const UPDATE_COMMENT = 'userPages/UPDATE_COMMENT';
-const REMOVE_COMMENT = 'userPages/DELETE_COMMENT';
+const REMOVE_COMMENT = 'userPages/REMOVE_COMMENT';
 
 
 const createComment = (comment, postOwnerId) => ({
@@ -105,14 +105,16 @@ const createComment = (comment, postOwnerId) => ({
     postOwnerId
 });
 
-export const updateComment = (comment) => ({
+export const updateComment = (comment, postOwnerId) => ({
     type: UPDATE_COMMENT,
-    payload: comment
+    payload: comment,
+    postOwnerId
 });
 
-export const deleteCommentAction = (comment) => ({
+export const deleteCommentAction = (comment, postOwnerId) => ({
     type: REMOVE_COMMENT,
-    payload: comment
+    payload: comment,
+    postOwnerId
 });
 
 // original
@@ -144,29 +146,28 @@ export const postComment = (comment, postOwnerId) => async (dispatch) => {
 
 
 
-export const editComment = (comment) => async (dispatch) => {
+export const editComment = (comment, postOwnerId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
         method: "PUT",
         headers: { "Content-Type": "Application/JSON" },
-        body: JSON.stringify(comment)
+        body: JSON.stringify(comment, postOwnerId)
     });
 
     if (res.ok) {
         const comment = await res.json()
-        console.log('what is the comment', comment)
         await dispatch(updateComment(comment));
         return comment
     };
 };
 
-export const removeComment = (comment) => async (dispatch) => {
+export const removeComment = (comment, postOwnerId) => async (dispatch) => {
     const res = await fetch(`/api/posts/${comment.postId}/comments/${comment.id}`, {
         method: "DELETE"
     });
 
     if (res.ok) {
         const comment = await res.json()
-        await dispatch(deleteCommentAction(comment));
+        await dispatch(deleteCommentAction(comment, postOwnerId));
         return true
     };
 };
@@ -206,17 +207,12 @@ export const newlike = (postId, postOwnerId) => async (dispatch) => {
 
 
 export const unlike = (postId, likeId, userId) => async (dispatch) => {
-    console.log("inside of unlike")
-    console.log("likeId", likeId)
     const response = await fetch(`/api/posts/${postId}/likes/`, {
         method: "DELETE"
     })
 
     if (response.ok) {
-        console.log("in the unlike fetch response")
         //   const like = await response.json()
-        //   console.log("like in unlike thunk", like)
-        console.log("want to deleted like id", likeId)
         await dispatch(unlikeAction(likeId, postId, userId))
     }
 }
@@ -321,14 +317,16 @@ export default function userPageReducer(state = initialState, action) {
             return newState;
 
         case UPDATE_COMMENT:
-            if (newState[action.payload.user_id]){
-                newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            console.log('I am in update comment with payload >>>>', action)
+            if (newState[action.postOwnerId]) {
+                newState[action.postOwnerId].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
             }
             return newState;
 
         case REMOVE_COMMENT:
-            console.log('logginaction', newState[action.payload.user_id].posts[action.payload.post_id])
-            delete newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id];
+            if (newState[action.postOwnerId]) {
+                delete newState[action.postOwnerId].posts[action.payload.post_id].comments[action.payload.id];
+            }
             return newState;
 
         default:

@@ -18,7 +18,7 @@ const FollowingModal = ({ following, sessionUser, setShowFollowingModal, modalHe
 
 
     const displayFollowIcon = (sessionUser, user) => {
-        console.log(currentUserFollowing[user])
+        // console.log(currentUserFollowing[user])
         return user !== sessionUser && !currentUserFollowing[user]
     };
 

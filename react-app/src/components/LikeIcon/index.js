@@ -22,8 +22,6 @@ const LikeIcon = ({ likes, postId }) => {
 
     const deleteLikeHandler = () => {
         // dispatch(deleteLike(postId)).then(() => setUserLikes(false))
-        // console.log()
-        console.log("hey")
         dispatch(deleteLike(postId, currentUserLike?.id)).then(() => setUserLikes(false))
     }
 

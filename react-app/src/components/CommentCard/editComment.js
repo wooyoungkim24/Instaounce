@@ -4,6 +4,7 @@ import { deleteComment } from '../../store/posts'
 import { useDispatch, useSelector } from 'react-redux';
 import { editComment } from '../../store/posts'
 import { updateComment, deleteCommentAction } from '../../store/userPages';
+
 export const EditDeleteComment = ({ comment, setShowModal, post }) => {
     const dispatch = useDispatch()
     const [editedComment, setEditedComment] = useState(comment.content)
@@ -13,10 +14,8 @@ export const EditDeleteComment = ({ comment, setShowModal, post }) => {
     const handleDeleteComment = async (e) => {
         e.preventDefault()
 
-
-        console.log('waht is the type', typeof comment.id)
         dispatch(deleteComment(comment.id))
-        // .then(() => dispatch(deleteCommentAction(comment)))
+        .then(() => dispatch(deleteCommentAction(comment, post.userId || post.user_id)))
 
         setShowModal(false)
 
@@ -34,7 +33,7 @@ export const EditDeleteComment = ({ comment, setShowModal, post }) => {
         // console.log('what is the new comment',newComment)
         // let editedComment;
         dispatch(editComment(newComment))
-        .then((res) => dispatch(updateComment(res)))
+            .then((res) => dispatch(updateComment(res, post.userId || post.user_id)))
 
         // .catch(async res => {
         //     const data = await res.json();

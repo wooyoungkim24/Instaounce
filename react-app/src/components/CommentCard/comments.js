@@ -13,7 +13,7 @@ export const Comments = ({ userId, comments, comment, post }) => {
         let now = new Date();
         let updatedAt = new Date(comment.updated_at)
         let difference = (now - updatedAt) / 1000 / 60 / 60
-        console.log('what is the difference', difference)
+        
         if (difference > 24) {
             return moment(updatedAt).format("MMMM D YYYY")
         } else if (difference < 1) {

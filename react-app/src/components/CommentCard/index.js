@@ -19,7 +19,7 @@ const CommentCard = ({ post }) => {
 
     const comments = Object.values(post.comments)
     const sortCommentsFn = (a,b) =>{
-        console.log(b)
+
         return new Date(b.updated_at) - new Date(a.updated_at)
     }
     comments.sort(sortCommentsFn)
@@ -80,7 +80,7 @@ const CommentCard = ({ post }) => {
         let now = new Date();
         let updatedAt = new Date(post.updated_at)
         let difference = (now - updatedAt) / 1000 / 60 / 60
-        console.log('what is the difference', difference)
+
         if (difference > 24) {
             return moment(updatedAt).format("MMMM D YYYY")
         } else if (difference < 1) {
@@ -217,7 +217,7 @@ const CommentCard = ({ post }) => {
                                 ref={comment}
                                 id='new-comment-input'
                                 placeholder="Add a comment..."
-                                maxlength="2000"
+                                maxLength="2000"
                                 value={newComment}
                                 required
                                 onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}

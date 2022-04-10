@@ -11,8 +11,6 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
 
   const [caption, setCaption] = useState(post.caption)
 
-  console.log("user from updatePostForm", user)
-
   const images = post.image
 
   const rightClickHandler = () => {
@@ -36,7 +34,6 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
       caption,
       image: images
     }
-    console.log("new payload", payload)
     await dispatch(editPost(payload))
 
     hideForm()

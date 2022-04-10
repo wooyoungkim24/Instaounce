@@ -9,13 +9,12 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
     const [editedComment, setEditedComment] = useState(comment.content)
     const sessionUser = useSelector(state => state.session.user);
     // const [errors, setErrors] = useState([])
-    console.log("post from edit delete comment compo", post)
+
     const postOwnerId = post.userId
-    console.log("post.userId", post.userId)
 
     const handleDeleteComment = async(e) => {
         e.preventDefault()
-
+        console.log("right spot")
         let deletedComment;
         deletedComment = await dispatch(removeComment(comment.id, postOwnerId))
 
@@ -33,6 +32,7 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
             post_id: post.id,
             content: editedComment
         }
+        
         // let editedComment;
         dispatch(putComment(newComment, postOwnerId))
         // .catch(async res => {

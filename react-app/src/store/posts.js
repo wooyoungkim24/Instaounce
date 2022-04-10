@@ -77,9 +77,8 @@ export const deleteComment = (commentId) => async (dispatch) => {
   })
 
   if (response.ok) {
-    console.log('ttestsetsetsts')
     const comment = await response.json()
-    console.log('comment obj', comment)
+    console.log('wrong thunk buddy')
     dispatch(commentDelete(comment))
 
     return comment
@@ -156,15 +155,12 @@ export const like = (postId) => async (dispatch) => {
 };
 
 export const deleteLike = (postId, likeId) => async (dispatch) => {
-  console.log("inside of deletelike")
-  console.log("likeId", likeId)
   const response = await fetch(`/api/posts/${postId}/likes/`, {
     method: "DELETE"
   })
 
   if (response.ok) {
     // const like = await response.json()
-    console.log("want to deleted like id", likeId)
     await dispatch(cancelLike(likeId, postId))
   }
 }

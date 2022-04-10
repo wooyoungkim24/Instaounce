@@ -30,7 +30,6 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
     }
     const updateImage = (e) => {
         const file = e.target.files[0]
-        console.log('where is my file', file)
         setPhotos([...photos, file])
         e.target.value = null;
 
@@ -69,11 +68,10 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
     useEffect(() => {
         if (!photoExist) {
             let dropArea = document.querySelector('.dropzone')
-            console.log('what is the drop zone', dropArea)
-            function preventDefaults(e) {
-                e.preventDefault()
-                e.stopPropagation()
-            }
+            // function preventDefaults(e) {
+            //     e.preventDefault()
+            //     e.stopPropagation()
+            // }
 
 
 
@@ -163,7 +161,6 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
         function handleDragStart(e) {
             e.target.style.opacity = '0.4'
 
-            console.log('what is ths source', e.target.className, e.target.src)
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('text/uri-list', e.target.src);
             e.dataTransfer.setData('text/plain', e.target.className)
@@ -265,10 +262,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
     }
 
     function deletePhoto(index) {
-        console.log('what is i', index)
-        console.log('what is photos', photos)
         let photoCopy = [...photos]
-        console.log('what is photocopy', photoCopy[1], photoCopy)
         photoCopy.splice(index, 1)
         let oldIndex = photoIndex
         if (oldIndex > 0) {
@@ -412,7 +406,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                         </div>
                     </div>
                     <div id='photo-wrapper'>
-                        {console.log('gotcha', photos, photoIndex)}
+                        {/* {console.log('gotcha', photos, photoIndex)} */}
                         <img id='displayed-photo' src={URL.createObjectURL(photos[photoIndex])} alt='displayed pic' ></img>
 
                         {photoIndex < photos.length - 1 &&
@@ -435,7 +429,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                                 <div className='photo-preview-container'>
 
                                     {photos.map((ele, i) => {
-                                        console.log('delete bug', ele, i)
+                                        // console.log('delete bug', ele, i)
                                         return (
                                             <>
                                                 {photos.length > 1 &&

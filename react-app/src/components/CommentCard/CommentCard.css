@@ -201,7 +201,7 @@
 .comment-card-each-bottom-nav{
     display: flex;
     flex-direction: row;
-    align-items: end;
+    align-items: flex-end;
 }
 .edit-comment-button-div{
     margin-left:10px;
@@ -244,7 +244,7 @@
 }
 .edit-comment-character-count{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     width: 400px;
     height: 25px;
@@ -325,7 +325,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
 }
 .last-liked{
     font-size: 12px;
