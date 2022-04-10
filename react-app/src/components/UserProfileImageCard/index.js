@@ -24,27 +24,27 @@ const UserProfileImageCard = ({ post, user }) => {
     return (
         <>
 
-        <div onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="profile-image-card-container">
-            {isHovering &&
-            <>
-                <div className='profile-image-like-stat'>
-                <i className="fa-solid fa-heart profile-image-card-heart"></i>
-                {likes.length}
-            </div>
-            <div className='profile-image-comment-stat'>
-                <i className="fa-solid fa-comment fa-flip-horizontal  profile-image-card-comment-icon"></i>
-                {comments.length}
-            </div>
-            <div className='profile-image-card-hover-wrapper' onClick={() => setShowPostDetailCard(true)}>
+            <div onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="profile-image-card-container">
+                {isHovering &&
+                    <>
+                        <div className='profile-image-like-stat'>
+                            <i className="fa-solid fa-heart profile-image-card-heart"></i>
+                            {likes.length}
+                        </div>
+                        <div className='profile-image-comment-stat'>
+                            <i className="fa-solid fa-comment fa-flip-horizontal  profile-image-card-comment-icon"></i>
+                            {comments.length}
+                        </div>
+                        <div className='profile-image-card-hover-wrapper' onClick={() => setShowPostDetailCard(true)}>
 
+                        </div>
+                    </>
+                }
+                <img src={post.image[0]} alt='pic' className="profile-image-card-image" />
             </div>
-            </>
-}
-            <img src={post.image[0]} alt='pic' className="profile-image-card-image" />
-        </div>
-        {showPostDetailCard && (
-                 <Modal onClose={() => setShowPostDetailCard(false)}>
-                    <PostDetailCard post={post} user={user} hidePost={() => setShowPostDetailCard(false)}/>
+            {showPostDetailCard && (
+                <Modal onClose={() => setShowPostDetailCard(false)}>
+                    <PostDetailCard post={post} user={user} hidePost={() => setShowPostDetailCard(false)} />
                 </Modal>
             )}
         </>

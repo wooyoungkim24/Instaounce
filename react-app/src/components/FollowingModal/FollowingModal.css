@@ -8,9 +8,10 @@
 
 .following-modal-card {
     display: flex;
+    justify-content: space-between;
     padding: 8px 16px 8px 16px;
     height: 46px;
-    width: 400px;
+    width: 370px;
 }
 
 .following-modal-image-container {
@@ -58,4 +59,18 @@
     align-items: center;
     cursor: pointer;
     font-size: 26px;
+}
+
+.following-modal-unfollow-button {
+    height: 30px;
+    width: 84.17px;
+    /* padding: 5px 9px; */
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }

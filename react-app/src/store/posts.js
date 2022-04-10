@@ -3,12 +3,18 @@ const SET_FOLLOWED_POSTS = 'session/SET_FOLLOWED_POSTS';
 const CREATE_LIKE = 'session/CREATE_LIKE';
 const DELETE_LIKE = 'session/DELETE_LIKE';
 // const GET_COMMENTS = 'session/GET_COMMENTS';
-const CREATE_COMMENT = 'session/CREATE_COMMENT'
-const DELETE_COMMENT = 'session/DELETE_COMMENT'
-const EDIT_COMMENT = 'session/EDIT_COMMENT'
-const REMOVE_FOLLOWED = 'session/REMOVE_FOLLOWED'
-const UPDATE_A_POST = 'session/UPDATE_A_POST'
-const CREATE_POST = "session/CREATE_POST"
+const CREATE_COMMENT = 'session/CREATE_COMMENT';
+const DELETE_COMMENT = 'session/DELETE_COMMENT';
+const EDIT_COMMENT = 'session/EDIT_COMMENT';
+const REMOVE_FOLLOWED = 'session/REMOVE_FOLLOWED';
+const UPDATE_A_POST = 'session/UPDATE_A_POST';
+const CREATE_POST = "session/CREATE_POST";
+const DESTROY_POST = 'session/DESTROY_POST';
+
+export const destroyPost = (postId) => ({
+  type: DESTROY_POST,
+  payload: postId
+})
 
 export const removePosts = (userId) => ({
   type: REMOVE_FOLLOWED,
@@ -77,7 +83,9 @@ export const deleteComment = (commentId) => async (dispatch) => {
   })
 
   if (response.ok) {
+    console.log('ttestsetsetsts')
     const comment = await response.json()
+    console.log('comment obj', comment)
     dispatch(commentDelete(comment))
 
     return comment
@@ -154,12 +162,15 @@ export const like = (postId) => async (dispatch) => {
 };
 
 export const deleteLike = (postId, likeId) => async (dispatch) => {
+  console.log("inside of deletelike")
+  console.log("likeId", likeId)
   const response = await fetch(`/api/posts/${postId}/likes/`, {
     method: "DELETE"
   })
 
   if (response.ok) {
     // const like = await response.json()
+    console.log("want to deleted like id", likeId)
     await dispatch(cancelLike(likeId, postId))
   }
 }
@@ -240,6 +251,13 @@ export default function postsReducer(state = initialState, action) {
       })
       newState.followedPosts = {...state};
       return newState
+
+    case DESTROY_POST:
+      if (newState.followedPosts[action.payload]) {
+        delete newState.followedPosts[action.payload];
+      }
+      return newState
+
     default:
       return state;
   }

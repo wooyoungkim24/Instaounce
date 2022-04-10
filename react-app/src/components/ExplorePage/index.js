@@ -1,6 +1,7 @@
 import './ExplorePage.css';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
+import ExplorePageImageCard from '../ExplorePageImageCard';
 
 const ExplorePage = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -30,20 +31,7 @@ const ExplorePage = () => {
                 <div className='explore-page-list-container'>
                     {posts.map((post, index) => (
                         <Link to={`/users/${post.user_id}`} key={post.id} >
-                            <div key={post.id} className='explore-page-card'>
-                                {/* <div className='explore-page-card-stats'>
-                                    <div>
-                                        {post.username}
-                                    </div>
-                                    <div>
-                                        {post.likes.length}
-                                    </div>
-                                    <div>
-                                        {Object.values(post.comments).length}
-                                    </div>
-                                </div> */}
-                                <img className='explore-page-small-image' src={post.image[0]} alt='explore pic'/>
-                            </div>
+                            <ExplorePageImageCard post={post} />
                         </Link>
                     ))}
                 </div>

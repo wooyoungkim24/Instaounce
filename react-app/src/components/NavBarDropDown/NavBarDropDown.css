@@ -3,10 +3,10 @@
     right: -15px;
     top: 42px;
     background-color: white;
-    padding: 5px;
+    /* padding-top: 5px; */
     box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
     border-radius: 6px;
-    width: 100px;
+    width: 194px;
     z-index: 4;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
@@ -37,15 +37,15 @@
     bottom: -6px;
     -webkit-box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
     box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%);
-    -webkit-box-shadow: 0 0 5px 1px rgba(var(--jb7, 0, 0, 0), .0975);
-    box-shadow: 0 0 5px 1px rgba(var(--jb7, 0, 0, 0), .0975);
+    -webkit-box-shadow: 1 0 5px 1px rgba(var(--jb7, 0, 0, 0), .0975);
+    box-shadow: 1 0 5px 5px rgba(var(--jb7, 0, 0, 0), .0975);
     height: 14px;
     position: absolute;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     width: 14px;
-    top: -8px;
-    left: 200px;
+    top: -12px;
+    left: 160px;
     z-index: -1;
 }
 
@@ -62,13 +62,36 @@
 }
 
 .navbar-dropdown-list > div {
-    padding-left: 10px;
+    /* padding-left: 10px; */
     padding-bottom:5px;
-    padding-top: 5px;
+    /* padding-top: 5px; */
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+.navbar-dropdown-list>div:hover {
+    background-color: rgba(128, 128, 128, 0.063);
 }
 
 .logout-button {
     cursor: pointer;
     width: 100%;
     height: 20px;
+}
+
+.navbar-dropdown-profile-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.user-profile-icon {
+    margin-right: 5px;
+}
+
+.navbar-dropdown-logout-container {
+    border-top: 1px solid rgba(128, 128, 128, 0.43);
+    width: 182px;
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
 }
