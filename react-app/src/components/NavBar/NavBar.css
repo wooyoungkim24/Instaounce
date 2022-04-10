@@ -59,6 +59,7 @@ nav {
     width: 30px;
     object-fit: cover;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .navbar-dropdown-container {

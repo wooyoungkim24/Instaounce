@@ -5,7 +5,7 @@ import { createPost } from '../../store/posts';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-multi-carousel/lib/styles.css';
 import { Modal } from "../../context/modal"
-
+import {createPostUser} from "../../store/userPages"
 function CreatePostModalForm({ setFinalPage, setFirstPage }) {
     const [photos, setPhotos] = useState([])
     const [photoIndex, setPhotoIndex] = useState(0)
@@ -49,6 +49,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
 
 
         dispatch(createPost(data))
+        .then((res) => createPostUser(res))
         setPhotoPosted(true)
         setFinalPage(true)
 

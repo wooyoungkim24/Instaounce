@@ -6,7 +6,7 @@ import boto3
 import botocore
 import os
 from app.forms.update_post_form import UpdatePostForm
-
+from datetime import datetime, timezone
 s3 = boto3.client(
     "s3",
     region_name="us-west-1",
@@ -151,7 +151,7 @@ def create_post():
     new_post_edit = Post.query.get(post_id)
     new_post_edit.image = new_images
     db.session.commit()
-    return {"feedState": new_post.to_dict(), "pageState": new_post.to_dict_user_page()}
+    return {"feedState": new_post.to_dict(), "pageState":new_post.to_dict_user_page()}
 
 @post_routes.route("/<id>", methods=["PUT"])
 @login_required
@@ -159,16 +159,22 @@ def update_post(id):
     form = UpdatePostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     # if we are using wtform, we need to add csrf_token
-
+    print('#####')
     if form.validate_on_submit():
         post_id = id
-        target_post = Post.query.filter(Post.id == post_id).first()
+        target_post = Post.query.get(post_id)
+
         data = form.data
+
         caption = data['caption']
+
         target_post.caption = caption
+        # target_post.updated_at = data['updated_at']
+        target_post.updated_at = datetime.now()
+        print('what is the new data ##', target_post.updated_at)
         db.session.commit()
 
-        return target_post.to_dict()
+        return target_post.to_dict_user_page()
     return "Bad"
 
 @post_routes.route('/<id>', methods=["DELETE"])

@@ -143,7 +143,7 @@ const CommentCard = ({ post }) => {
 
             <div className="post-details-container">
                 <div className='comment-card-images'>
-                    <img src={images[currentImage]} alt='post pic' />
+                    <img className = 'displayed-image' src={images[currentImage]} alt='post pic' />
                     {currentImage !== 0 && images.length > 1 &&
                         <i className="fa-solid fa-circle-chevron-left modal-left-arrow" onClick={leftClickHandler}></i>
                     }
@@ -222,7 +222,7 @@ const CommentCard = ({ post }) => {
                                 required
                                 onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
                             />
-                            <p id="character-counter">{count}/2000</p>
+                            <div id="character-counter">{newComment.length}/2000 </div>
                             <button disabled ={!newComment} onClick={handleCommentSubmit} type='button'>Post</button>
 
                         </div>

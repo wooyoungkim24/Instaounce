@@ -2,7 +2,7 @@ import "./ConfirmDeleteModal.css"
 import { removePost } from '../../store/userPages'
 import { useDispatch } from 'react-redux'
 
-function ConfirmDeleteModal ({post, hideForm, hidePost}) {
+function ConfirmDeleteModal({ post, hideForm, hidePost }) {
   const dispatch = useDispatch()
 
   const deleteHandler = () => {
@@ -15,11 +15,20 @@ function ConfirmDeleteModal ({post, hideForm, hidePost}) {
 
 
   return (
-    <div>
-      <h3>Delete Post?</h3>
-      <div>Are you sure you want to delete this post?</div>
-      <button onClick={deleteHandler}>Delete</button>
-      <button onClick={() => hideForm()}>Cancel</button>
+    <div className="delete-post-modal">
+
+      <div className="delete-post-title">
+        Delete Post?
+      </div>
+      <div className="delete-post-confirm">
+        Are you sure you want to delete this post?
+      </div>
+      <div className="delete-post-modal-buttons">
+
+        <button id='delete-modal-delete' onClick={deleteHandler}>Delete</button>
+        <button id='delete-modal-cancel' onClick={() => hideForm()}>Cancel</button>
+      </div>
+
     </div>
   )
 }

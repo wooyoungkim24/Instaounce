@@ -8,14 +8,17 @@ const DELETE_COMMENT = 'session/DELETE_COMMENT'
 const EDIT_COMMENT = 'session/EDIT_COMMENT'
 const REMOVE_FOLLOWED = 'session/REMOVE_FOLLOWED'
 const UPDATE_A_POST = 'session/UPDATE_A_POST'
-
+const CREATE_POST = "session/CREATE_POST"
 
 export const removePosts = (userId) => ({
   type: REMOVE_FOLLOWED,
   payload: userId
 })
 
-
+const createNewPost = (post) =>({
+  type: CREATE_POST,
+  payload: post
+})
 
 const setFollowedPosts = (posts) => ({
   type: SET_FOLLOWED_POSTS,
@@ -110,6 +113,8 @@ export const createPost = (payload) => async (dispatch) => {
 
   if (response.ok) {
     const image = await response.json();
+    dispatch(createNewPost(image))
+    return image
   }
 }
 
@@ -213,6 +218,10 @@ export default function postsReducer(state = initialState, action) {
         newState.followedPosts[action.payload['post_id']].comments[action.payload.id] = action.payload
       }
 
+      return newState
+
+    case CREATE_POST:
+      newState.followedPosts[action.payload.feedState.id] = action.payload.feedState
       return newState
 
     case DELETE_LIKE:

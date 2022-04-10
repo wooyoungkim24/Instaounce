@@ -39,11 +39,13 @@
 .home-card-images {
     display: flex;
     position: relative;
+
+
 }
 
 .left-arrow {
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 50%;
     font-size: 22px;
     color: #b3b3b3;
@@ -52,7 +54,7 @@
 
 .right-arrow {
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 50%;
     font-size: 22px;
     color: #b3b3b3;
@@ -167,7 +169,7 @@
     border: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
-    width: 510px;
+    width: 550px;
     resize: none;
     margin-top: 10px;
 

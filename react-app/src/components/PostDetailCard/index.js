@@ -86,7 +86,13 @@ const PostDetailCard = ({ post, user, hidePost }) => {
 
     function lastUpdated() {
         let now = new Date();
-        let updatedAt = new Date(post.updatedAt)
+        console.log('curr time', post.updatedAt)
+        let splitDate = post.updatedAt.split(" ")
+        splitDate.pop()
+        let joinDate = splitDate.join(" ")
+        let updatedAt = new Date(joinDate)
+        console.log('dateobj', updatedAt)
+
         let difference = (now - updatedAt) / 1000 / 60 / 60
         console.log('what is the difference', difference)
         if (difference > 24) {

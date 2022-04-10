@@ -7,7 +7,6 @@ const ExplorePage = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        // let mounted = true;
         if (posts.length === 0) {
             fetch('/api/posts/explore')
                 .then(res => res.json())
@@ -15,23 +14,31 @@ const ExplorePage = () => {
                 .then(() => setIsLoaded(true))
                 .then(() => console.log(posts))
         }
-        // return function cleanup() {
-        //     mounted = false;
-        // }
     }, [posts, isLoaded]);
-    console.log(posts)
+
+    // const stylingHandler = (index) => {
+    //     if (index === 0 || index % 9 === 0) {
+    //         return 'explore-page-large-image'
+    //     } else {
+    //         return 'explore-page-small-image'
+    //     }
+    // }
+
+
     return (
         <div className='explore-page-body'>
             {isLoaded && posts.length > 0 &&
-                posts.map(post => (
-                    <Link to={`/users/${post.user_id}`} >
-                        <div key={post.id} className='explore-page-card'>
-                            <div className='explore-page-card-stats'>
+                <div className='explore-page-list-container'>
+                    {posts.map((post, index) => (
+                        <Link to={`/users/${post.user_id}`} >
+                            <div key={post.id} className='explore-page-card'>
+                                <div className='explore-page-card-stats'>
+                                </div>
+                                <img className='explore-page-small-image' src={post.image[0]} />
                             </div>
-                            <img className='explore-page-small-image' src={post.image[0]} />
-                        </div>
-                    </Link>
-                ))
+                        </Link>
+                    ))}
+                </div>
             }
 
             {!isLoaded &&
