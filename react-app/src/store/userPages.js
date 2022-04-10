@@ -24,7 +24,7 @@ const NEW_POST = 'session/CREATE_POST';
 const UPDATE_POST = 'session/UPDATE_POST';
 const DELETE_POST = 'session/DELETE_POST';
 
-const createPost = (post) => ({
+export const createPostUser = (post) => ({
     type: NEW_POST,
     payload: post
 });
@@ -39,17 +39,17 @@ const deletePost = (post) => ({
     payload: post
 });
 
-export const newPost = (payload) => async (dispatch) => {
-    const res = await fetch('/api/posts/', {
-        method: "POST",
-        body: payload
-    });
+// export const newPost = (payload) => async (dispatch) => {
+//     const res = await fetch('/api/posts/', {
+//         method: "POST",
+//         body: payload
+//     });
 
-    if (res.ok) {
-        const post = res.json()
-        await dispatch(createPost(post))
-    };
-};
+//     if (res.ok) {
+//         const post = res.json()
+//         await dispatch(createPost(post))
+//     };
+// };
 
 // original:
 // export const editPost = (payload) => async (dispatch) => {
@@ -293,12 +293,12 @@ export default function userPageReducer(state = initialState, action) {
 
 
         case NEW_POST:
-            newState[action.payload.userId][action.payload.posts][action.payload.id] = action.payload;
+            newState[action.payload.pageState.userId].posts[action.payload.pageState.id] = action.payload.pageState
             return newState;
 
         case UPDATE_POST:
 
-            newState[action.payload.user_id].posts[action.payload.id] = action.payload;
+            newState[action.payload.userId].posts[action.payload.id] = action.payload;
             return newState
 
         case DELETE_POST:

@@ -19,7 +19,7 @@ const HomeFeedCard = ({ post }) => {
     const [newComment, setNewComment] = useState("");
     const dispatch = useDispatch();
     const [count, setCount] = useState(0)
-   
+
     const sessionUser = useSelector(state => {
         return state.session.user
     })

@@ -34,7 +34,7 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
       ...post,
       // user_id,
       caption,
-      image: images,
+      image: images
     }
     console.log("new payload", payload)
     await dispatch(editPost(payload))
