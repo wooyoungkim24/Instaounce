@@ -16,7 +16,7 @@ class Post(db.Model):
     # likes = db.relationship(
     #     "Like", back_populates="posts", ondelete='CASCADE')
     comments = db.relationship(
-        "Comment", back_populates="posts", lazy='subquery', cascade="all, delete")
+        "Comment", back_populates="posts", cascade="all, delete")
     likes = db.relationship(
         "Like", back_populates="posts", cascade="all, delete")
 
