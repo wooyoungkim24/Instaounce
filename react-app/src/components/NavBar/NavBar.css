@@ -59,6 +59,7 @@ nav {
     width: 30px;
     object-fit: cover;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .navbar-dropdown-container {
@@ -125,4 +126,10 @@ nav {
     font-size:14px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+}
+
+.search-bar-nav {
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }

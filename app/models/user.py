@@ -1,8 +1,14 @@
+from ntpath import join
 from .db import db
 from app.models.post import Post
+from app.models.like import Like
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy import func
+import math
+import random
+from flask_validator import ValidateURL
 
 followers = db.Table(
     'followers',
@@ -39,7 +45,7 @@ class User(db.Model, UserMixin):
     
 
     def to_dict(self):
-        print('testing if it hits')
+        
         return {
             'id': self.id,
             'username': self.username,
@@ -63,7 +69,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def follow(self, user):
-        if not self.is_following(user):
+        if not self.is_following(user) and self.id != user.id :
             self.followed.append(user)
 
     def unfollow(self, user):
@@ -74,12 +80,40 @@ class User(db.Model, UserMixin):
         return self.followed.filter(
             followers.c.followed_id == user.id and followers.c.followed_id != self.id).count() > 0
 
+    # def followed_posts(self):
+    #     return Post.query.join(
+    #         followers, (followers.c.followed_id == Post.user_id)).filter(
+    #             followers.c.follower_id == self.id).order_by(
+    #                 Post.updated_at.desc()).all()
+    
     def followed_posts(self):
-        return Post.query.join(
+        user_posts = Post.query.filter(Post.user_id == self.id)
+        following_posts = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.follower_id == self.id).order_by(
-                    Post.updated_at.desc()).all()
-                
+                followers.c.follower_id == self.id)
+        posts = user_posts.union(following_posts)
+        ordered_posts = posts.order_by(Post.updated_at.desc()).limit(30)
+        return ordered_posts
+    
+    def explore_posts(self):
+        user_list = []
+        for user in self.followed: 
+            for second_user in user.followed:
+                if second_user.id != self.id and second_user.id not in user_list:
+                    user_list.append(second_user.id)
+                for third_user in second_user.followed:
+                    if third_user.id != self.id and third_user.id not in user_list:
+                        user_list.append(third_user.id)
+        # posts = Post.query.join(Like).group_by(Post.id).order_by(func.count().desc()).limit(54)
+        posts = Post.query.join(Like).group_by(Post.id).filter(
+            Post.user_id in user_list).order_by(func.count().desc()).limit(54)
+        posts2 = Post.query.join(Like).group_by(Post.id).filter(
+            Post not in posts and Post.user_id != self.id).order_by(func.count().desc()).limit(108 - len(posts.all()))
+        joined_posts = posts.union(posts2).all()
+        if len(joined_posts) // 9 != 0:
+            remove_at = len(joined_posts) // 9
+            joined_posts = joined_posts[:len(joined_posts) - remove_at - 1]
+        return joined_posts
 
     # def following_list(self, user):
     #     return self.followed.filter(
@@ -103,3 +137,7 @@ class User(db.Model, UserMixin):
             "following": {user.id: user.to_dict() for user in self.followed},
             "followers": {user.id: user.to_dict() for user in self.get_followers()}
         }
+
+    @classmethod
+    def __declare_last__(cls):
+        ValidateURL(User.profile_image, False, False, True, "Please enter a valid URL")
