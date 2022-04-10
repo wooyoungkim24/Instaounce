@@ -53,7 +53,7 @@
 }
 .edit-caption-count{
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   width: 450px;
   font-size: 14px;
   margin-bottom: 30px;

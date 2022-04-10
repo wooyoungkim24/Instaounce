@@ -1,8 +1,8 @@
 import './UpdatePostForm.css'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { editPost } from '../../store/userPages';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const UpdatePostForm = ({ post, user, hideForm }) => {
 
@@ -46,13 +46,13 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
   }
 
 
-  const activeDotClass = (index) => {
-    if (index === currentImage) {
-      return "fa-solid fa-circle active-dot";
-    } else {
-      return "fa-solid fa-circle inactive-dot";
-    };
-  };
+  // const activeDotClass = (index) => {
+  //   if (index === currentImage) {
+  //     return "fa-solid fa-circle active-dot";
+  //   } else {
+  //     return "fa-solid fa-circle inactive-dot";
+  //   };
+  // };
 
 
   return (

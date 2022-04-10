@@ -34,7 +34,7 @@ const ExplorePage = () => {
                             <div key={post.id} className='explore-page-card'>
                                 <div className='explore-page-card-stats'>
                                 </div>
-                                <img className='explore-page-small-image' src={post.image[0]} />
+                                <img className='explore-page-small-image' src={post.image[0]} alt='explore pic'/>
                             </div>
                         </Link>
                     ))}

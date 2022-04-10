@@ -308,7 +308,7 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                     </div>
                     <div className='photo-posted-check'>
                         <div className='gif'>
-                            <img src={'https://www.instagram.com/static/images/creation/30fpsCheckLoopsOnce.gif/10a8cbeb94ba.gif'}></img>
+                            <img src={'https://www.instagram.com/static/images/creation/30fpsCheckLoopsOnce.gif/10a8cbeb94ba.gif'} alt='insta check'></img>
                         </div>
                         <div className='gif-text'>
                             Your post has been shared.
@@ -336,12 +336,12 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                     </div>
                     <div className='finished-photos-bottom-container'>
 
-                        <img src={URL.createObjectURL(photos[0])}></img>
+                        <img src={URL.createObjectURL(photos[0])} alt='first pic'></img>
 
                         <div className='captions-adding-form'>
                             <div className='create-post-user'>
                                 <div className='create-post-user-picture'>
-                                    <img src={user.profile_image}></img>
+                                    <img src={user.profile_image} alt='profile pic'></img>
                                 </div>
                                 <div className='create-post-username'>
                                     {user.username}
@@ -437,8 +437,8 @@ function CreatePostModalForm({ setFinalPage, setFirstPage }) {
                                                         <i className="fa-solid fa-circle-xmark"></i>
                                                     </button>}
                                                 {photoIndex === i
-                                                ?<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i} focus`} src={URL.createObjectURL(ele)}></img>
-                                                :<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)}></img>
+                                                ?<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i} focus`} src={URL.createObjectURL(ele)} alt='draggable'></img>
+                                                :<img onClick={()=> settingFocus(i)} draggable='true' key={i} className={`draggable-image-${i}`} src={URL.createObjectURL(ele)} alt='draggable'></img>
                                                 }
 
                                             </>

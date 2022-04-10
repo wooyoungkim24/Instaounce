@@ -22,7 +22,7 @@ S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"
 
 
 def upload_file_to_s3(file, acl="public-read"):
-    print("####testing upload", file, file.filename)
+    # print("####testing upload", file, file.filename)
     try:
         s3.upload_fileobj(
             file,
@@ -45,7 +45,7 @@ def upload_file_to_s3(file, acl="public-read"):
 def read_posts():
     user = User.query.get(current_user.get_id())
     followings = user.followed_posts()
-    return {'posts':[following.to_dict() for following in followings]}
+    return {'posts': [following.to_dict() for following in followings]}
 
 
 @post_routes.route('/comments', methods=["POST"])
@@ -59,6 +59,7 @@ def create_comment():
     db.session.add(new_comment)
     db.session.commit()
     return new_comment.to_dict()
+
 
 @post_routes.route('/comments/<id>', methods=["DELETE", "PUT"])
 def deleteComment(id):
@@ -85,14 +86,13 @@ def deleteComment(id):
         return comment.to_dict()
 
 
-
 @post_routes.route("/<id>/likes", methods=["POST", "DELETE"])
 def create_like(id):
     if request.method == "POST":
         post_id = id
         new_like = Like(
-            user_id = current_user.id,
-            post_id = post_id
+            user_id=current_user.id,
+            post_id=post_id
         )
         db.session.add(new_like)
         db.session.commit()
@@ -107,22 +107,22 @@ def create_like(id):
         # NEEDS TO BE CHANGED
         return deleted_like.to_dict()
 
+
 @post_routes.route("/<id>/likes/", methods=['DELETE'])
 def delete_like(id):
-  post_id = id
+    post_id = id
 #   like_id = like_id
 # TODO   need to grab the user id or like id
-  user_id = current_user.id
-  like = Like.query.filter(Like.post_id == post_id and Like.user_id == user_id)
-  like.delete()
-  db.session.commit()
+    user_id = current_user.id
+    like = Like.query.filter(
+        Like.post_id == post_id and Like.user_id == user_id)
+    like.delete()
+    db.session.commit()
 #   return like.to_dict()
-  return f"Deleted like id: "
+    return f"Deleted like id: "
 
 
-
-
-@post_routes.route("/", methods =['POST'])
+@post_routes.route("/", methods=['POST'])
 def create_post():
     files = request.files.getlist("file[]")
     # images = request.files
@@ -151,7 +151,8 @@ def create_post():
     new_post_edit = Post.query.get(post_id)
     new_post_edit.image = new_images
     db.session.commit()
-    return {"feedState": new_post.to_dict(), "pageState":new_post.to_dict_user_page()}
+    return {"feedState": new_post.to_dict(), "pageState": new_post.to_dict_user_page()}
+
 
 @post_routes.route("/<id>", methods=["PUT"])
 @login_required
@@ -176,6 +177,7 @@ def update_post(id):
         return target_post.to_dict_user_page()
     return "Bad"
 
+
 @post_routes.route('/<id>', methods=["DELETE"])
 @login_required
 def delete_post(id):
@@ -186,12 +188,13 @@ def delete_post(id):
     db.session.commit()
     return post.to_dict()
 
+
 @post_routes.route('/explore')
 @login_required
 def explore_posts():
     user = User.query.get(current_user.get_id())
     posts = user.explore_posts()
-    return { "posts" : [post.to_dict() for post in posts]}
+    return {"posts": [post.to_dict() for post in posts]}
 
 
 # @posts_routes.route('/', methods=['GET','POST'])

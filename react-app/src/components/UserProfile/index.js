@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import UserProfileDetails from '../UserProfileDetails';
 import { loadUserPage } from '../../store/userPages';
 import UserProfileImageCard from '../UserProfileImageCard';
-import { getFollowedPosts } from '../../store/posts';
+// import { getFollowedPosts } from '../../store/posts';
 
 const UserProfile = () => {
 

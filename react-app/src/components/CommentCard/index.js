@@ -15,7 +15,7 @@ const CommentCard = ({ post }) => {
     const likes = post.likes;
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
-    const [count, setCount] = useState(0)
+    // const [count, setCount] = useState(0)
 
     const comments = Object.values(post.comments)
     const sortCommentsFn = (a,b) =>{
@@ -47,13 +47,13 @@ const CommentCard = ({ post }) => {
         };
     };
 
-    const activeDotClass = (index) => {
-        if (index === currentImage) {
-            return "fa-solid fa-circle active-dot";
-        } else {
-            return "fa-solid fa-circle inactive-dot";
-        };
-    };
+    // const activeDotClass = (index) => {
+    //     if (index === currentImage) {
+    //         return "fa-solid fa-circle active-dot";
+    //     } else {
+    //         return "fa-solid fa-circle inactive-dot";
+    //     };
+    // };
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault()
@@ -109,7 +109,7 @@ const CommentCard = ({ post }) => {
             let curr = likes[i]
 
             let currDate = new Date(curr.updated_at);
-            if (max == undefined) {
+            if (max === undefined) {
                 max = currDate
             }
             if (currDate >= max) {
@@ -220,7 +220,7 @@ const CommentCard = ({ post }) => {
                                 maxLength="2000"
                                 value={newComment}
                                 required
-                                onChange={e => {setNewComment(e.target.value); setCount(e.target.value.length)}}
+                                onChange={e => {setNewComment(e.target.value); /*setCount(e.target.value.length)*/}}
                             />
                             <div id="character-counter">{newComment.length}/2000 </div>
                             <button disabled ={!newComment} onClick={handleCommentSubmit} type='button'>Post</button>

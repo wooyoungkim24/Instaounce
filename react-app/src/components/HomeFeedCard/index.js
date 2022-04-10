@@ -1,5 +1,5 @@
 import './HomeFeedCard.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LikeIcon from '../LikeIcon';
 import { Modal } from '../../context/modal';
@@ -18,7 +18,7 @@ const HomeFeedCard = ({ post }) => {
     const [showModal, setShowModal] = useState(false);
     const [newComment, setNewComment] = useState("");
     const dispatch = useDispatch();
-    const [count, setCount] = useState(0)
+    // const [count, setCount] = useState(0)
 
     const sessionUser = useSelector(state => {
         return state.session.user

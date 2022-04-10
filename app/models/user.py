@@ -1,3 +1,4 @@
+from email.policy import default
 from ntpath import join
 from .db import db
 from app.models.post import Post

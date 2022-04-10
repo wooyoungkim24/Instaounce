@@ -17,7 +17,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
     const likes = Object.values(post.likes);
     const [currentImage, setCurrentImage] = useState(0);
     const [newComment, setNewComment] = useState('');
-    const [count, setCount] = useState(0)
+    // const [count, setCount] = useState(0)
 
     // add usestate to show the edit form
     const [showEditForm, setShowEditForm] = useState(false)
@@ -57,13 +57,13 @@ const PostDetailCard = ({ post, user, hidePost }) => {
         setShowConfirmModal(true)
     }
 
-    const activeDotClass = (index) => {
-        if (index === currentImage) {
-            return "fa-solid fa-circle active-dot";
-        } else {
-            return "fa-solid fa-circle inactive-dot";
-        };
-    };
+    // const activeDotClass = (index) => {
+    //     if (index === currentImage) {
+    //         return "fa-solid fa-circle active-dot";
+    //     } else {
+    //         return "fa-solid fa-circle inactive-dot";
+    //     };
+    // };
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault()
@@ -135,7 +135,7 @@ const PostDetailCard = ({ post, user, hidePost }) => {
                     <div className='comment-card-nonimage-content'>
 
                         <div className="user">
-                            <img src={user.profileImage}></img>
+                            <img src={user.profileImage} alt='profile pic'></img>
                             <Link to={`/users/${user.id}`} className="home-card-username-bottom">{user.username}</Link>
                         </div>
 
