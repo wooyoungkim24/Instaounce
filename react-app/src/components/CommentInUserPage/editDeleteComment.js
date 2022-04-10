@@ -17,7 +17,7 @@ export const EditDeleteComment = ({comment, setShowModal, post}) => {
         e.preventDefault()
 
         let deletedComment;
-        deletedComment = dispatch(removeComment(comment.id, postOwnerId))
+        deletedComment = await dispatch(removeComment(comment.id, postOwnerId))
 
         if(deletedComment){
             setShowModal(false)

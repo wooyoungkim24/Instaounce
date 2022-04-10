@@ -167,6 +167,7 @@ export const removeComment = (comment) => async (dispatch) => {
     if (res.ok) {
         const comment = await res.json()
         await dispatch(deleteCommentAction(comment));
+        return true
     };
 };
 
@@ -320,12 +321,13 @@ export default function userPageReducer(state = initialState, action) {
             return newState;
 
         case UPDATE_COMMENT:
-            console.log('logginaction', action.payload)
-            newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            if (newState[action.payload.user_id]){
+                newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id] = action.payload;
+            }
             return newState;
 
         case REMOVE_COMMENT:
-            console.log('logginaction', action.payload)
+            console.log('logginaction', newState[action.payload.user_id].posts[action.payload.post_id])
             delete newState[action.payload.user_id].posts[action.payload.post_id].comments[action.payload.id];
             return newState;
 

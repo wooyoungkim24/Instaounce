@@ -159,7 +159,6 @@ def update_post(id):
     form = UpdatePostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     # if we are using wtform, we need to add csrf_token
-    print('#####')
     if form.validate_on_submit():
         post_id = id
         target_post = Post.query.get(post_id)

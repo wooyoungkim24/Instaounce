@@ -16,7 +16,7 @@ export const EditDeleteComment = ({ comment, setShowModal, post }) => {
 
         console.log('waht is the type', typeof comment.id)
         dispatch(deleteComment(comment.id))
-        dispatch(deleteCommentAction(comment))
+        // .then(() => dispatch(deleteCommentAction(comment)))
 
         setShowModal(false)
 
