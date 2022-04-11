@@ -34,6 +34,21 @@
     width: 254.6px;
 }
 
+.following-modal-full-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8e8e8e;
+}
+
+.following-modal-username {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.following-modal-username:hover {
+    text-decoration: underline;
+}
+
 .following-modal-following-tag-wrapper {
     display: flex;
     justify-content: flex-end;
