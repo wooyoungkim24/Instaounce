@@ -7,17 +7,18 @@ Where you can share images with family and friends.😊 Try it out and sign up n
 ### Index
 | [MVP Features List](https://github.com/wooyoungkim24/Instaounce/wiki/Feature-List) | [Database Schema](https://github.com/wooyoungkim24/Instaounce/wiki/Database-Schema) | [Data Diagram](https://github.com/wooyoungkim24/Instaounce/wiki/Database-Schema) | [Routes](https://github.com/wooyoungkim24/Instaounce/wiki/Endpoints) | [Models](https://github.com/wooyoungkim24/Instaounce/wiki/Models) | [User Stories](https://github.com/wooyoungkim24/Instaounce/wiki/User-Stories) | [Wireframe](https://github.com/wooyoungkim24/Instaounce/wiki/Wireframe) |
 
-Features
-All users can perform the following actions.
 
-View Images
-View Comments
+### Features
+Users cannot use any features until authorized.
 Logged in users can perform the following actions.
 
-View/Add Images
-Edit/Delete their own Images
-View/Add Comments
-Delete their own Comments
+* View/Add a Post
+* Edit/Delete their own Posts
+* View/Add Comments
+* Edit/Delete their own Comments
+* View Followers
+* Follow and Unfollow other users
+* Like and Unlike a post
 
 ## Getting started
 ### Dev Containers (M1 Users, follow this guide)
