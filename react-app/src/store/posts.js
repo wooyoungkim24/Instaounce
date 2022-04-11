@@ -31,7 +31,7 @@ const setFollowedPosts = (posts) => ({
   payload: posts
 });
 
-const updatePost = (post) => ({
+export const updatePost = (post) => ({
   type: UPDATE_A_POST,
   payload: post
 })
@@ -181,10 +181,6 @@ export default function postsReducer(state = initialState, action) {
   const newState = { ...state }
 
     switch (action.type) {
-      // case UPDATE_A_POST:
-      //   newState.pageState
-
-      //   return
 
     case SET_FOLLOWED_POSTS:
       action.payload.posts.forEach(post => {
@@ -229,6 +225,15 @@ export default function postsReducer(state = initialState, action) {
     case CREATE_POST:
       newState.followedPosts[action.payload.feedState.id] = action.payload.feedState
       return newState
+
+      case UPDATE_A_POST:
+        if (newState.followedPosts[action.payload.id]) {
+          console.log(action.payload)
+          newState.followedPosts[action.payload.id].caption = action.payload.caption
+          newState.followedPosts[action.payload.id].updated_at = action.payload.updatedAt
+        }
+
+        return newState
 
     case DELETE_LIKE:
       // console.log("heyehoeh", newState.followedPosts)

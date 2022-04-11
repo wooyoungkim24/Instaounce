@@ -93,7 +93,7 @@ class User(db.Model, UserMixin):
             followers, (followers.c.followed_id == Post.user_id)).filter(
                 followers.c.follower_id == self.id)
         posts = user_posts.union(following_posts)
-        ordered_posts = posts.order_by(Post.updated_at.desc()).limit(30)
+        ordered_posts = posts.order_by(Post.updated_at.asc()).limit(30)
         return ordered_posts
     
     def explore_posts(self):

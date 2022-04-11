@@ -2,6 +2,7 @@ import './UpdatePostForm.css'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { editPost } from '../../store/userPages';
+import { updatePost } from '../../store/posts';
 // import { Link } from 'react-router-dom';
 
 const UpdatePostForm = ({ post, user, hideForm }) => {
@@ -34,8 +35,11 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
       caption,
       image: images
     }
-    await dispatch(editPost(payload))
+    const editedPost = await dispatch(editPost(payload))
 
+    if (editedPost) {
+      await dispatch(updatePost(editedPost))
+    }
     hideForm()
 
 
@@ -53,6 +57,18 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
   //     return "fa-solid fa-circle inactive-dot";
   //   };
   // };
+
+  const setTextColor = () => {
+    return caption.length <= 2000 ? { 'color': 'black', 'marginRight': '5px' } : { 'color': 'red', 'marginRight': '5px' }
+  }
+
+  const disableSubmit = (attribute) => {
+    if (attribute === 'disabled') {
+      return caption.length <= 2000 ? false : true
+    } else if (attribute === 'id') {
+      return caption.length <= 2000 ? 'edit-caption-submit-enabled' : 'edit-caption-submit-disabled'
+    }
+  }
 
 
   return (
@@ -102,10 +118,10 @@ const UpdatePostForm = ({ post, user, hideForm }) => {
               >
               </textarea>
               <div className='edit-caption-count'>
-                {caption.length}/2000
+                <span style={setTextColor()}>{caption.length}</span>/ 2000
               </div>
               <div className='edit-caption-submit-buttons'>
-                <button id='edit-caption-submit' type='button' onClick={submitHandler} >Done</button>
+                <button id={disableSubmit('id')} disabled={disableSubmit('disabled')} type='button' onClick={submitHandler} >Done</button>
                 <button id='edit-caption-cancel' type='button' onClick={cancelHandler}>Cancel</button>
               </div>
 

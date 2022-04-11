@@ -74,7 +74,7 @@ export const editPost = (payload) => async dispatch => {
     if (response.ok) {
         const post = await response.json();
         await dispatch(updatePost(post));
-
+        return post
     }
 }
 

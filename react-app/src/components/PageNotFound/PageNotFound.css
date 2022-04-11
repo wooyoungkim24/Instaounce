@@ -1,0 +1,26 @@
+.page-not-found-body {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.page-not-found-header {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.page-not-found-body-text {
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.page-not-found-link-text {
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: none;
+    color: rgb(0, 0, 212);
+}

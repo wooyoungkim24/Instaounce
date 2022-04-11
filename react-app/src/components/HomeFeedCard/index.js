@@ -107,10 +107,35 @@ const HomeFeedCard = ({ post }) => {
 
 
     // }, [showModal, comments])
+
+    // function lastUpdated() {
+    //     let now = new Date();
+    //     let updatedAt = new Date(post.updated_at)
+    //     let difference = (now - updatedAt) / 1000 / 60 / 60
+    //     if (difference > 24) {
+    //         return moment(updatedAt).format("MMMM D YYYY")
+    //     } else if (difference < 1) {
+    //         if (Math.floor(difference * 60) === 1) {
+    //             return `${Math.floor(difference * 60)} minute ago`
+    //         } else if (difference * 60 < 1) {
+    //             return "Less than a minute ago"
+    //         }
+    //         return `${Math.floor(difference * 60)} minutes ago`
+    //     }
+    //     else if (Math.floor(difference) === 1) {
+    //         return `${Math.floor(difference)} hour ago`
+    //     } else {
+    //         return `${Math.floor(difference)} hours ago`
+    //     }
+    // }
+
     function lastUpdated() {
         let now = new Date();
         let updatedAt = new Date(post.updated_at)
+        // console.log('dateobj', updatedAt)
+
         let difference = (now - updatedAt) / 1000 / 60 / 60
+        
         if (difference > 24) {
             return moment(updatedAt).format("MMMM D YYYY")
         } else if (difference < 1) {
@@ -127,6 +152,8 @@ const HomeFeedCard = ({ post }) => {
             return `${Math.floor(difference)} hours ago`
         }
     }
+
+
     return (
         <div className='home-card'>
             <div className='home-card-header'>

@@ -22,8 +22,9 @@ nav {
     background-color: white;
     z-index:5;
     top:0px;
-    width: 640px;
+    width: 940px;
     padding: 0px 20px;
+
 }
 
 .navbar-logo {
@@ -34,6 +35,7 @@ nav {
 .navbar-right-container {
     display: flex;
     align-items: center;
+    margin-right: 20px;
 }
 
 .navbar-icon-tray a {

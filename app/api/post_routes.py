@@ -165,12 +165,11 @@ def update_post(id):
         target_post = Post.query.get(post_id)
 
         data = form.data
-
         caption = data['caption']
 
         target_post.caption = caption
         # target_post.updated_at = data['updated_at']
-        target_post.updated_at = datetime.now()
+        target_post.updated_at = datetime.utcnow()
         # print('what is the new data ##', target_post.updated_at)
         db.session.commit()
 

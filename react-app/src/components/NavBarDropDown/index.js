@@ -10,12 +10,10 @@ const NavBarDropDown = ({ user }) => {
                 <div className='navbar-dropdown-triangle'></div>
             </div> */}
             <div className='navbar-dropdown-list'>
-                <div className='navbar-dropdown-profile-container'>
-                    <NavLink to={`/users/${user.id}`} >
-                        <i class="fa-regular fa-user user-profile-icon"></i>
-                        Profile
-                    </NavLink>
-                </div>
+                <NavLink to={`/users/${user.id}`} className='navbar-dropdown-profile-container'>
+                    <i className="fa-regular fa-user user-profile-icon"></i>
+                    Profile
+                </NavLink>
                 <div className='navbar-dropdown-logout-container'>
                     <LogoutButton />
                 </div>
