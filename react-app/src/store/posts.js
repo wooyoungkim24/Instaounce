@@ -83,9 +83,8 @@ export const deleteComment = (commentId) => async (dispatch) => {
   })
 
   if (response.ok) {
-    console.log('ttestsetsetsts')
     const comment = await response.json()
-    console.log('comment obj', comment)
+    // console.log('comment obj', comment)
     dispatch(commentDelete(comment))
 
     return comment
@@ -162,15 +161,12 @@ export const like = (postId) => async (dispatch) => {
 };
 
 export const deleteLike = (postId, likeId) => async (dispatch) => {
-  console.log("inside of deletelike")
-  console.log("likeId", likeId)
   const response = await fetch(`/api/posts/${postId}/likes/`, {
     method: "DELETE"
   })
 
   if (response.ok) {
     // const like = await response.json()
-    console.log("want to deleted like id", likeId)
     await dispatch(cancelLike(likeId, postId))
   }
 }
@@ -228,7 +224,6 @@ export default function postsReducer(state = initialState, action) {
 
       case UPDATE_A_POST:
         if (newState.followedPosts[action.payload.id]) {
-          console.log(action.payload)
           newState.followedPosts[action.payload.id].caption = action.payload.caption
           newState.followedPosts[action.payload.id].updated_at = action.payload.updatedAt
         }
