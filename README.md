@@ -1,5 +1,22 @@
 # Instaounce
-Where you can share images with family and friends.😊 Try it out and sign up now on our heroku site! [Instaounce](https://instaounce-clone.herokuapp.com/)
+Where you can share images with family and friends.😊 Try it out and sign up now or login as demo on our heroku site! [Instaounce](https://instaounce-clone.herokuapp.com/)
+
+### Login
+![image](https://user-images.githubusercontent.com/88516795/162668758-5ad99904-a0d8-4c7f-9c1e-4c8e8823c6fb.png)
+
+### Homepage
+![image](https://user-images.githubusercontent.com/88516795/162668467-16eefd5c-3f1c-4473-89b3-0beb791c116d.png)
+
+### Comments
+![image](https://user-images.githubusercontent.com/88516795/162668502-5c0d3a77-3d09-4441-af33-5d2be9dde4db.png)
+
+### Explore Page
+![image](https://user-images.githubusercontent.com/88516795/162668577-99a5f16e-9b32-4add-b660-a046851e5e3e.png)
+
+### Profile Page 
+![image](https://user-images.githubusercontent.com/88516795/162668652-5adc807f-4ebe-4b14-a59f-5e9c63bf9cec.png)
+
+
 
 ## Technologies Used
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" alt="React" width="50"/><img src="https://miro.medium.com/max/312/1*SRL22ADht1NU4LXUeU4YVg.png" alt="Redux" width="50"/><img src="https://pngset.com/images/node-js-nodejs-number-symbol-text-recycling-symbol-transparent-png-1383018.png" alt="NodeJS" width="50"/><img src="https://user-images.githubusercontent.com/24623425/36042969-f87531d4-0d8a-11e8-9dee-e87ab8c6a9e3.png" alt="PostgreSQL" width="50"/><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/1200px-Python.svg.png" alt="Python" width="50"/><img src="https://cdn.iconscout.com/icon/free/png-256/javascript-2752148-2284965.png" alt="Javascript" width="50"/><img src="https://lms.techxyte.com/assets/technologies-logos/274/3.png" alt="SQLAlchemy" width="50"/><img src="https://sooftware.io/static/13c286ed78e56cb5a139e269d8eaea5f/fe339/flask.png" alt="Flask" width="50"/><img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML" width="50"/><img src="https://cdn4.iconfinder.com/data/icons/iconsimple-programming/512/css-512.png" alt="CSS" width="50"/>
@@ -7,17 +24,20 @@ Where you can share images with family and friends.😊 Try it out and sign up n
 ### Index
 | [MVP Features List](https://github.com/wooyoungkim24/Instaounce/wiki/Feature-List) | [Database Schema](https://github.com/wooyoungkim24/Instaounce/wiki/Database-Schema) | [Data Diagram](https://github.com/wooyoungkim24/Instaounce/wiki/Database-Schema) | [Routes](https://github.com/wooyoungkim24/Instaounce/wiki/Endpoints) | [Models](https://github.com/wooyoungkim24/Instaounce/wiki/Models) | [User Stories](https://github.com/wooyoungkim24/Instaounce/wiki/User-Stories) | [Wireframe](https://github.com/wooyoungkim24/Instaounce/wiki/Wireframe) |
 
-Features
-All users can perform the following actions.
 
-View Images
-View Comments
+### Features
+Users cannot use any features until authorized.
 Logged in users can perform the following actions.
 
-View/Add Images
-Edit/Delete their own Images
-View/Add Comments
-Delete their own Comments
+* View/Add a Post
+* Edit/Delete their own Posts
+* View/Add Comments
+* Edit/Delete their own Comments
+* View Followers
+* Follow and Unfollow other users
+* Like and Unlike a post
+* View explore page
+* Search for any user in database
 
 ## Getting started
 ### Dev Containers (M1 Users, follow this guide)
